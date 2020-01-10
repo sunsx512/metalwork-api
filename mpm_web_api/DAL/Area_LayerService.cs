@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mpm_web_api.DAL
 {
-    public class Area_LayerService
+    public class Area_LayerService:SqlSugarBase
     {
     }
 }
