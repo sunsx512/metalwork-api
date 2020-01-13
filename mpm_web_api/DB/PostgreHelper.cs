@@ -12,7 +12,7 @@ namespace mpm_web_api.db
     /// </summary>
     public class DbConnectionString
     {
-        public string DbType { set; get; } 
+        public string DbType { set; get; }
         public string Database { set; get; }
         public string Port { set; get; }
         public string Host { set; get; }
