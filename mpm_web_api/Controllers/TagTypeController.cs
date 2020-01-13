@@ -13,11 +13,11 @@ namespace mpm_web_api.Controllers
     [ApiController]
     public class TagTypeController : SSOController
     {
-        BaseService bs = new BaseService();
+        TagTypeService tt = new TagTypeService();
         [HttpGet]
         public ActionResult<string> Get()
         {
-            List<tag_type> lty = bs.GetList<tag_type>();
+            List<tag_type> lty = tt.QueryableToList();
             string strJson = JsonConvert.SerializeObject(lty);
             string str = common.ResponseStr((int)httpStatus.succes, "调用成功", strJson);
             return str;
