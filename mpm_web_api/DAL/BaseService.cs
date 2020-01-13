@@ -49,7 +49,7 @@ namespace mpm_web_api.DAL
         /// <returns></returns>
         public bool Delete(int id)
         {
-            return DB.Deleteable<T>().In(id).ExecuteCommand() > 0;
+            return DB.Deleteable<T>(id).ExecuteCommand() > 0;
         }
         /// <summary>
         /// 新增一行数据
@@ -58,11 +58,7 @@ namespace mpm_web_api.DAL
         /// <returns></returns>
         public bool Insert(T t)
         {
-            int re = DB.Insertable(t).ExecuteReturnIdentity();
-            if (re > 0)
-                return true;
-            else
-                return false;
+            return DB.Insertable(t).ExecuteCommandIdentityIntoEntity();
         }
 
 
