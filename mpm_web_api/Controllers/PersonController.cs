@@ -8,10 +8,10 @@ using mpm_web_api.model;
 
 namespace mpm_web_api.Controllers
 {
-    [Produces("application/json")]
+    [Produces(("application/json"))]
     [Route("api/v1/configuration/public/person")]
     [ApiController]
-    public class PersonController : SSOController, IController<person>
+    public class PersonController : SSOController
     {
         ControllerHelper<person> ch = new ControllerHelper<person>();
         /// <summary>
@@ -22,9 +22,9 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpDelete]
-        public ActionResult<string> Delete(int id)
+        public ActionResult Delete(int id)
         {
-            return ch.Delete(id);
+            return Json(ch.Delete(id));
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace mpm_web_api.Controllers
         [ProducesResponseType(400)]
         public ActionResult<string> Get()
         {
-            return ch.Get();
+            return  Json(ch.Get());
         }
         /// <summary>
         /// 新增人员
@@ -52,7 +52,7 @@ namespace mpm_web_api.Controllers
         [HttpPost]
         public ActionResult<string> Post(person t)
         {
-            return ch.Post(t);
+            return Json(ch.Post(t));
         }
         /// <summary>
         /// 更新人员信息
@@ -65,7 +65,7 @@ namespace mpm_web_api.Controllers
         [HttpPut]
         public ActionResult<string> Put(person t)
         {
-            return ch.Put(t);
+            return Json(ch.Put(t));
         }
     }
 }
