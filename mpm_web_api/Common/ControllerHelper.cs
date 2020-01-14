@@ -65,12 +65,12 @@ namespace mpm_web_api.Common
         }
 
 
-        public string Delete(T obj)
+        public string Delete(int id)
         {
             string str;
             try
             {
-                bool re = baseService.Delete(obj.id);
+                bool re = baseService.Delete(id);
                 if (re)
                     str = common.ResponseStr((int)httpStatus.succes, "调用成功");
                 else

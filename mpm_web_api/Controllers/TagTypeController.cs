@@ -16,10 +16,11 @@ namespace mpm_web_api.Controllers
     public class TagTypeController : SSOController, IController<tag_type>
     {
         ControllerHelper<tag_type> ch = new ControllerHelper<tag_type>();
+
         [HttpDelete]
-        public ActionResult<string> Delete(tag_type t)
+        public ActionResult<string> Delete(int id)
         {
-            return ch.Delete(t);
+            return ch.Delete(id);
         }
         [HttpGet]
         public ActionResult<string> Get()

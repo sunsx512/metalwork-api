@@ -15,6 +15,6 @@ namespace mpm_web_api.Common
         [HttpPut]
         ActionResult<string> Put(T t);
         [HttpDelete]
-        ActionResult<string> Delete(T t);
+        ActionResult<string> Delete(int id);
     }
 }
