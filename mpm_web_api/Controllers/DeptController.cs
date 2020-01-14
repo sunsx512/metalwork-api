@@ -9,6 +9,7 @@ using mpm_web_api.model;
 
 namespace mpm_web_api.Controllers
 {
+    [Produces(("application/json"))]
     [Route("api/v1/configuration/public/dept")]
     [ApiController]
     public class DeptController : SSOController
@@ -25,7 +26,8 @@ namespace mpm_web_api.Controllers
         [HttpDelete]
         public ActionResult<string> Delete(int id)
         {
-            return ch.Delete(id);
+            
+            return Json(ch.Delete(id));
         }
         /// <summary>
         /// 获取所有部门信息
@@ -37,7 +39,7 @@ namespace mpm_web_api.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return ch.Get();
+            return Json(ch.Get());
         }
         /// <summary>
         /// 新增部门
@@ -50,7 +52,7 @@ namespace mpm_web_api.Controllers
         [HttpPost]
         public ActionResult<string> Post(department t)
         {
-            return ch.Post(t);
+            return Json(ch.Post(t));
         }
         /// <summary>
         /// 更新部门
@@ -63,7 +65,7 @@ namespace mpm_web_api.Controllers
         [HttpPut]
         public ActionResult<string> Put(department t)
         {
-            return ch.Put(t);
+            return Json(ch.Put(t));
         }
     }
 }

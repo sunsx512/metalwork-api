@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace mpm_web_api.Controllers
 {
+    [Produces(("application/json"))]
     [Route("api/v1/configuration/public/tag_type")]
     [ApiController]
     public class TagTypeController : SSOController, IController<tag_type>
@@ -20,23 +21,23 @@ namespace mpm_web_api.Controllers
         [HttpDelete]
         public ActionResult<string> Delete(int id)
         {
-            return ch.Delete(id);
+            return Json(ch.Delete(id));
         }
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return ch.Get();
+            return Json(ch.Get());
         }
 
         [HttpPost]
         public ActionResult<string> Post(tag_type t)
         {
-            return ch.Post(t);
+            return Json(ch.Post(t));
         }
         [HttpPut]
         public ActionResult<string> Put(tag_type t)
         {
-            return ch.Put(t);
+            return Json(ch.Put(t));
         }
     }
 }
