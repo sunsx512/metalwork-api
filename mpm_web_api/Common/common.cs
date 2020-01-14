@@ -79,5 +79,19 @@ namespace mpm_web_api
                 return "";
             }
         }
+
+        public static string ResponseStr(int code, string message)
+        {
+            string re = "\"code\":{0},\"message\": \"{1}\"";
+            if (code != 0 && message != "" )
+            {
+                re = string.Format(re, code, message);
+                return "{" + re + "}";
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }

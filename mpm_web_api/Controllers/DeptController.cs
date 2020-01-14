@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
 using mpm_web_api.DAL;
 using mpm_web_api.model;
-using Newtonsoft.Json;
 
 namespace mpm_web_api.Controllers
 {
-    [Route("api/v1/configuration/public/tag_type")]
+    [Route("api/v1/configuration/public/dept")]
     [ApiController]
-    public class TagTypeController : SSOController, IController<tag_type>
+    public class DeptController : SSOController, IController<department>
     {
-        ControllerHelper<tag_type> ch = new ControllerHelper<tag_type>();
+        ControllerHelper<department> ch = new ControllerHelper<department>();
         [HttpDelete]
-        public ActionResult<string> Delete(tag_type t)
+        public ActionResult<string> Delete(department t)
         {
             return ch.Delete(t);
         }
@@ -26,14 +24,13 @@ namespace mpm_web_api.Controllers
         {
             return ch.Get();
         }
-
         [HttpPost]
-        public ActionResult<string> Post(tag_type t)
+        public ActionResult<string> Post(department t)
         {
             return ch.Post(t);
         }
         [HttpPut]
-        public ActionResult<string> Put(tag_type t)
+        public ActionResult<string> Put(department t)
         {
             return ch.Put(t);
         }

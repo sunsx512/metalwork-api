@@ -38,7 +38,7 @@ namespace mpm_web_api.db
                 ConnectionString = PostgreBase.connString,
                 DbType = SqlSugar.DbType.PostgreSQL,
                 IsAutoCloseConnection = true,
-                InitKeyType = InitKeyType.SystemTable,
+                InitKeyType = InitKeyType.Attribute,
                 IsShardSameThread = true
             }
             );
