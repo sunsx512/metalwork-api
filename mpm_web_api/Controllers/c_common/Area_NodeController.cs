@@ -9,7 +9,7 @@ using mpm_web_api.model;
 /// <summary>
 /// add by sunsx.sun
 /// 
-/// Area_layer控制器
+/// Area_Node控制器
 /// </summary>
 namespace mpm_web_api.Controllers.c_common
 {
