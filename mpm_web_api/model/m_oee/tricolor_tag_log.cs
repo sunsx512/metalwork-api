@@ -6,13 +6,13 @@ using SqlSugar;
 namespace mpm_web_api.model
 {
     [SugarTable("oee.tricolor_tag_log")]
-    public class tricolor_tag_log
+    public class tricolor_tag_log : base_model
     {
-        [SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnName = "id")]
-        /// <summary>
-        /// 
-        /// </summary>
-        public int id { get; set; }
+        //[SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnName = "id")]
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public int id { get; set; }
         /// <summary>
         /// 
         /// </summary>

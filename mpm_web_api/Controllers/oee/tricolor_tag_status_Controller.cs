@@ -8,7 +8,7 @@ using mpm_web_api.DAL.oee;
 using mpm_web_api.model;
 using Newtonsoft.Json;
 
-namespace mpm_web_api.DAL.oee
+namespace mpm_web_api.Controllers.oee
 {
     [Route("oee/tricolor_tag_status")]
     [ApiController]
@@ -33,9 +33,9 @@ namespace mpm_web_api.DAL.oee
         }
 
         [HttpPost]
-        public ActionResult<bool> Post(tricolor_tag_status obj,int value)
+        public ActionResult<bool> Post(tricolor_tag_status obj)
         {
-            bool res = service.insert<tricolor_tag_status>(obj,value);
+            bool res = service.insert<tricolor_tag_status>(obj);
             return res;
         }
 

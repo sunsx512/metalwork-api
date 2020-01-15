@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using SqlSugar;
 namespace mpm_web_api.model
 {
-    [SugarTable("oee.status_duration_class")]
-    public class status_duration_class
+    [SugarTable("oee.status_duration_shift")]
+    public class status_duration_shift
     {
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnName = "id")]
         /// <summary>

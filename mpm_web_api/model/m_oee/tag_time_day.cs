@@ -27,6 +27,6 @@ namespace mpm_web_api.model
         /// <summary>
         /// 
         /// </summary>
-        public string duration_time { get; set; }
+        public int duration_time { get; set; }
     }
 }

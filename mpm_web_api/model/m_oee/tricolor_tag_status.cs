@@ -25,10 +25,10 @@ namespace mpm_web_api.model
         /// <summary>
         /// 
         /// </summary>
-        public float duration_time { get; set; }
+        public bool whether { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public DateTime date { get; set; }
+        public DateTime insert_time{ get; set; }
     }
 }

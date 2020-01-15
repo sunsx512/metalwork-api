@@ -22,7 +22,7 @@ namespace mpm_web_api.DAL.oee
             return query;
         }
 
-        public bool insert<T>(T Obj,int value) where T : class, new()
+        public bool insert<T>(T Obj) where T : class, new()
         {
             var test = 0;
             try
@@ -59,8 +59,8 @@ namespace mpm_web_api.DAL.oee
 
             try
             {
-                //  var result = DB.Updateable(obj).UpdateColumns(it => new { it.srp_code, it.insert_time }).Where(it => it.srp_code == obj.srp_code).ExecuteCommand();
-                var result = DB.Updateable<tricolor_tag_status>().SetColumns(it => it.duration_time == obj.duration_time).Where(it => it.status_name == obj.status_name).ExecuteCommand();
+                  var result = DB.Updateable(obj).UpdateColumns(it => new { it.status_name, it.insert_time }).Where(it => it.machine_id == obj.machine_id).ExecuteCommand();
+              //  var result = DB.Updateable<tricolor_tag_status>().SetColumns(it => it.duration_time == obj.duration_time).Where(it => it.status_name == obj.status_name).ExecuteCommand();
             }
             catch (Exception ex)
             {

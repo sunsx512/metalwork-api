@@ -1,9 +1,9 @@
 {
   "iisSettings": {
     "windowsAuthentication": false,
-    "anonymousAuthentication": true,
+    "anonymousAuthentication": false,
     "iisExpress": {
-      "applicationUrl": "http://localhost:59109",
+      "applicationUrl": "https://localhost:5001",
       "sslPort": 44378
     }
   },
@@ -15,7 +15,8 @@
       "launchUrl": "http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "use64Bit": true
     },
     "mpm_web_api": {
       "commandName": "Project",

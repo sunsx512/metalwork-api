@@ -9,6 +9,8 @@ namespace mpm_web_api.model
     [SugarTable("common.srp_inner_log")]
     public class srp_inner_log
     {
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnName = "id")]
+
         /// <summary>
         /// 
         /// </summary>
