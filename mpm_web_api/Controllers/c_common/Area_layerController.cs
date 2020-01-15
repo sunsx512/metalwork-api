@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_common
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/area_layer")]
     [ApiController]
-    public class Area_layerController : SSOController,IController<area_layer>
+    public class Area_LayerController : SSOController,IController<area_layer>
     {
         ControllerHelper<area_layer> ch = new ControllerHelper<area_layer>();
 
