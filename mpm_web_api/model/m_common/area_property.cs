@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 namespace mpm_web_api.model
 {
     [SugarTable("common.area_property")]
-    public class area_property
+    public class area_property : base_model
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int id { get; set; }
         /// <summary>
         /// 
         /// </summary>

@@ -9,31 +9,31 @@ using mpm_web_api.model;
 /// <summary>
 /// add by sunsx.sun
 /// 
-/// Area_layer控制器
+/// Email_Server控制器
 /// </summary>
 namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/area_layer")]
+    [Route("api/v1/configuration/public/email_server")]
     [ApiController]
-    public class Area_LayerController : SSOController,IController<area_layer>
+    public class Email_ServerController : SSOController,IController<email_server>
     {
-        ControllerHelper<area_layer> ch = new ControllerHelper<area_layer>();
+        ControllerHelper<email_server> ch = new ControllerHelper<email_server>();
 
         /// <summary>
-        /// 获取所有Area_layer信息
+        /// 获取所有Email_Server信息
         /// </summary>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<common.response<area_layer>> Get()
+        public ActionResult<common.response<email_server>> Get()
         {
             return Json(ch.Get());
         }
         /// <summary>
-        /// 新增Area_layer
+        /// 新增Email_Server
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -41,12 +41,12 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<common.response> Post(area_layer t)
+        public ActionResult<common.response> Post(email_server t)
         {
             return Json(ch.Post(t));
         }
         /// <summary>
-        /// 更新Area_layer
+        /// 更新Email_Server
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -54,12 +54,12 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(area_layer t)
+        public ActionResult<common.response> Put(email_server t)
         {
             return Json(ch.Put(t));
         }
         /// <summary>
-        /// 删除Area_layer
+        /// 删除Email_Server
         /// </summary>
         /// <param name="id">主键id</param>
         /// <response code="200">调用成功</response>
