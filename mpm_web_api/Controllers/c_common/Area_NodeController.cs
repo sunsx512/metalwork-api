@@ -14,11 +14,11 @@ using mpm_web_api.model;
 namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/area_layer")]
+    [Route("api/v1/configuration/public/area_node")]
     [ApiController]
-    public class Area_layerController : SSOController,IController<area_layer>
+    public class Area_NodeController : SSOController,IController<area_node>
     {
-        ControllerHelper<area_layer> ch = new ControllerHelper<area_layer>();
+        ControllerHelper<area_node> ch = new ControllerHelper<area_node>();
 
         /// <summary>
         /// 获取所有Area_layer信息
@@ -28,7 +28,7 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<common.response<area_layer>> Get()
+        public ActionResult<common.response<area_node>> Get()
         {
             return Json(ch.Get());
         }
@@ -41,7 +41,7 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<common.response> Post(area_layer t)
+        public ActionResult<common.response> Post(area_node t)
         {
             return Json(ch.Post(t));
         }
@@ -54,7 +54,7 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(area_layer t)
+        public ActionResult<common.response> Put(area_node t)
         {
             return Json(ch.Put(t));
         }
