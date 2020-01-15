@@ -11,76 +11,76 @@ namespace mpm_web_api.Common
     public class ControllerHelper<T> where T : base_model, new()
     {
         BaseService<T> baseService = new BaseService<T>();
-        public string Get()
+        public object Get()
         {
-            string str;
+            object obj;
             try
             {
                 List<T> lty = baseService.QueryableToList();
                 string strJson = JsonConvert.SerializeObject(lty);
-                str = common.ResponseStr((int)httpStatus.succes, "调用成功", strJson);
+                obj = common.ResponseStr<T>((int)httpStatus.succes, "调用成功", lty);
             }
             catch (Exception ex)
             {
-                str = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+                obj = common.ResponseStr<T>((int)httpStatus.serverError, ex.Message);
             }
-            return str;
+            return obj;
         }
 
-        public string Post(T obj)
+        public object Post(T obj)
         {
-            string str;
+            object str;
             try
             {
                 bool re = baseService.Insert(obj);
                 if (re)
-                    str = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                    str = common.ResponseStr<T>((int)httpStatus.succes, "调用成功");
                 else
-                    str = common.ResponseStr((int)httpStatus.dbError, "新增失败");
+                    str = common.ResponseStr<T>((int)httpStatus.dbError, "新增失败");
             }
             catch (Exception ex)
             {
-                str = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+                str = common.ResponseStr<T>((int)httpStatus.serverError, ex.Message);
             }
             return str;
         }
 
 
-        public string Put(T obj)
+        public object Put(T obj)
         {
-            string str;
+            object ob;
             try
             {
                 bool re = baseService.Update(obj, x => x.id == obj.id);
                 if (re)
-                    str = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                    ob = common.ResponseStr<T>((int)httpStatus.succes, "调用成功");
                 else
-                    str = common.ResponseStr((int)httpStatus.dbError, "更新失败");
+                    ob = common.ResponseStr<T>((int)httpStatus.dbError, "更新失败");
             }
             catch (Exception ex)
             {
-                str = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+                ob = common.ResponseStr<T>((int)httpStatus.serverError, ex.Message);
             }
-            return str;
+            return ob;
         }
 
 
-        public string Delete(T obj)
+        public object Delete(int id)
         {
-            string str;
+            object obj;
             try
             {
-                bool re = baseService.Delete(obj.id);
+                bool re = baseService.Delete(id);
                 if (re)
-                    str = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                    obj = common.ResponseStr<T>((int)httpStatus.succes, "调用成功");
                 else
-                    str = common.ResponseStr((int)httpStatus.dbError, "删除失败");
+                    obj = common.ResponseStr<T>((int)httpStatus.dbError, "删除失败");
             }
             catch (Exception ex)
             {
-                str = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+                obj = common.ResponseStr<T>((int)httpStatus.serverError, ex.Message);
             }
-            return str;
+            return obj;
         }
     }
 }

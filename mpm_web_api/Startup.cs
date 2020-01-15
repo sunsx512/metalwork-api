@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -19,7 +20,7 @@ namespace mpm_web_api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            common.GetEnv();
+            //common.GetEnv();
         }
 
         public IConfiguration Configuration { get; }
@@ -31,7 +32,11 @@ namespace mpm_web_api
             {
                 // 添加文档信息
                 c.SwaggerDoc("v1", new Info { Title = "CoreWebApi", Version = "v1" });
+                var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
+                var xmlPath = Path.Combine(basePath, "mpm_web_api.xml");
+                c.IncludeXmlComments(xmlPath);
             });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
         }

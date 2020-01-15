@@ -9,12 +9,12 @@ namespace mpm_web_api.Common
     public interface IController<T> where T : class, new()
     {
         [HttpGet]
-        ActionResult<string> Get();
+        ActionResult<common.response<T>> Get();
         [HttpPost]
-        ActionResult<string> Post(T t);
+        ActionResult<common.response> Post(T t);
         [HttpPut]
-        ActionResult<string> Put(T t);
+        ActionResult<common.response> Put(T t);
         [HttpDelete]
-        ActionResult<string> Delete(T t);
+        ActionResult<common.response> Delete(int id);
     }
 }

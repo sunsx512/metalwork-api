@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -59,6 +60,7 @@ namespace mpm_web_api
                 PostgreBase.connString = pg;
             }
         }
+
         /// <summary>
         /// 回复给网页的字符串
         /// </summary>
@@ -66,32 +68,37 @@ namespace mpm_web_api
         /// <param name="message">信息</param>
         /// <param name="content">内容</param>
         /// <returns></returns>
-        public static string ResponseStr(int code,string message,string content)
+        public static object ResponseStr<T>(int code, string message, List<T> content) where T : class, new()
         {
-            string re = "\"code\":{0},\"message\": \"{1}\",\"data\": {2} ";
-            if (code !=0 && message !="" && content !="")
-            {
-                re = string.Format(re, code, message, content);
-                return "{"+re+"}";
-            }
-            else
-            {
-                return "";
-            }
+            response<T> re = new response<T>(content);
+            re.code = code;
+            re.message = message;
+            return re;
         }
 
-        public static string ResponseStr(int code, string message)
+        public static object ResponseStr<T>(int code, string message) where T : class, new()
         {
-            string re = "\"code\":{0},\"message\": \"{1}\"";
-            if (code != 0 && message != "" )
-            {
-                re = string.Format(re, code, message);
-                return "{" + re + "}";
-            }
-            else
-            {
-                return "";
-            }
+            response<T> re = new response<T>(null);
+            re.code = code;
+            re.message = message;
+            return re;
         }
+
+        public class response<T> where T : class, new()
+        {
+            public response(List<T> obj)
+            {
+                this.data = obj;
+            }
+            public int code { get; set; } 
+            public string message { get; set; } 
+            public List<T> data { get; set; }
+        }
+        public class response
+        {
+            public int code { get; set; }
+            public string message { get; set; }
+        }
+
     }
 }
