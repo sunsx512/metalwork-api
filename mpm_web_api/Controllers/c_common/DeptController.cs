@@ -12,19 +12,19 @@ namespace mpm_web_api.Controllers
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/dept")]
     [ApiController]
-    public class DeptController : SSOController
+    public class DeptController : SSOController,IController<department>
     {
         ControllerHelper<department> ch = new ControllerHelper<department>();
         /// <summary>
         /// 删除部门
         /// </summary>
         /// <param name="id">主键id</param>
-        /// <response code="200">调用成功</response
+        /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpDelete]
-        public ActionResult<string> Delete(int id)
+        public ActionResult<common.response> Delete(int id)
         {
             
             return Json(ch.Delete(id));
@@ -37,7 +37,7 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<string> Get()
+        public ActionResult<common.response<department>> Get()
         {
             return Json(ch.Get());
         }
@@ -50,7 +50,7 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<string> Post(department t)
+        public ActionResult<common.response> Post(department t)
         {
             return Json(ch.Post(t));
         }
@@ -63,7 +63,7 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<string> Put(department t)
+        public ActionResult<common.response> Put(department t)
         {
             return Json(ch.Put(t));
         }

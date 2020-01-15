@@ -22,7 +22,7 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpDelete]
-        public ActionResult Delete(int id)
+        public ActionResult<common.response> Delete(int id)
         {
             return Json(ch.Delete(id));
         }
@@ -37,7 +37,7 @@ namespace mpm_web_api.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<string> Get()
+        public ActionResult<common.response<person>> Get()
         {
             return  Json(ch.Get());
         }
@@ -50,7 +50,7 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<string> Post(person t)
+        public ActionResult<common.response> Post(person t)
         {
             return Json(ch.Post(t));
         }
@@ -63,7 +63,7 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<string> Put(person t)
+        public ActionResult<common.response> Put(person t)
         {
             return Json(ch.Put(t));
         }

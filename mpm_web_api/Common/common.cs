@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -83,18 +84,21 @@ namespace mpm_web_api
             return re;
         }
 
-
         public class response<T> where T : class, new()
         {
             public response(List<T> obj)
             {
                 this.data = obj;
             }
-            public int code { get; set; }
-            public string message { get; set; }
+            public int code { get; set; } 
+            public string message { get; set; } 
             public List<T> data { get; set; }
         }
-
+        public class response
+        {
+            public int code { get; set; }
+            public string message { get; set; }
+        }
 
     }
 }
