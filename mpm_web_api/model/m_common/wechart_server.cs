@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 namespace mpm_web_api.model
 {
     [SugarTable("common.wechart_server")]
-    public class wechart_server
+    public class wechart_server : base_model
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int id { set; get; }
         /// <summary>
         /// 
         /// </summary>

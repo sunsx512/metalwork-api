@@ -4,19 +4,62 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
-using mpm_web_api.DAL;
 using mpm_web_api.model;
 
-namespace mpm_web_api.Controllers
+/// <summary>
+/// add by sunsx.sun
+/// 
+/// Wechart_Server控制器
+/// </summary>
+namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/tag_info")]
+    [Route("api/v1/configuration/public/email_server")]
     [ApiController]
-    public class Tag_InfoController : SSOController,IController<tag_info>
+    public class Wechart_ServerController : SSOController,IController<wechart_server>
     {
-        ControllerHelper<tag_info> ch = new ControllerHelper<tag_info>();
+        ControllerHelper<wechart_server> ch = new ControllerHelper<wechart_server>();
+
         /// <summary>
-        /// 删除tag
+        /// 获取所有Wechart_Server信息
+        /// </summary>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
+        [HttpGet]
+        public ActionResult<common.response<wechart_server>> Get()
+        {
+            return Json(ch.Get());
+        }
+        /// <summary>
+        /// 新增Wechart_Server
+        /// </summary>
+        /// <param name="t">传入参数</param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
+        [HttpPost]
+        public ActionResult<common.response> Post(wechart_server t)
+        {
+            return Json(ch.Post(t));
+        }
+        /// <summary>
+        /// 更新Wechart_Server
+        /// </summary>
+        /// <param name="t">传入参数</param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
+        [HttpPut]
+        public ActionResult<common.response> Put(wechart_server t)
+        {
+            return Json(ch.Put(t));
+        }
+        /// <summary>
+        /// 删除Wechart_Server
         /// </summary>
         /// <param name="id">主键id</param>
         /// <response code="200">调用成功</response>
@@ -26,46 +69,7 @@ namespace mpm_web_api.Controllers
         [HttpDelete]
         public ActionResult<common.response> Delete(int id)
         {
-            
             return Json(ch.Delete(id));
-        }
-        /// <summary>
-        /// 获取所有tag信息
-        /// </summary>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpGet]
-        public ActionResult<common.response<tag_info>> Get()
-        {
-            return Json(ch.Get());
-        }
-        /// <summary>
-        /// 新增tag
-        /// </summary>
-        /// <param name="t">传入参数</param>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpPost]
-        public ActionResult<common.response> Post(tag_info t)
-        {
-            return Json(ch.Post(t));
-        }
-        /// <summary>
-        /// 更新tag
-        /// </summary>
-        /// <param name="t">传入参数</param>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpPut]
-        public ActionResult<common.response> Put(tag_info t)
-        {
-            return Json(ch.Put(t));
         }
     }
 }
