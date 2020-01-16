@@ -28,6 +28,6 @@ namespace mpm_web_api.model
         /// <summary>
         /// 
         /// </summary>
-        public int upper_type_id { get; set; }
+        public int tag_type_id { get; set; }
     }
 }

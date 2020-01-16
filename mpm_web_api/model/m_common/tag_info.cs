@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 namespace mpm_web_api.model
 {
     [SugarTable("common.tag_info")]
-    public class tag_info
+    public class tag_info:base_model
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int id{ get; set; }
         /// <summary>
         /// 
         /// </summary>
