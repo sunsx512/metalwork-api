@@ -1,25 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
-using mpm_web_api.DAL;
 using mpm_web_api.model;
-using Newtonsoft.Json;
 
-namespace mpm_web_api.Controllers
+/// <summary>
+/// add by sunsx.sun
+/// 
+/// Area_Property控制器
+/// </summary>
+namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/tag_type")]
+    [Route("api/v1/configuration/public/area_property")]
     [ApiController]
-    public class TagTypeController : SSOController, IController<tag_type>
+    public class Area_PropertyController : SSOController,IController<area_property>
     {
-        ControllerHelper<tag_type> ch = new ControllerHelper<tag_type>();
+        ControllerHelper<area_property> ch = new ControllerHelper<area_property>();
 
         /// <summary>
-        /// 删除tag类型
+        /// 获取所有Area_Property信息
+        /// </summary>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
+        [HttpGet]
+        public ActionResult<common.response<area_property>> Get()
+        {
+            return Json(ch.Get());
+        }
+        /// <summary>
+        /// 新增Area_Property
+        /// </summary>
+        /// <param name="t">传入参数</param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
+        [HttpPost]
+        public ActionResult<common.response> Post(area_property t)
+        {
+            return Json(ch.Post(t));
+        }
+        /// <summary>
+        /// 更新Area_Property
+        /// </summary>
+        /// <param name="t">传入参数</param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
+        [HttpPut]
+        public ActionResult<common.response> Put(area_property t)
+        {
+            return Json(ch.Put(t));
+        }
+        /// <summary>
+        /// 删除Area_Property
         /// </summary>
         /// <param name="id">主键id</param>
         /// <response code="200">调用成功</response>
@@ -30,46 +70,6 @@ namespace mpm_web_api.Controllers
         public ActionResult<common.response> Delete(int id)
         {
             return Json(ch.Delete(id));
-        }
-
-        /// <summary>
-        /// 获取所有tag类型信息
-        /// </summary>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpGet]
-        public ActionResult<common.response<tag_type>> Get()
-        {
-            return Json(ch.Get());
-        }
-
-        /// <summary>
-        /// 新增tag类型
-        /// </summary>
-        /// <param name="t">传入参数</param>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpPost]
-        public ActionResult<common.response> Post(tag_type t)
-        {
-            return Json(ch.Post(t));
-        }
-        /// <summary>
-        /// 更新tag类型
-        /// </summary>
-        /// <param name="t">传入参数</param>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpPut]
-        public ActionResult<common.response> Put(tag_type t)
-        {
-            return Json(ch.Put(t));
         }
     }
 }

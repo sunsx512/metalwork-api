@@ -20,8 +20,6 @@ namespace mpm_web_api.Controllers.c_common
     {
         ControllerHelper<area_layer> ch = new ControllerHelper<area_layer>();
 
-
-
         /// <summary>
         /// 获取所有Area_layer信息
         /// </summary>
