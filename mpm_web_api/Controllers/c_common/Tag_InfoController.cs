@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers
     {
         ControllerHelper<tag_info> ch = new ControllerHelper<tag_info>();
         /// <summary>
-        /// 删除设备
+        /// 删除tag
         /// </summary>
         /// <param name="id">主键id</param>
         /// <response code="200">调用成功</response>
@@ -30,7 +30,7 @@ namespace mpm_web_api.Controllers
             return Json(ch.Delete(id));
         }
         /// <summary>
-        /// 获取所有设备信息
+        /// 获取所有tag信息
         /// </summary>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
@@ -42,7 +42,7 @@ namespace mpm_web_api.Controllers
             return Json(ch.Get());
         }
         /// <summary>
-        /// 新增设备
+        /// 新增tag
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -55,7 +55,7 @@ namespace mpm_web_api.Controllers
             return Json(ch.Post(t));
         }
         /// <summary>
-        /// 更新设备
+        /// 更新tag
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
