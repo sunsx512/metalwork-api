@@ -14,7 +14,7 @@ using mpm_web_api.model;
 namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/email_server")]
+    [Route("api/v1/configuration/public/wechart_server")]
     [ApiController]
     public class Wechart_ServerController : SSOController,IController<wechart_server>
     {

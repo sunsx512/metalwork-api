@@ -40,7 +40,7 @@ namespace mpm_web_api.Controllers.c_common
         [HttpGet]
         public ActionResult Get()
         {
-            
+           
             return Json(ts.QueryableToList());
         }
         /// <summary>
