@@ -8,11 +8,13 @@ using mpm_web_api.Common;
 using mpm_web_api.DAL;
 using mpm_web_api.model;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/tag_type")]
+    [SwaggerTag("操作tag类型数据")]
     [ApiController]
     public class TagTypeController : SSOController, IController<tag_type>
     {

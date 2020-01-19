@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
 using mpm_web_api.model;
+using Swashbuckle.AspNetCore.Annotations;
 
 /// <summary>
 /// add by sunsx.sun
@@ -15,6 +16,7 @@ namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/email_server")]
+    [SwaggerTag("操作邮件服务数据")]
     [ApiController]
     public class Email_ServerController : SSOController,IController<email_server>
     {

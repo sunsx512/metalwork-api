@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
 using mpm_web_api.model;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/tag_type_sub")]
+    [SwaggerTag("操作tag次级类型数据")]
     [ApiController]
     public class TagTypeSubController : SSOController, IController<tag_type_sub>
     {
