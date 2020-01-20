@@ -10,15 +10,15 @@ using Swashbuckle.AspNetCore.Annotations;
 /// <summary>
 /// add by sunsx.sun
 /// 
-/// Area_Property控制器
+/// 非固定排休控制器（对应 area_property表三个控制器之三）
 /// </summary>
 namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/area_property")]
-    [SwaggerTag("操作区域节点属性数据")]
+    [Route("api/v1/configuration/public/unfixed_break")]
+    [SwaggerTag("操作非固定排休数据")]
     [ApiController]
-    public class Area_PropertyController : SSOController,IController<area_property>
+    public class Unfixed_BreakController : SSOController,IController<area_property>
     {
         ControllerHelper<area_property> ch = new ControllerHelper<area_property>();
 

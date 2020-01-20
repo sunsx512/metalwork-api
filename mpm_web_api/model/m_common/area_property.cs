@@ -29,6 +29,10 @@ namespace mpm_web_api.model
         /// 
         /// </summary>
         public string format { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int area_node_id { get; set; }
 
     }
 }
