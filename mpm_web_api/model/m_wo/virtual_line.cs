@@ -7,35 +7,19 @@ using System.Threading.Tasks;
 namespace mpm_web_api.model
 {
     [SugarTable("work_order.virtual_line")]
-    public class virtual_line
+    public class virtual_line:base_model
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int id { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int wo_config_id { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string station_list { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime start_time { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime end_time { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public double balance { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string name { get; set; }
+        public string name_cn { get; set; }
+        public string name_en { get; set; }
+        public string name_tw { get; set; }
+        public string description { get; set; }
+        
+    }
+
+    public class virtual_line_detail : virtual_line
+    {
+        [SugarColumn(IsIgnore = true)]
+        public List<wo_machine_detail> machines { get; set; }
+
     }
 }

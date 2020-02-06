@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 namespace mpm_web_api.model
 {
     [SugarTable("andon.error_log")]
-    public class error_log
+    public class error_log:base_model
     {
-        [SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnName = "id")]
-        /// <summary>
-        /// id
-        /// </summary>
-        public int id { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -25,7 +20,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 
         /// </summary>
-        public string ack_person_name { get; set; }
+        public string responsible_name { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -45,7 +40,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 
         /// </summary>
-        public string arrival_persion_name { get; set; }
+        public string substitutes { get; set; }
         /// <summary>
         /// 
         /// </summary>

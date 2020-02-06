@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace mpm_web_api.Controllers.oee
 {
-    [Route("oee/status_setting")]
+    [Route("api/v1/configuration/oee/status_setting")]
     [ApiController]
     public class status_setting_Controller : ControllerBase
     {

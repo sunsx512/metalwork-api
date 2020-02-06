@@ -7,16 +7,8 @@ using SqlSugar;
 namespace mpm_web_api.model
 {
     [SugarTable("andon.error_type_details")]
-    public class error_type_details
+    public class error_type_details:base_model
     {
-        [SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnName = "id")]
-        /// <summary>
-        /// id
-        /// </summary>
-        public int id { get; set; }
-        /// <summary>
-        /// id
-        /// </summary>
         public int error_type_id { get; set; }
         /// <summary>
         /// 

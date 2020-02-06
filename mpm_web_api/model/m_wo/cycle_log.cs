@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace mpm_web_api.model
 {
-    [SugarTable("work_order.cycle_average")]
-    public class cycle_average
+    [SugarTable("work_order.cycle_current")]
+    public class cycle_log:base_model
     {
+
         /// <summary>
         /// 
         /// </summary>
-        public int id { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int machine_id { get; set; }
+        public int wo_machine_id { get; set; }
         /// <summary>
         /// 
         /// </summary>

@@ -7,13 +7,8 @@ namespace mpm_web_api.model
 {
     [SugarTable("andon.error_type")]
  
-    public class error_type
+    public class error_type:base_model
     {
-        [SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnName = "id")]
-        /// <summary>
-        /// id
-        /// </summary>
-        public int id { get; set; }
         /// <summary>
         /// 
         /// </summary>

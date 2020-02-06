@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace mpm_web_api.Controllers.oee
 {
-    [Route("oee/utilization_formula")]
+    [Route("api/v1/configuration/oee/utilization_formula")]
     [ApiController]
     public class utilization_rate_formula_Controller : ControllerBase
     {

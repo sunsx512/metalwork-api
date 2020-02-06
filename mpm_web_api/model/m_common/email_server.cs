@@ -20,7 +20,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 
         /// </summary>
-        public string user { get; set; }
+        public string user_name { get; set; }
         /// <summary>
         /// 
         /// </summary>

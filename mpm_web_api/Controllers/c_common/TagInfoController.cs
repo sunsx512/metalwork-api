@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
 using mpm_web_api.DAL;
 using mpm_web_api.model;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_common
@@ -42,8 +43,19 @@ namespace mpm_web_api.Controllers.c_common
         [HttpGet]
         public ActionResult Get()
         {
-           
-            return Json(ts.QueryableToList());
+            object obj;
+            try
+            {
+                List<tag_info_detail> lty = ts.QueryableToList();
+                string strJson = JsonConvert.SerializeObject(lty);
+                obj = common.ResponseStr<tag_info_detail>((int)httpStatus.succes, "调用成功", lty);
+            }
+            catch (Exception ex)
+            {
+                obj = common.ResponseStr<tag_info_detail>((int)httpStatus.serverError, ex.Message);
+            }
+
+            return Json(obj);
         }
         /// <summary>
         /// 新增标签
