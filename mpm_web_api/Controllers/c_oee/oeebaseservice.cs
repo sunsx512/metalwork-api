@@ -11,6 +11,8 @@ namespace mpm_web_api.Controllers.oee
     public class oeebaseservice : SqlSugarBase
     {
         // 按主键更新全部
+
+
         public bool update<T>(T Obj) where T : class, new()
         {
 
