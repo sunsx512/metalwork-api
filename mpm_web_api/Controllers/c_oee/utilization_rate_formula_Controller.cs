@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using mpm_web_api.Common;
 using mpm_web_api.DAL.oee;
 using mpm_web_api.model;
 using Newtonsoft.Json;
@@ -11,33 +12,24 @@ using Newtonsoft.Json;
 
 namespace mpm_web_api.Controllers.oee
 {
+    [Produces(("application/json"))]
     [Route("api/v1/configuration/oee/utilization_formula")]
     [ApiController]
-    public class utilization_rate_formula_Controller : ControllerBase
+    public class utilization_rate_formula_Controller : SSOController
     {
-         utilization_rate_formula_service service = new utilization_rate_formula_service();
+        ControllerHelper<utilization_rate_formula> ch = new ControllerHelper<utilization_rate_formula>();
 
         [HttpGet]
-        public ActionResult<string> Get()
+        public ActionResult<common.response<utilization_rate_formula>> Get()
         {
-            List<utilization_rate_formula> lty = service.GetList<utilization_rate_formula>();
-            string strJson = JsonConvert.SerializeObject(lty);
-            return strJson;
+            return Json(ch.Get());
         }
 
-
-        [HttpPost]
-        public ActionResult<bool> Post(utilization_rate_formula obj)
-        {
-            bool res = service.insert<utilization_rate_formula>(obj);
-            return res;
-        }
 
         [HttpPut]
-        public ActionResult<bool> update(utilization_rate_formula obj)
+        public ActionResult<common.response> update(utilization_rate_formula obj)
         {
-            bool res = service.update<utilization_rate_formula>(obj);
-            return res;
+            return Json(ch.Put(obj));
         }
 
     }

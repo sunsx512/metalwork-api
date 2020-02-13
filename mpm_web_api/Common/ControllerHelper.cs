@@ -22,7 +22,7 @@ namespace mpm_web_api.Common
             }
             catch (Exception ex)
             {
-                obj = common.ResponseStr<T>((int)httpStatus.serverError, ex.Message);
+                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
             }
             return obj;
         }
@@ -34,13 +34,13 @@ namespace mpm_web_api.Common
             {
                 bool re = baseService.Insert(obj);
                 if (re)
-                    str = common.ResponseStr<T>((int)httpStatus.succes, "调用成功");
+                    str = common.ResponseStr((int)httpStatus.succes, "调用成功");
                 else
-                    str = common.ResponseStr<T>((int)httpStatus.dbError, "新增失败");
+                    str = common.ResponseStr((int)httpStatus.dbError, "新增失败");
             }
             catch (Exception ex)
             {
-                str = common.ResponseStr<T>((int)httpStatus.serverError, ex.Message);
+                str = common.ResponseStr((int)httpStatus.serverError, ex.Message);
             }
             return str;
         }
@@ -53,13 +53,13 @@ namespace mpm_web_api.Common
             {
                 bool re = baseService.Update(obj, x => x.id == obj.id);
                 if (re)
-                    ob = common.ResponseStr<T>((int)httpStatus.succes, "调用成功");
+                    ob = common.ResponseStr((int)httpStatus.succes, "调用成功");
                 else
-                    ob = common.ResponseStr<T>((int)httpStatus.dbError, "更新失败");
+                    ob = common.ResponseStr((int)httpStatus.dbError, "更新失败");
             }
             catch (Exception ex)
             {
-                ob = common.ResponseStr<T>((int)httpStatus.serverError, ex.Message);
+                ob = common.ResponseStr((int)httpStatus.serverError, ex.Message);
             }
             return ob;
         }
@@ -72,13 +72,13 @@ namespace mpm_web_api.Common
             {
                 bool re = baseService.Delete(id);
                 if (re)
-                    obj = common.ResponseStr<T>((int)httpStatus.succes, "调用成功");
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
                 else
-                    obj = common.ResponseStr<T>((int)httpStatus.dbError, "删除失败");
+                    obj = common.ResponseStr((int)httpStatus.dbError, "删除失败");
             }
             catch (Exception ex)
             {
-                obj = common.ResponseStr<T>((int)httpStatus.serverError, ex.Message);
+                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
             }
             return obj;
         }

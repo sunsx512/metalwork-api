@@ -24,6 +24,21 @@ namespace mpm_web_api.DAL
             return list;
         }
 
+        /// <summary>
+        /// 删除该群组下的指定人员
+        /// </summary>
+        /// <param name="group_id"></param>
+        /// <param name="person_id"></param>
+        /// <returns></returns>
+        public  bool DeletePerson(int group_id,int person_id)
+        {
+            return DB.Deleteable<notification_person>()
+                    .Where(x => x.notification_group_id == group_id)
+                    .Where(x => x.person_id == person_id)
+                    .ExecuteCommand() > 0;
+                                                          
+        }
+
 
     }
 }

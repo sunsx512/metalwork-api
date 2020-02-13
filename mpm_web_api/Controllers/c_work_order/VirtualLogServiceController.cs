@@ -7,47 +7,41 @@ using mpm_web_api.Common;
 using mpm_web_api.model;
 using Swashbuckle.AspNetCore.Annotations;
 
-/// <summary>
-/// add by sunsx.sun
-/// 
-/// Wechart_Server控制器
-/// </summary>
-namespace mpm_web_api.Controllers.c_common
+namespace mpm_web_api.Controllers.c_work_order
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/wechart_server")]
-    [SwaggerTag("微信服务信息")]
+    [Route("api/v1/client/work_order/virtual_line_log")]
+    [SwaggerTag("虚拟线日志")]
     [ApiController]
-    public class Wechart_ServerController : SSOController
+    public class VirtualLogServiceController : SSOController
     {
-        ControllerHelper<wechart_server> ch = new ControllerHelper<wechart_server>();
-
+        ControllerHelper<virtual_line_log> ch = new ControllerHelper<virtual_line_log>();
         /// <summary>
-        /// 获取所有Wechart_Server信息
+        /// 添加虚拟线日志
         /// </summary>
+        /// <param name="t"></param>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
-        [HttpGet]
-        public ActionResult<common.response<wechart_server>> Get()
+        [HttpPost]
+        public ActionResult<common.response> Post(virtual_line_log t)
         {
-            return Json(ch.Get());
+            return Json(ch.Post(t));
         }
 
         /// <summary>
-        /// 更新Wechart_Server
+        /// 修改虚拟线日志
         /// </summary>
-        /// <param name="t">传入参数</param>
+        /// <param name="t"></param>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(wechart_server t)
+        public ActionResult<common.response> Put(virtual_line_log t)
         {
             return Json(ch.Put(t));
         }
-
     }
 }

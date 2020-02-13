@@ -10,23 +10,23 @@ namespace mpm_web_api.model
     public class wechart_server : base_model
     {
         /// <summary>
-        /// 
+        /// 应用名称
         /// </summary>
         public string apply_name { set; get; }
         /// <summary>
-        /// 
+        /// 企业id
         /// </summary>
         public string corp_id { get; set; }
         /// <summary>
-        /// 
+        /// 应用id
         /// </summary>
         public string apply_agentid { get; set; }
         /// <summary>
-        /// 
+        /// 应用密钥
         /// </summary>
         public string apply_secret { get; set; }
         /// <summary>
-        /// 
+        /// 应用token
         /// </summary>
         public string access_token { get; set; }
     }

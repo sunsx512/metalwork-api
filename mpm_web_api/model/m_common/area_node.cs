@@ -10,36 +10,36 @@ namespace mpm_web_api.model
     public class area_node : base_model
     {
         /// <summary>
-        /// 
+        /// 英文名称
         /// </summary>
         public string name_en { get; set; }
         /// <summary>
-        /// 
+        /// 中文名称
         /// </summary>
         public string name_cn { get; set; }
         /// <summary>
-        /// 
+        /// 繁体名称
         /// </summary>
         public string name_tw { get; set; }
         /// <summary>
-        /// 
+        /// 所在层级id
         /// </summary>
         public int area_layer_id { get; set; }
         /// <summary>
-        /// 
+        /// 描述
         /// </summary>
         public string description { get; set; }
         /// <summary>
-        /// 
+        /// 上一级节点的id
         /// </summary>
         public int upper_id { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string property { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int property_id { get; set; }
+
+    }
+
+    public class area_node_detail : area_node
+    {
+        [SugarColumn(IsIgnore = true)]
+        public List<area_property> property { get; set; }
+
     }
 }

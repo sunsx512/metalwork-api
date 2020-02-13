@@ -16,14 +16,14 @@ namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/area_layer")]
-    [SwaggerTag("操作区域层级")]
+    [SwaggerTag("区域层级")]
     [ApiController]
     public class Area_LayerController : SSOController,IController<area_layer>
     {
         ControllerHelper<area_layer> ch = new ControllerHelper<area_layer>();
 
         /// <summary>
-        /// 获取所有Area_layer信息
+        /// 获取所有层级信息
         /// </summary>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
@@ -35,7 +35,7 @@ namespace mpm_web_api.Controllers.c_common
             return Json(ch.Get());
         }
         /// <summary>
-        /// 新增Area_layer
+        /// 新增
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -61,7 +61,7 @@ namespace mpm_web_api.Controllers.c_common
             return Json(ch.Put(t));
         }
         /// <summary>
-        /// 删除Area_layer
+        /// 删除
         /// </summary>
         /// <param name="id">主键id</param>
         /// <response code="200">调用成功</response>

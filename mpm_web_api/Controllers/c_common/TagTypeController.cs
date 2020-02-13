@@ -14,26 +14,11 @@ namespace mpm_web_api.Controllers
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/tag_type")]
-    [SwaggerTag("操作tag类型数据")]
+    [SwaggerTag("一级标签类型")]
     [ApiController]
-    public class TagTypeController : SSOController, IController<tag_type>
+    public class TagTypeController : SSOController
     {
         ControllerHelper<tag_type> ch = new ControllerHelper<tag_type>();
-
-        /// <summary>
-        /// 删除tag类型
-        /// </summary>
-        /// <param name="id">主键id</param>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpDelete]
-        public ActionResult<common.response> Delete(int id)
-        {
-            return Json(ch.Delete(id));
-        }
-
         /// <summary>
         /// 获取所有tag类型信息
         /// </summary>
@@ -47,31 +32,5 @@ namespace mpm_web_api.Controllers
             return Json(ch.Get());
         }
 
-        /// <summary>
-        /// 新增tag类型
-        /// </summary>
-        /// <param name="t">传入参数</param>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpPost]
-        public ActionResult<common.response> Post(tag_type t)
-        {
-            return Json(ch.Post(t));
-        }
-        /// <summary>
-        /// 更新tag类型
-        /// </summary>
-        /// <param name="t">传入参数</param>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpPut]
-        public ActionResult<common.response> Put(tag_type t)
-        {
-            return Json(ch.Put(t));
-        }
     }
 }

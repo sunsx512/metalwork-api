@@ -19,39 +19,45 @@ namespace mpm_web_api.Controllers.c_andon
     {
         ControllerHelper<error_log> ch = new ControllerHelper<error_log>();
         ErrorLogService els = new ErrorLogService();
-        [HttpDelete]   
-        public ActionResult<common.response> Delete(int id)
-        {
-            return Json(ch.Delete(id));
-        }
+        //[HttpDelete]   
+        //public ActionResult<common.response> Delete(int id)
+        //{
+        //    return Json(ch.Delete(id));
+        //}
 
         /// <summary>
-        /// 
+        /// 获取工单信息
         /// </summary>
         /// <param name="status">状态分为 all penging processing finished 四种</param>
-        /// <returns></returns>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
         [HttpGet]
         public ActionResult<common.response<error_log>> Get(string status)
         {
             object obj;
             try
             {
-                List<error_log> lty = els.QueryableToList(status);
+                List<error_log> lty = els.QueryableToListByStatus(status);
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<error_log>((int)httpStatus.succes, "调用成功", lty);
             }
             catch (Exception ex)
             {
-                obj = common.ResponseStr<error_log>((int)httpStatus.serverError, ex.Message);
+                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
             }
             return Json(obj);
         }
 
-        [HttpPost]
-        public ActionResult<common.response> Post(error_log t)
-        {
-            return Json(ch.Post(t));
-        }
+        /// <summary>
+        /// 更新异常信息
+        /// </summary>
+        /// <param name="t"></param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
         [HttpPut]
         public ActionResult<common.response> Put(error_log t)
         {

@@ -11,12 +11,11 @@ namespace mpm_web_api.Controllers
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/tag_type_sub")]
-    [SwaggerTag("操作tag次级类型数据")]
+    [SwaggerTag("二级标签类型")]
     [ApiController]
     public class TagTypeSubController : SSOController, IController<tag_type_sub>
     {
         ControllerHelper<tag_type_sub> ch = new ControllerHelper<tag_type_sub>();
-
         /// <summary>
         /// 删除tag sub类型
         /// </summary>
@@ -31,7 +30,7 @@ namespace mpm_web_api.Controllers
             return Json(ch.Delete(id));
         }
         /// <summary>
-        /// 获取所有tag sub类型信息
+        /// 获取
         /// </summary>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
@@ -44,7 +43,7 @@ namespace mpm_web_api.Controllers
         }
 
         /// <summary>
-        /// 新增tag sub类型
+        /// 新增
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -58,7 +57,7 @@ namespace mpm_web_api.Controllers
         }
 
         /// <summary>
-        /// 更新tag sub类型
+        /// 更新
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>

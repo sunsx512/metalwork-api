@@ -12,7 +12,7 @@ namespace mpm_web_api.Controllers
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/machine")]
-    [SwaggerTag("操作设备数据")]
+    [SwaggerTag("设备")]
     [ApiController]
     public class MachineController : SSOController,IController<machine>
     {

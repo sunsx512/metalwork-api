@@ -7,35 +7,30 @@ using mpm_web_api.Common;
 using mpm_web_api.model;
 using Swashbuckle.AspNetCore.Annotations;
 
-/// <summary>
-/// add by sunsx.sun
-/// 
-/// 非固定排休控制器（对应 area_property表三个控制器之三）
-/// </summary>
-namespace mpm_web_api.Controllers.c_common
+namespace mpm_web_api.Controllers.c_oee
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/unfixed_break")]
-    [SwaggerTag("操作非固定排休数据")]
+    [Route("api/v1/configuration/oee/machine_status_alert")]
+    [SwaggerTag("设备状态预警信息")]
     [ApiController]
-    public class Unfixed_BreakController : SSOController,IController<area_property>
+    public class MachineStatusAlertController : SSOController, IController<machine_status_alert>
     {
-        ControllerHelper<area_property> ch = new ControllerHelper<area_property>();
+        ControllerHelper<machine_status_alert> ch = new ControllerHelper<machine_status_alert>();
 
         /// <summary>
-        /// 获取所有Area_Property信息
+        /// 获取设备状态预警信息
         /// </summary>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<common.response<area_property>> Get()
+        public ActionResult<common.response<machine_status_alert>> Get()
         {
             return Json(ch.Get());
         }
         /// <summary>
-        /// 新增Area_Property
+        /// 新增
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -43,12 +38,12 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<common.response> Post(area_property t)
+        public ActionResult<common.response> Post(machine_status_alert t)
         {
             return Json(ch.Post(t));
         }
         /// <summary>
-        /// 更新Area_Property
+        /// 更新
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -56,12 +51,12 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(area_property t)
+        public ActionResult<common.response> Put(machine_status_alert t)
         {
             return Json(ch.Put(t));
         }
         /// <summary>
-        /// 删除Area_Property
+        /// 删除
         /// </summary>
         /// <param name="id">主键id</param>
         /// <response code="200">调用成功</response>

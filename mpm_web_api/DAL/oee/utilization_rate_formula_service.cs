@@ -24,7 +24,7 @@ namespace mpm_web_api.DAL.oee
             {
                 if(DB.Queryable<T>().ToList()!=null)
                 {
-                    DB.Updateable(Obj).UpdateColumns(it => new { it.denominator, it.numerator }).Where(it => it.id == Obj.id).ExecuteCommand();
+                    DB.Updateable(Obj).UpdateColumns(it => new { it.formula }).Where(it => it.id == Obj.id).ExecuteCommand();
                     test = 1;
                 }
                 else
@@ -59,7 +59,7 @@ namespace mpm_web_api.DAL.oee
 
             try
             {
-                var result = DB.Updateable(obj).UpdateColumns(it => new { it.denominator, it.numerator}).Where(it => it.id==obj.id).ExecuteCommand();
+                var result = DB.Updateable(obj).UpdateColumns(it => new { it.formula}).Where(it => it.id==obj.id).ExecuteCommand();
             }
             catch (Exception ex)
             {

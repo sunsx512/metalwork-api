@@ -4,46 +4,43 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using mpm_web_api.Common;
 using mpm_web_api.DAL.oee;
 using mpm_web_api.model;
 using Newtonsoft.Json;
 
 namespace mpm_web_api.Controllers.oee
 {
+    [Produces(("application/json"))]
     [Route("api/v1/configuration/oee/status_setting")]
     [ApiController]
-    public class status_setting_Controller : ControllerBase
+    public class status_setting_Controller : SSOController
     {
-        status_setting_service service = new status_setting_service();
+        ControllerHelper<status_setting> ch = new ControllerHelper<status_setting>();
 
-        [HttpGet]
-        public ActionResult<string> Get()
+
+        [HttpDelete]
+        public ActionResult<common.response<status_setting>> Delete(int id)
         {
-            List<status_setting> lty = service.GetList<status_setting>();
-            string strJson = JsonConvert.SerializeObject(lty);
-            return strJson;
+            return Json(ch.Delete(id));
         }
 
-        [HttpGet("{status_name}")]
-        public ActionResult<string> Get(string status_name)
+        [HttpGet]
+        public ActionResult<common.response<status_setting>> Get()
         {
-            List<status_setting> lty = service.GetList<status_setting>(status_name);
-            string strJson = JsonConvert.SerializeObject(lty);
-            return strJson;
+            return Json(ch.Get());
         }
 
         [HttpPost]
-        public ActionResult<bool> Post(status_setting obj)
+        public ActionResult<common.response> Post(status_setting obj)
         {
-            bool res = service.insert<status_setting>(obj);
-            return res;
+            return Json(ch.Post(obj));
         }
 
         [HttpPut]
-        public ActionResult<bool> update(status_setting obj)
+        public ActionResult<common.response> update(status_setting obj)
         {
-            bool res = service.update<status_setting>(obj);
-            return res;
+            return Json(ch.Put(obj));
         }
     }
 }

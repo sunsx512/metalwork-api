@@ -10,19 +10,19 @@ namespace mpm_web_api.model
     public class tag_info:base_model
     {
         /// <summary>
-        /// 
+        /// 标签名称
         /// </summary>
         public string name { get; set; }
         /// <summary>
-        /// 
+        /// 描述
         /// </summary>
         public string description { get; set; }
         /// <summary>
-        /// 
+        /// 设备id
         /// </summary>
         public int machine_id { get; set; }
         /// <summary>
-        /// 
+        /// 二级标签id
         /// </summary>
         public int tag_type_sub_id { get; set; }
     }

@@ -9,7 +9,13 @@ namespace mpm_web_api.model
     [SugarTable("andon.notification_person")]
     public class notification_person:base_model
     {
+        /// <summary>
+        /// 人员id
+        /// </summary>
         public int person_id { get; set; }
+        /// <summary>
+        /// 通知群组id
+        /// </summary>
         public int notification_group_id { get; set; }
     }
     [SugarTable("andon.notification_person_detail")]

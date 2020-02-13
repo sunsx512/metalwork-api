@@ -7,16 +7,9 @@ using SqlSugar;
 namespace mpm_web_api.model
 {
     [SugarTable("oee.status_setting")]
-    public class status_setting
+    public class status_setting:base_model
     {
-        [SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnName = "id")]
-        /// <summary>
-        /// 
-        /// </summary>
-        public int id { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
+
         public int value { get; set; }
         /// <summary>
         /// 

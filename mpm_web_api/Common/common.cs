@@ -76,9 +76,9 @@ namespace mpm_web_api
             return re;
         }
 
-        public static object ResponseStr<T>(int code, string message) where T : class, new()
+        public static object ResponseStr(int code, string message) 
         {
-            response<T> re = new response<T>(null);
+            response re = new response();
             re.code = code;
             re.message = message;
             return re;

@@ -12,7 +12,7 @@ namespace mpm_web_api.Controllers
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/dept")]
-    [SwaggerTag("操作部门数据")]
+    [SwaggerTag("部门")]
     [ApiController]
     public class DeptController : SSOController,IController<department>
     {

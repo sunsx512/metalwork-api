@@ -19,12 +19,60 @@ namespace mpm_web_api.Controllers.c_work_order
     {
 
         ControllerHelper<virtual_line> ch = new ControllerHelper<virtual_line>();
+        ControllerHelper<wo_machine> chw = new ControllerHelper<wo_machine>();
         VirtualLineService vls = new VirtualLineService();
+        /// <summary>
+        /// 删除虚拟线
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
         [HttpDelete]
         public ActionResult<common.response> Delete(int id)
         {
             return Json(ch.Delete(id));
         }
+
+        /// <summary>
+        /// 删除该虚拟线下的设备
+        /// </summary>
+        /// <param name="virtual_line_id">虚拟线id</param>
+        /// <param name="machine_id">设备id</param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
+        [HttpDelete("{virtual_line_id}")]
+        public ActionResult<common.response> DeleteM(int virtual_line_id, int machine_id)
+        {
+            object obj;
+            try
+            {
+                if(vls.DeleteByMachine(virtual_line_id, machine_id))
+                {
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                }
+                else
+                {
+                    obj = common.ResponseStr((int)httpStatus.succes, "删除失败");
+                } 
+            }
+            catch (Exception ex)
+            {
+                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            }
+            return Json(obj);
+        }
+
+        /// <summary>
+        /// 获取详细的虚拟线信息
+        /// </summary>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
         [HttpGet]
         public ActionResult<common.response<virtual_line_detail>> Get()
         {
@@ -37,18 +85,47 @@ namespace mpm_web_api.Controllers.c_work_order
             }
             catch (Exception ex)
             {
-                obj = common.ResponseStr<virtual_line_detail>((int)httpStatus.serverError, ex.Message);
+                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
             }
-
             return Json(obj);
         }
 
+        /// <summary>
+        /// 新增虚拟线
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult<common.response> Post(virtual_line t)
         {
             return Json(ch.Post(t));
         }
+        /// <summary>
+        /// 新增虚拟线下的设备
+        /// </summary>
+        /// <param name="virtual_line_id">虚拟线id</param>
+        /// <param name="machine_id">设备id</param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
+        [HttpPost("{virtual_line_id}")]
+        public ActionResult<common.response> PostM(int virtual_line_id, int machine_id)
+        {
+            wo_machine wm = new wo_machine();
+            wm.machine_id = machine_id;
+            wm.virtual_line_id = virtual_line_id;
+            return Json(chw.Post(wm));
+        }
 
+        /// <summary>
+        /// 更新虚拟线信息
+        /// </summary>
+        /// <param name="t"></param>
+        /// <response code="200">调用成功</response>
+        /// <response code="400">服务器异常</response>
+        /// <response code="410">数据库操作失败</response>
+        /// <response code="411">外键异常</response>
         [HttpPut]
         public ActionResult<common.response> Put(virtual_line t)
         {

@@ -11,7 +11,7 @@ namespace mpm_web_api.Controllers
 {
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/person")]
-    [SwaggerTag("操作人员数据")]
+    [SwaggerTag("人员信息")]
     [ApiController]
     public class PersonController : SSOController
     {

@@ -52,11 +52,12 @@ namespace mpm_web_api.Controllers.c_common
             }
             catch (Exception ex)
             {
-                obj = common.ResponseStr<tag_info_detail>((int)httpStatus.serverError, ex.Message);
+                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
             }
 
             return Json(obj);
         }
+
         /// <summary>
         /// 新增标签
         /// </summary>

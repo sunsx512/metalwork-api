@@ -11,16 +11,6 @@ namespace mpm_web_api.DAL
     {
         public new List<virtual_line_detail> QueryableToList()
         {
-            //var list = DB.Queryable<virtual_line, wo_machine>((s1, s2) => new object[] {
-            //JoinType.Left,s1.id == s2.virtual_line_id})
-            //.Select((s1, s2) => new
-            //{
-            //    id = s1.id,
-            //    name_cn = s1.name_cn,
-            //    name_en = s1.name_en,
-            //    name_tw = s1.name_tw,
-            //    wo_machine = s2,
-            //}).ToList();
             var list = DB.Queryable<virtual_line_detail>()
                    .Mapper((it) =>
                    {
@@ -37,7 +27,12 @@ namespace mpm_web_api.DAL
             return list;
         }
 
-
+        public bool DeleteByMachine(int virtual_line_id, int machine_id)
+        {
+            return DB.Deleteable<wo_machine>()
+                .Where(x => x.machine_id == machine_id)
+                .Where(x => x.virtual_line_id == virtual_line_id).ExecuteCommand() > 0;
+        }
 
     }
 }

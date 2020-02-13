@@ -29,5 +29,13 @@ namespace mpm_web_api.DAL
             return list;
         }
 
+        public List<wo_config> QueryableByMachine(int machine_id)
+        {
+            var machines = DB.Queryable<wo_machine_detail>().Where(x => x.machine_id == machine_id).ToList();
+            var virtual_line = DB.Queryable<virtual_line>().Where(x => x.id == machines.First().virtual_line_id).ToList();
+            var list = DB.Queryable<wo_config>().Where(x => x.virtual_line_id == virtual_line.First().id).ToList();
+            return list;
+        }
+
     }
 }
