@@ -52,6 +52,15 @@ namespace mpm_web_api.DAL
             List<area_property> list = DB.Queryable<area_property>().Where(x => x.name_en == "fixed_break").ToList();
             return list;
         }
+        /// <summary>
+        /// 获取时区信息
+        /// </summary>
+        /// <returns></returns>
+        public List<area_property> QueryTimeZone()
+        {
+            List<area_property> list = DB.Queryable<area_property>().Where(x => x.name_en == "time_zone").ToList();
+            return list;
+        }
 
         public bool AddFixedBreak(int area_node_id, List<day> times)
         {

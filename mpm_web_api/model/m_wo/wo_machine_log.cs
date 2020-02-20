@@ -49,5 +49,9 @@ namespace mpm_web_api.model
         /// 平均C/T
         /// </summary>
         public decimal cycle_time_average { get; set; }
+        /// <summary>
+        /// 设备id
+        /// </summary>
+        public decimal machine_id { get; set; }
     }
 }

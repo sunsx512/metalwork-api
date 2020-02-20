@@ -62,5 +62,14 @@ namespace mpm_web_api.model
 
     }
 
+    public class wo_config_excute : wo_config_detail
+    {
+        /// <summary>
+        /// 虚拟线日志信息
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public virtual_line_log virtual_Line_log { set; get; }
+
+    }
 
 }

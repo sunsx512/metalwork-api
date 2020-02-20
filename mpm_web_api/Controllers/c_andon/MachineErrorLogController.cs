@@ -112,36 +112,7 @@ namespace mpm_web_api.Controllers.c_andon
             return Json(obj);
         }
 
-        /// <summary>
-        /// 修改替代者的名字
-        /// </summary>
-        /// <param name="id">异常日志id</param>
-        /// <param name="name">替代者名字</param>
-        /// <response code="200">调用成功</response>
-        /// <response code="400">服务器异常</response>
-        /// <response code="410">数据库操作失败</response>
-        /// <response code="411">外键异常</response>
-        [HttpPut("{id}")]
-        public ActionResult<common.response> PutS(int id, string name)
-        {
-            object obj;
-            try
-            {
-                if (els.UpdataSubstitutes(id, name))
-                {
-                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                }
-                else
-                {
-                    obj = common.ResponseStr((int)httpStatus.dbError, "添加失败");
-                }
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
-            return Json(obj);
-        }
+
 
     }
 }

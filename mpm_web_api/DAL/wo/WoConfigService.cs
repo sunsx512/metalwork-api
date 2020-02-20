@@ -37,5 +37,32 @@ namespace mpm_web_api.DAL
             return list;
         }
 
+        public  List<wo_config_excute> QueryableByStatus(int status)
+        {
+            var list = DB.Queryable<wo_config_excute>()
+                   .Where(x=>x.status == status)
+                   .Mapper((it) =>
+                   {
+                       var virtual_line_log = DB.Queryable<virtual_line_log>().Where(x => x.wo_config_id == it.id).ToList();
+                       var virtual_line = DB.Queryable<virtual_line>().Where(x => x.id == virtual_line_log.First().virtual_line_id).ToList();
+                       it.id = it.id;
+                       it.auto = it.auto;
+                       it.create_time = it.create_time;
+                       it.order_index = it.order_index;
+                       it.part_num = it.part_num;
+                       it.shift = it.shift;
+                       it.standard_num = it.standard_num;
+                       it.standard_time = it.standard_time;
+                       it.status = it.status;
+                       it.virtual_line_id = it.virtual_line_id;
+                       it.virtual_Line_log = virtual_line_log.First();
+                       it.virtual_Line = virtual_line.First();
+                       it.work_order = it.work_order;
+                   }).ToList();
+
+
+            return list;
+        }
+
     }
 }

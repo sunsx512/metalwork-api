@@ -4,24 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
-using mpm_web_api.DAL;
 using mpm_web_api.model;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace mpm_web_api.Controllers.c_common
+namespace mpm_web_api.Controllers.c_andon
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/tag")]
-    [SwaggerTag("标签信息")]
+    [Route("/api/v1/configuration/andon/error_config")]
+    [SwaggerTag("异常配置")]
     [ApiController]
-    public class TagInfoController : SSOController
+    public class ErrorConfigController : SSOController
     {
-        ControllerHelper<tag_info> ch = new ControllerHelper<tag_info>();
+        ControllerHelper<error_config> ch = new ControllerHelper<error_config>();
         /// <summary>
-        /// 删除标签
+        /// 删除异常配置
         /// </summary>
-        /// <param name="id">主键id</param>
+        /// <param name="id">id</param>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
@@ -29,45 +27,46 @@ namespace mpm_web_api.Controllers.c_common
         [HttpDelete]
         public ActionResult<common.response> Delete(int id)
         {
-
             return Json(ch.Delete(id));
         }
+
         /// <summary>
-        /// 获取所有标签信息
+        /// 查询异常配置
         /// </summary>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<common.response<tag_info>> Get()
+        public ActionResult<common.response<error_config>> Get()
         {
             return Json(ch.Get());
         }
 
         /// <summary>
-        /// 新增标签
+        /// 新增异常配置
         /// </summary>
-        /// <param name="t">传入参数</param>
+        /// <param name="t"></param>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<common.response> Post(tag_info t)
+        public ActionResult<common.response> Post(error_config t)
         {
             return Json(ch.Post(t));
         }
+
         /// <summary>
-        /// 更新标签信息
+        /// 更新异常配置
         /// </summary>
-        /// <param name="t">传入参数</param>
+        /// <param name="t"></param>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(tag_info t)
+        public ActionResult<common.response> Put(error_config t)
         {
             return Json(ch.Put(t));
         }

@@ -28,7 +28,7 @@ namespace mpm_web_api.Controllers.c_common
         /// <summary>
         /// 获取所有节点属性信息
         /// </summary>
-        /// <param name="type">对应三种类别 shift:班别  unfixed_break:非固定排休 fixed_break:固定排休</param>
+        /// <param name="type">对应四种种类别 shift:班别  unfixed_break:非固定排休 fixed_break:固定排休 time_zone:时区</param>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
@@ -45,6 +45,7 @@ namespace mpm_web_api.Controllers.c_common
                     case "shift": lty = aps.QueryShift(); break;
                     case "unfixed_break": lty = aps.QueryUnfixedBreak(); break;
                     case "fixed_break": lty = aps.QueryFixedBreak(); break;
+                    case "time_zone": lty = aps.QueryTimeZone(); break;
                     default: return Json(ch.Get());
                 }
                 string strJson = JsonConvert.SerializeObject(lty);
@@ -58,27 +59,6 @@ namespace mpm_web_api.Controllers.c_common
             return Json(obj);
             
         }
-        //[HttpPost]
-        //public ActionResult<common.response> Post(int area_node_id, string day_start_time, string day_end_time, string night_start_time, string night_end_time)
-        //{
-        //    object obj;
-        //    try
-        //    {
-        //        if (aps.AddShift(area_node_id, day_start_time, day_end_time, night_start_time, night_end_time))
-        //        {
-        //            obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-        //        }
-        //        else
-        //        {
-        //            obj = common.ResponseStr((int)httpStatus.succes, "新增失败");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-        //    }
-        //    return Json(obj);
-        //}
 
 
         /// <summary>
@@ -91,12 +71,13 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="411">外键异常</response>
         /// <remarks>
         /// format字段说明
-        /// 如果是班别填入格式如下
+        /// 如果是班别填入格式如下  name_cn :shift
         /// {"day":{"start":"8:00:00","end":"16:00:00"},"night":{"start":"16:00:00","end":"8:00:00"}}
-        /// 固定排休格式:
+        /// 固定排休格式: name_cn :fixed_break
         /// {"rest":[{"start":"8:00:00","end":"16:00:00"},{"start":"8:00:00","end":"16:00:00"}]}
-        /// 非固定排休格式:
+        /// 非固定排休格式: name_cn :unfixed_break
         /// {"rest":[{"start":"2019-11-12 8:00:00","end":"2019-11-12 16:00:00"},{"start":"2019-11-12 8:00:00","end":"2019-11-12 16:00:00"}]}
+        /// 时区: 8    (直接填数字)
         /// 注意:format为json格式数据 一定要满足以上格式要求，不然后端解析会出错
         /// </remarks>
         [HttpPost]

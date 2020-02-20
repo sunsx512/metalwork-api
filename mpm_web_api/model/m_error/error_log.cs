@@ -57,5 +57,23 @@ namespace mpm_web_api.model
         /// 解除时间
         /// </summary>
         public DateTime release_time { get; set; }
+        /// <summary>
+        /// 不良数量
+        /// </summary>
+        public decimal defectives_count { set; get; }
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string description { get; set; }
+       
+    }
+
+    public class error_log_detail : error_log
+    {
+        /// <summary>
+        /// 异常配置信息
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public error_config error_config { set; get; }
     }
 }

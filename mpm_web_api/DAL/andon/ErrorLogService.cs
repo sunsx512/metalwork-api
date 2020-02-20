@@ -9,27 +9,119 @@ namespace mpm_web_api.DAL.andon
     public class ErrorLogService : BaseService<error_log>
     {
         DateTime dt = new DateTime();
-        public  List<error_log> QueryableToListByStatus(string status)
+        public  List<error_log> QueryableToListByStatus(int status)
         {
             List<error_log> list = new List<error_log>();
-            if (status == "all")
+            switch (status)
             {
-                list = DB.Queryable<error_log>().ToList();
-            }
-            else if(status == "penging")
-            {
-                list = DB.Queryable<error_log>().Where(x => x.arrival_time == dt).ToList();
-            }
-            else if (status == "processing")
-            {
-                list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt && x.release_time == dt).ToList();
-            }
-            else if (status == "finished")
-            {
-                list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt).ToList();
+                case 0: list = DB.Queryable<error_log>().ToList();break;
+                case 1: list = DB.Queryable<error_log>().Where(x => x.arrival_time == dt).ToList();; break;
+                case 2: list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt && x.release_time == dt).ToList(); break;
+                case 3: list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt).ToList(); break;
             }
             return list;
         }
+
+
+        public List<error_log_detail> QueryableDetailToListByStatus(int status)
+        {
+            List<error_log_detail> list = new List<error_log_detail>();
+            switch (status)
+            {
+                case 0: list = DB.Queryable<error_log_detail>()
+                                .Mapper((it) =>
+                                {
+                                    List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
+                                    it.error_config = error_configs.First();
+                                }).ToList(); break;
+                case 1: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time == dt)
+                                .Mapper((it) =>
+                                {
+                                    List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
+                                    it.error_config = error_configs.First();
+                                }).ToList(); break; 
+                case 2: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt && x.release_time == dt)
+                                .Mapper((it) =>
+                                {
+                                    List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
+                                    it.error_config = error_configs.First();
+                                }).ToList(); break;
+                case 3: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt)
+                                .Mapper((it) =>
+                                {
+                                    List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
+                                    it.error_config = error_configs.First();
+                                }).ToList(); break;
+            }
+            return list;
+        }
+
+
+        public List<error_log_detail> QueryableDetailToListByStatus(int type,int status)
+        {
+            List<error_log_detail> list = new List<error_log_detail>();
+            switch (status)
+            {
+                case 0:
+                    list = DB.Queryable<error_log_detail>()
+                            .Mapper((it) =>
+                            {
+                                List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
+                                it.error_config = error_configs.First();
+                            }).ToList(); break;
+                case 1:
+                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time == dt)
+                            .Mapper((it) =>
+                            {
+                                List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
+                                it.error_config = error_configs.First();
+                            }).ToList(); break;
+                case 2:
+                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt && x.release_time == dt)
+                            .Mapper((it) =>
+                            {
+                                List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
+                                it.error_config = error_configs.First();
+                            }).ToList(); break;
+                case 3:
+                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt)
+                            .Mapper((it) =>
+                            {
+                                List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
+                                it.error_config = error_configs.First();
+                            }).ToList(); break;
+            }
+            switch (type)
+            {
+                case 0: list = list.Where(x => x.tag_type_sub_name == "equipment_error").ToList(); break;
+                case 1: list = list.Where(x => x.tag_type_sub_name == "quality_error").ToList(); break;
+                case 2: list = list.Where(x => x.tag_type_sub_name == "material_require").ToList(); break;
+            }
+            return list;
+        }
+
+
+        public List<error_log> QueryableToListByStatusAndType(int type,int status)
+        {
+            List<error_log> list = new List<error_log>();
+            switch (status)
+            {
+                case 0: list = DB.Queryable<error_log>().ToList(); break;
+                case 1: list = DB.Queryable<error_log>().Where(x => x.arrival_time == dt).ToList();  break;
+                case 2: list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt && x.release_time == dt).ToList(); break;
+                case 3: list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt).ToList(); break;
+            }
+            switch (type)
+            {
+                case 0: list = list.Where(x => x.tag_type_sub_name == "equipment_error").ToList(); break;
+                case 1: list = list.Where(x => x.tag_type_sub_name == "quality_error").ToList(); break;
+                case 2: list = list.Where(x => x.tag_type_sub_name == "material_require").ToList(); break;
+            }
+            return list;
+        }
+
+
+
 
         public List<error_log> QueryableToListByMahcine(string machine ,string work_order)
         {
