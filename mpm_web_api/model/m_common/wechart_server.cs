@@ -29,9 +29,7 @@ namespace mpm_web_api.model
         /// 应用token
         /// </summary>
         public string access_token { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime create_time { get; set; }
+        //令牌创建时间(格林尼治区)
+        public string create_time { get; set; }
     }
 }
