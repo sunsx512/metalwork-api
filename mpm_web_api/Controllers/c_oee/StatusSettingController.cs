@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.oee
     [Produces(("application/json"))]
     [Route("api/v1/configuration/oee/status_setting")]
     [ApiController]
-    public class status_setting_Controller : SSOController
+    public class StatusSettingController : SSOController
     {
         ControllerHelper<status_setting> ch = new ControllerHelper<status_setting>();
 

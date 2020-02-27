@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace mpm_web_api.model
+namespace mpm_web_api.model.m_wo
 {
-    [SugarTable("work_order.virtual_line_log")]
-    public class virtual_line_log:base_model
+    [SugarTable("work_order.virtual_line_current_log")]
+    public class virtual_line_cur_log:base_model
     {
         /// <summary>
         /// 虚拟线id
@@ -22,10 +22,6 @@ namespace mpm_web_api.model
         /// </summary>
         public DateTime start_time { get; set; }
         /// <summary>
-        /// 结束时间
-        /// </summary>
-        public DateTime end_time { get; set; }
-        /// <summary>
         /// 平衡率
         /// </summary>
         public decimal balance_rate { get; set; }
@@ -33,14 +29,9 @@ namespace mpm_web_api.model
         /// 生产率
         /// </summary>
         public decimal productivity { get; set; }
-
         /// <summary>
         /// 标准数量
         /// </summary>
         public decimal quantity { set; get; }
-
     }
-
-
-
 }

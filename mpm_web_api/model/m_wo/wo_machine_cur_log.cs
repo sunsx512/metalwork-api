@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace mpm_web_api.model
+namespace mpm_web_api.model.m_wo
 {
-    [SugarTable("work_order.wo_machine_log")]
-    public class wo_machine_log:base_model
+    [SugarTable("work_order.wo_machine_current_log")]
+    public class wo_machine_cur_log: base_model
     {
         /// <summary>
         /// 工单id
@@ -21,10 +21,6 @@ namespace mpm_web_api.model
         /// 开始时间
         /// </summary>
         public DateTime start_time { get; set; }
-        /// <summary>
-        /// 结束时间
-        /// </summary>
-        public DateTime end_time { get; set; }
         /// <summary>
         /// 当前数量
         /// </summary>
@@ -57,5 +53,14 @@ namespace mpm_web_api.model
         /// 标准数量
         /// </summary>
         public int standard_num { get; set; }
+        
+    }
+    public class wo_machine_cur_log_detail : wo_machine_cur_log
+    {
+        /// <summary>
+        /// 工单信息
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public wo_config work_order { get; set; }
     }
 }

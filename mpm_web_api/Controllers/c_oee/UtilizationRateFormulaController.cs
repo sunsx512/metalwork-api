@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.oee
     [Produces(("application/json"))]
     [Route("api/v1/configuration/oee/utilization_formula")]
     [ApiController]
-    public class utilization_rate_formula_Controller : SSOController
+    public class UtilizationRateFormulaController : SSOController
     {
         ControllerHelper<utilization_rate_formula> ch = new ControllerHelper<utilization_rate_formula>();
 

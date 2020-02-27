@@ -25,9 +25,5 @@ namespace mpm_web_api.model
         /// 描述
         /// </summary>
         public string description { get; set; }
-        /// <summary>
-        /// 上一级层级的id
-        /// </summary>
-        public int upper_id { get; set; }
     }
 }
