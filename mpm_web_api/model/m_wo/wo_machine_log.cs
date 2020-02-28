@@ -28,11 +28,11 @@ namespace mpm_web_api.model
         /// <summary>
         /// 当前数量
         /// </summary>
-        public int quantity { get; set; }
+        public decimal quantity { get; set; }
         /// <summary>
         /// 不良数量
         /// </summary>
-        public int bad_quantity { get; set; }
+        public decimal bad_quantity { get; set; }
         /// <summary>
         /// 达成率
         /// </summary>
