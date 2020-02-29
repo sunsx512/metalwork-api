@@ -40,7 +40,7 @@ namespace mpm_web_api.DAL
         public  List<wo_config_excute> QueryableByStatus(int status)
         {
             var list = DB.Queryable<wo_config_excute>()
-                   .Where(x=>x.status == status)
+                   .Where(x=>x.status >= status)
                    .Mapper((it) =>
                    {
                        var virtual_line_log = DB.Queryable<virtual_line_log>().Where(x => x.wo_config_id == it.id).ToList();

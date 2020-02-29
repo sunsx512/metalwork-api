@@ -1,4 +1,5 @@
-﻿using mpm_web_api.db;
+﻿using MongoDB.Bson;
+using mpm_web_api.db;
 using mpm_web_api.DB;
 using mpm_web_api.model;
 using mpm_web_api.model.m_wo;
@@ -353,6 +354,7 @@ namespace mpm_web_api.DAL.andon
                     wo_config wo = DB.Queryable<wo_config>()
                                     .Where(x => x.id == wocr.wo_config_id).First();
                     material_request_info mri = new material_request_info();
+                    mri.error_config_id = ec.id;
                     if (mc != null)
                         mri.machine_name = mc.name_en;
                     mri.material_code = material_code;
@@ -436,6 +438,7 @@ namespace mpm_web_api.DAL.andon
         private void  SendMGMsg(string s,string t,int v)
         {
             MongoDbTag mongoDbTag = new MongoDbTag();
+            mongoDbTag.ID = new ObjectId();
             mongoDbTag.s = s;
             mongoDbTag.t = t;
             mongoDbTag.v = v;

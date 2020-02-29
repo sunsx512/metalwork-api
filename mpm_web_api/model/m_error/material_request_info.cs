@@ -49,5 +49,9 @@ namespace mpm_web_api.model
         /// 描述
         /// </summary>
         public string description { get; set; }
+        /// <summary>
+        /// 异常配置id
+        /// </summary>
+        public int error_config_id { get; set; }
     }
 }

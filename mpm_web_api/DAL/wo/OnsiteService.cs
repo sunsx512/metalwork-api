@@ -138,6 +138,7 @@ namespace mpm_web_api.DAL.wo
                                                  .Where(x => x.virtual_line_id == virtual_line_id)
                                                  .Where(x => x.wo_config_id == wo_config_id)
                                                  .First();
+            wo_config dBWoConfig = DB.Queryable<wo_config>().Where(x => x.id == wo_config_id).First();
             if (vlcl != null)
             {
                 vll.balance_rate = vlcl.balance_rate;
@@ -148,8 +149,26 @@ namespace mpm_web_api.DAL.wo
                 vll.virtual_line_id = vlcl.virtual_line_id;
                 vll.wo_config_id = vlcl.wo_config_id;
             }
-            //更新主工单状态
-            re = DB.Updateable<wo_config>().Where(x => x.id == wo_config_id).UpdateColumns(it => new wo_config() { status = 3 }).ExecuteCommand() > 0;
+            string[] standrd_times = dBWoConfig.standard_time.Split(';');
+            decimal per_cost = 0;
+            foreach (string obj in standrd_times)
+            {
+                per_cost = per_cost + Convert.ToDecimal(obj);
+            }
+
+            TimeSpan ts = vll.end_time - vll.start_time;
+            decimal cost = Convert.ToDecimal(ts.TotalSeconds);
+            //大于标准生产时间  为逾期 工单
+            if (cost > dBWoConfig.standard_num * per_cost)
+            {
+                //更新主工单的状态
+                DB.Updateable<wo_config>().Where(x => x.id == wo_config_id).UpdateColumns(it => new wo_config() { status = 11 }).ExecuteCommand();
+            }
+            else
+            {
+                //更新主工单的状态
+                DB.Updateable<wo_config>().Where(x => x.id == wo_config_id).UpdateColumns(it => new wo_config() { status = 3 }).ExecuteCommand();
+            }
             //完结 当前执行的线工单日志
             re = re & DB.Deleteable<virtual_line_cur_log>().Where(x => x.id == vlcl.id).ExecuteCommand()>0;
             //插入到线工单历史记录中
