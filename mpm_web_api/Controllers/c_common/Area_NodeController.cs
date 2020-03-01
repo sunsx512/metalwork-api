@@ -50,16 +50,16 @@ namespace mpm_web_api.Controllers.c_common
             if(detail == "detail")
             {
                 object obj;
-                try
-                {
+                //try
+                //{
                     List<area_node_detail> lty = ans.QueryableToList();
                     string strJson = JsonConvert.SerializeObject(lty);
                     obj = common.ResponseStr<area_node_detail>((int)httpStatus.succes, "调用成功", lty);
-                }
-                catch (Exception ex)
-                {
-                    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+                //}
 
                 return Json(obj);
             }

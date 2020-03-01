@@ -27,18 +27,18 @@ namespace mpm_web_api.Controllers.c_oee
         [HttpGet]
         public ActionResult<common.response<machine_lease_detail>> Get()
         {
-            
+
             object obj;
-            try
-            {
-                List<machine_lease_detail> lty = mls.QueryableToList();
+            //try
+            //{
+            List<machine_lease_detail> lty = mls.QueryableToList();
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
     }

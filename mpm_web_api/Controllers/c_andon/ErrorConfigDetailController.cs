@@ -28,16 +28,16 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response<error_config_detail>> Get()
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 List<error_config_detail> lty = ecs.QueryableToList();
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<error_config_detail>((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
 
             return Json(obj);
         }

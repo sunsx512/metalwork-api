@@ -28,16 +28,16 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response<work_order_alert_detail>> Get()
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 List<work_order_alert_detail> lty = woas.QueryableDetailToList();
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<work_order_alert_detail>((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
 
             return Json(obj);
         }

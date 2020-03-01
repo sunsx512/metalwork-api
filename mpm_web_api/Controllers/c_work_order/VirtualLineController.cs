@@ -48,8 +48,8 @@ namespace mpm_web_api.Controllers.c_work_order
         public ActionResult<common.response> DeleteM(int virtual_line_id, int machine_id)
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 if(vls.DeleteByMachine(virtual_line_id, machine_id))
                 {
                     obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
@@ -58,11 +58,11 @@ namespace mpm_web_api.Controllers.c_work_order
                 {
                     obj = common.ResponseStr((int)httpStatus.succes, "删除失败");
                 } 
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
 

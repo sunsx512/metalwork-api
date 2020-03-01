@@ -79,7 +79,7 @@ namespace mpm_web_api.DAL.andon
             return true;
         }
 
-        public bool QualityConfirm(int machine_id, int log_id,int person_id)
+        public bool QualityConfirm(int machine_id, int log_id,string person_id)
         {
             //查询绑定的异常签到按钮
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_sign_in").First();
@@ -102,7 +102,7 @@ namespace mpm_web_api.DAL.andon
             
         }
 
-        public bool EquipmentConfirm(int machine_id, int log_id, int person_id)
+        public bool EquipmentConfirm(int machine_id, int log_id, string person_id)
         {
             //查询绑定的异常签到按钮
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_sign_in").First();
@@ -241,14 +241,14 @@ namespace mpm_web_api.DAL.andon
         }
 
         //更新日志
-        private bool Confirm(int log_id,int person_id)
+        private bool Confirm(int log_id,string person_id)
         {
             //查询当前日志是否存在
             error_log el = DB.Queryable<error_log>().Where(x => x.id == log_id).First();
             //如果存在
             if(el != null)
             {
-                person ps = DB.Queryable<person>().Where(x => x.id == person_id).First();
+                person ps = DB.Queryable<person>().Where(x => x.id_num == person_id).First();
                 if(ps != null)
                 {
                     //如果有替代者 则判断替代者是否正确

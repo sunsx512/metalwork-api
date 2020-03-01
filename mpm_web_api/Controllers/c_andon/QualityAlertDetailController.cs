@@ -29,16 +29,16 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response<quality_alert_detail>> Get()
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 List<quality_alert_detail> lty = qas.QueryableDetailToList();
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<quality_alert_detail>((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
 
             return Json(obj);
         }

@@ -45,16 +45,16 @@ namespace mpm_web_api.Controllers.c_work_order
         public ActionResult<common.response<wo_config_detail>> Get()
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 List<wo_config_detail> lty = wcs.QueryableToList();
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<wo_config_detail>((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
 
             return Json(obj);
         }

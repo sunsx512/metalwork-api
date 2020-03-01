@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using mpm_web_api.Common;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace mpm_web_api
@@ -64,6 +65,8 @@ namespace mpm_web_api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreWebApi");
             });
+            //异常处理中间件
+            app.UseMiddleware(typeof(ExceptionHandlerMiddleWare));
             app.UseMvc();
         }
     }

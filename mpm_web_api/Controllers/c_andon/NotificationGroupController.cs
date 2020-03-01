@@ -39,8 +39,8 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response> Delete(int group_id, int person_id)
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 if (ngs.DeletePerson(group_id, person_id))
                 {
                     obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
@@ -50,11 +50,11 @@ namespace mpm_web_api.Controllers.c_andon
                     obj = common.ResponseStr((int)httpStatus.dbError, "删除失败");
                 }
 
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
 

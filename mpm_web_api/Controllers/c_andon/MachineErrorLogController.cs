@@ -33,16 +33,16 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response<error_log>> Get(string machine,string work_order)
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 List<error_log> lty = els.QueryableToListByMahcine(machine, work_order);
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
 
@@ -63,8 +63,8 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response> Post(int config_id,string error_name,string machine_name,string responsible_name,string work_order,string part_number)
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 if(els.AddErrorLog(config_id, error_name, machine_name, responsible_name, work_order, part_number))
                 {
                     obj = common.ResponseStr((int)httpStatus.succes, "调用成功");                 
@@ -74,11 +74,11 @@ namespace mpm_web_api.Controllers.c_andon
                     obj = common.ResponseStr((int)httpStatus.dbError, "添加失败");
                 }
                 
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
         /// <summary>
@@ -94,8 +94,8 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response> Put(int id,int type)
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 if (els.UpdataHandleTime(id, type))
                 {
                     obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
@@ -104,11 +104,11 @@ namespace mpm_web_api.Controllers.c_andon
                 {
                     obj = common.ResponseStr((int)httpStatus.dbError, "修改失败");
                 }
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
 

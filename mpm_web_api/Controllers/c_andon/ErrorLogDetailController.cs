@@ -29,16 +29,16 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response<error_log_detail>> Get(int status)
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 List<error_log_detail> lty = els.QueryableDetailToListByStatus(status);
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<error_log_detail>((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
 
@@ -56,16 +56,16 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response<error_log_detail>> Get(int type, int status)
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 List<error_log_detail> lty = els.QueryableDetailToListByStatus(type, status);
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<error_log_detail>((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
     }

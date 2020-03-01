@@ -37,17 +37,17 @@ namespace mpm_web_api.Controllers
         public ActionResult<common.response<Licence>> Get()
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 Licence lc = LicenceHelper.ReadLicence();
                 List<Licence> list = new List<Licence>();
                 list.Add(lc);
                 obj = common.ResponseStr<Licence>((int)httpStatus.succes, "调用成功", list);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
 
             LicenceHelper.SaveLicenceLog("123");
             LicenceHelper.ReadLicenceLog();
