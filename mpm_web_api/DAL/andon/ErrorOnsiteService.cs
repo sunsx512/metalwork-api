@@ -213,9 +213,7 @@ namespace mpm_web_api.DAL.andon
                     //查询当前执行的工单
                     wo_machine_cur_log wocr = DB.Queryable<wo_machine_cur_log>()
                                     .Where(x => x.machine_id == machine_id).First();
-                    //查询主工单信息
-                    wo_config wo = DB.Queryable<wo_config>()
-                                    .Where(x => x.id == wocr.wo_config_id).First();
+
                     error_log el = new error_log();
                     el.error_config_id = ec.id;
                     if (mc != null)
@@ -223,10 +221,17 @@ namespace mpm_web_api.DAL.andon
                     el.tag_type_sub_name = ts.name_en;
                     if (ps != null)
                         el.responsible_name = ps.user_name;
-                    if (wo != null)
+                    if (wocr != null)
                     {
-                        el.work_order = wo.work_order;
-                        el.part_number = wo.part_num;
+                        //查询主工单信息
+                        wo_config wo = DB.Queryable<wo_config>()
+                                        .Where(x => x.id == wocr.wo_config_id).First();
+                        if(wo !=null)
+                        {
+                            el.work_order = wo.work_order;
+                            el.part_number = wo.part_num;
+                        }
+
                     }
                     el.start_time = DateTime.Now;
                     return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();
