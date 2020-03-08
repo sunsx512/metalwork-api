@@ -16,11 +16,11 @@ namespace mpm_web_api.model
         /// </summary>
         public int id { get; set; }
         /// <summary>
-        /// 
+        /// srp模块名
         /// </summary>
         public string srp_code { get; set; }
         /// <summary>
-        /// 
+        /// 插入时间
         /// </summary>
         public DateTime insert_time { get; set; }
         

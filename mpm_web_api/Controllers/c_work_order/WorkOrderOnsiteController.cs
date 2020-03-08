@@ -19,25 +19,36 @@ namespace mpm_web_api.Controllers.c_work_order
     {
         OnsiteService os = new OnsiteService();
         /// <summary>
-        /// 获取可以执行的工单号
+        /// 获取可以执行或者可以开启的工单号
         /// </summary>
-        /// <param name="virtual_line_id">虚拟线id</param>
+        /// <param name="machine_id">设备id</param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult<common.response<wo_config>> Get(int virtual_line_id)
+        public ActionResult<common.response<wo_config>> Get(int machine_id)
         {
-            object obj;
-            //try
+            List<wo_config> lty = os.GetExecutableWo(machine_id);
+            object obj = common.ResponseStr<wo_config>((int)httpStatus.succes, "调用成功", lty);
+            return Json(obj);
+            //switch (type)
             //{
-                List<wo_config> lty = os.GetExecutableWo(virtual_line_id);
-                string strJson = JsonConvert.SerializeObject(lty);
-                obj = common.ResponseStr<wo_config>((int)httpStatus.succes, "调用成功", lty);
+            //    case 0:
+            //        lty = os.GetExecutableWo(virtual_line_id);
+            //        strJson = JsonConvert.SerializeObject(lty);
+            //        obj = common.ResponseStr<wo_config>((int)httpStatus.succes, "调用成功", lty);
+            //        break;
+            //    case 1:
+            //        lty = os.GetExecutingWo(virtual_line_id);
+            //        strJson = JsonConvert.SerializeObject(lty);
+            //        obj = common.ResponseStr<wo_config>((int)httpStatus.succes, "调用成功", lty);
+            //        break;
+            //}
+
             //}
             //catch (Exception ex)
             //{
             //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
             //}
-            return Json(obj);
+
         }
 
         /// <summary>

@@ -61,7 +61,7 @@ namespace mpm_web_api.Controllers.c_andon
             object obj;
             //try
             //{
-                List<error_log> lty = els.QueryableToListByStatus(status);
+                List<error_log> lty = els.QueryableToListByStatusAndType(type,status);
                 string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<error_log>((int)httpStatus.succes, "调用成功", lty);
             //}

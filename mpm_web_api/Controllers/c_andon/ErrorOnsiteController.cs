@@ -31,8 +31,6 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response> Post(int type,int machine_id,int count, string material_name)
         {
             object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败"); ;
-            List<string> ss = new List<string>();
-            string str = ss[1];
             if (type == 0)
             {
                 if (eos.QualityTrigger(machine_id))

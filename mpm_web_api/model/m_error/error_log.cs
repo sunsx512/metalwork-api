@@ -65,7 +65,11 @@ namespace mpm_web_api.model
         /// 描述
         /// </summary>
         public string description { get; set; }
-       
+        /// <summary>
+        /// 花费时间
+        /// </summary>
+        public decimal cost_time { get; set; }
+
     }
 
     public class error_log_detail : error_log

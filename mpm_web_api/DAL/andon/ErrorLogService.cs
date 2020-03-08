@@ -121,8 +121,6 @@ namespace mpm_web_api.DAL.andon
         }
 
 
-
-
         public List<error_log> QueryableToListByMahcine(string machine ,string work_order)
         {
             List<error_log> list = new List<error_log>();
@@ -159,6 +157,7 @@ namespace mpm_web_api.DAL.andon
                 return false;
             }
         }
+
 
         public bool UpdataSubstitutes(int id, string substitutes)
         {

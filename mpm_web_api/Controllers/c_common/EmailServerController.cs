@@ -10,33 +10,33 @@ using Swashbuckle.AspNetCore.Annotations;
 /// <summary>
 /// add by sunsx.sun
 /// 
-/// Wechart_Server控制器
+/// Email_Server控制器
 /// </summary>
 namespace mpm_web_api.Controllers.c_common
 {
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/wechart_server")]
-    [SwaggerTag("微信服务信息")]
+    [Route("api/v1/configuration/public/email_server")]
+    [SwaggerTag("邮件服务")]
     [ApiController]
-    public class Wechart_ServerController : SSOController
+    public class EmailServerController : SSOController
     {
-        ControllerHelper<wechart_server> ch = new ControllerHelper<wechart_server>();
+        ControllerHelper<email_server> ch = new ControllerHelper<email_server>();
 
         /// <summary>
-        /// 获取所有Wechart_Server信息
+        /// 获取所有邮件服务器信息
         /// </summary>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<common.response<wechart_server>> Get()
+        public ActionResult<common.response<email_server>> Get()
         {
             return Json(ch.Get());
         }
 
         /// <summary>
-        /// 更新Wechart_Server
+        /// 更新邮件服务器信息
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -44,7 +44,7 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(wechart_server t)
+        public ActionResult<common.response> Put(email_server t)
         {
             return Json(ch.Put(t));
         }

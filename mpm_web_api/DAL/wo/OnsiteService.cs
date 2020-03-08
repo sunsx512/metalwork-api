@@ -23,13 +23,30 @@ namespace mpm_web_api.DAL.wo
         }
 
         /// <summary>
-        /// 获取可执行的工单信息
+        /// 按设备获取可执行的工单信息
+        /// </summary>
+        /// <param name="machine_id"></param>
+        /// <returns></returns>
+        public List<wo_config> GetExecutableWo(int machine_id)
+        {
+            List<wo_machine> wo_machines = DB.Queryable<wo_machine>().Where(x => x.machine_id == machine_id).ToList();
+            List<wo_config> wo_configs = new List<wo_config>();
+            foreach(wo_machine obj in wo_machines)
+            {
+                wo_configs.AddRange(DB.Queryable<wo_config>().Where(x => x.status == 1 || x.status == 2)
+                                            .Where(x => x.virtual_line_id == obj.virtual_line_id)
+                                            .ToList());
+            }
+            return wo_configs;
+        }
+        /// <summary>
+        /// 执行中的工单
         /// </summary>
         /// <param name="virtual_line_id"></param>
         /// <returns></returns>
-        public List<wo_config> GetExecutableWo(int virtual_line_id)
+        public List<wo_config> GetExecutingWo(int virtual_line_id)
         {
-            return DB.Queryable<wo_config>().Where(x => x.status == 1)
+            return DB.Queryable<wo_config>().Where(x => x.status == 2)
                                             .Where(x => x.virtual_line_id == virtual_line_id)
                                             .ToList();
         }
@@ -50,8 +67,9 @@ namespace mpm_web_api.DAL.wo
                 if(vl != null)
                 {
                     List<wo_machine> ml = DB.Queryable<wo_machine>().Where(x => x.virtual_line_id == vl.id).ToList();
-                   if(ml.Count>0)
+                    if(ml.Count>0)
                     {
+                        //拆分标准用时
                         int i = 0;
                         foreach(var obj in ml)
                         {
@@ -161,13 +179,21 @@ namespace mpm_web_api.DAL.wo
             //大于标准生产时间  为逾期 工单
             if (cost > dBWoConfig.standard_num * per_cost)
             {
+                //插入逾期工单表中
+                overdue_work_order woo = new overdue_work_order();
+                woo.start_time = vll.start_time;
+                woo.end_time = vll.end_time;
+                woo.wo_config_id = vll.wo_config_id;
+                woo.overdue_time = cost - dBWoConfig.standard_num * per_cost;
+                re = DB.Insertable<overdue_work_order>(woo).ExecuteCommand() > 0;
                 //更新主工单的状态
-                DB.Updateable<wo_config>().Where(x => x.id == wo_config_id).UpdateColumns(it => new wo_config() { status = 11 }).ExecuteCommand();
+                re = re & DB.Updateable<wo_config>().Where(x => x.id == wo_config_id).UpdateColumns(it => new wo_config() { status = 3 }).ExecuteCommand() > 0;
+
             }
             else
             {
                 //更新主工单的状态
-                DB.Updateable<wo_config>().Where(x => x.id == wo_config_id).UpdateColumns(it => new wo_config() { status = 3 }).ExecuteCommand();
+                re = DB.Updateable<wo_config>().Where(x => x.id == wo_config_id).UpdateColumns(it => new wo_config() { status = 3 }).ExecuteCommand() > 0;
             }
             //完结 当前执行的线工单日志
             re = re & DB.Deleteable<virtual_line_cur_log>().Where(x => x.id == vlcl.id).ExecuteCommand()>0;
@@ -196,12 +222,20 @@ namespace mpm_web_api.DAL.wo
                         //如果是第一台设备 则需要开启线，设备工单 修改主工单状态
                         if (ml.First().machine_id == machine_id)
                         {
+
                             re = StartWoVirtualLine(vl.id, work_order_id);
-                            return  re & StartWoMachine(machine_id, work_order_id);
+                            return re & StartWoMachine(machine_id, work_order_id);
                         }
                         else
                         {
-                            return  StartWoMachine(machine_id, work_order_id);
+                            //int index = ml.IndexOf(ml.Where(x => x.machine_id == machine_id).First());
+                            ////查询上一个设备的id
+                            //wo_machine prewom = ml[index - 1];
+                            //wo_machine_cur_log prewmcl = DB.Queryable<wo_machine_cur_log>().Where(x => x.machine_id == prewom.machine_id).First();
+                            //if(prewmcl != null)
+                            //{
+                                return StartWoMachine(machine_id, work_order_id);
+                            //}   
                         }
                     }
                 }
@@ -227,14 +261,22 @@ namespace mpm_web_api.DAL.wo
                     if (ml != null)
                     {
                         //如果是第最后一台设备 则需要结束线，设备工单 修改主工单状态
-                        if (ml.First().machine_id == machine_id)
+                        if (ml.Last().machine_id == machine_id)
                         {
                             re = FinshWoMachine(machine_id);
                             return re & FinishWoVirtualLine(vl.id, work_order_id);
                         }
                         else
                         {
-                            return FinishWoVirtualLine(vl.id, work_order_id);
+                            //int index = ml.IndexOf(ml.Where(x => x.machine_id == machine_id).First());
+                            ////查询上一个设备的id
+                            //wo_machine prewom = ml[index - 1];
+                            //wo_machine_cur_log prewmcl = DB.Queryable<wo_machine_cur_log>().Where(x => x.machine_id == prewom.machine_id).First();
+                            ////只有前面工单完结了 才可以结束工单
+                            //if (prewmcl == null)
+                            //{
+                                return FinshWoMachine(machine_id);
+                            //}
                         }
                     }
                 }

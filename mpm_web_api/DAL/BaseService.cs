@@ -38,7 +38,7 @@ namespace mpm_web_api.DAL
         /// <returns></returns>
         public bool Update(T entity, Expression<Func<T, bool>> expression) 
         {
-            return DB.Updateable(entity).Where(expression).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommand() > 0;
+            return DB.Updateable(entity).Where(expression).IgnoreColumns(ignoreAllNullColumns: true,ignoreAllDefaultValue:true).ExecuteCommand() > 0;
         }
 
         /// <summary>

@@ -28,6 +28,12 @@ namespace mpm_web_api.DAL.andon
                     string t = tag_Info.name.Split(':')[1];
                     SendMGMsg(s, t, 1);
                 }
+                else
+                {
+                    string s = "quality_error";
+                    string t = machine_id.ToString();
+                    SendMGMsg(s, t, 1);
+                }
                 return AddLog(machine_id, tag_Type_Sub);
             }
             return true;
@@ -53,6 +59,12 @@ namespace mpm_web_api.DAL.andon
                     string t = tag_Info.name.Split(':')[1];
                     SendMGMsg(s, t, 1);
                 }
+                else
+                {
+                    string s = "equipment_error";
+                    string t = machine_id.ToString();
+                    SendMGMsg(s, t, 1);
+                }
                 return AddLog(machine_id, tag_Type_Sub);
             }
             return true;
@@ -74,6 +86,12 @@ namespace mpm_web_api.DAL.andon
                     string t = tag_Info.name.Split(':')[1];
                     SendMGMsg(s, t, 1);
                 }
+                else
+                {
+                    string s = "material_require";
+                    string t = machine_id.ToString();
+                    SendMGMsg(s, t, 1);
+                }
                 MaterialRequestLog(machine_id,count,material_code, tag_Type_Sub);
             }
             return true;
@@ -93,6 +111,12 @@ namespace mpm_web_api.DAL.andon
                 {
                     string s = tag_Info.name.Split(':')[0];
                     string t = tag_Info.name.Split(':')[1];
+                    SendMGMsg(s, t, 1);
+                }
+                else
+                {
+                    string s = "quality_sign_in";
+                    string t = machine_id.ToString();
                     SendMGMsg(s, t, 1);
                 }
                 // 签到处理
@@ -118,6 +142,12 @@ namespace mpm_web_api.DAL.andon
                     string t = tag_Info.name.Split(':')[1];
                     SendMGMsg(s, t, 1);
                 }
+                else
+                {
+                    string s = "equipment_sign_in";
+                    string t = machine_id.ToString();
+                    SendMGMsg(s, t, 1);
+                }
                 // 签到处理
                 return Confirm(log_id, person_id);
             }
@@ -141,6 +171,12 @@ namespace mpm_web_api.DAL.andon
                     string t = tag_Info.name.Split(':')[1];
                     SendMGMsg(s, t, 1);
                 }
+                else
+                {
+                    string s = "quality_release";
+                    string t = machine_id.ToString();
+                    SendMGMsg(s, t, 1);
+                }
                 // 签到处理
                 return QualityErrorRelease(log_id, count);
             }
@@ -149,7 +185,7 @@ namespace mpm_web_api.DAL.andon
         public bool EquipmentRelease(int machine_id,int log_id, int error_type_id, int error_type_detail_id)
         {
             //查询绑定的异常解除按钮
-            tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_release").First();
+            tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_release").First();
             if (tag_Type_Sub != null)
             {
                 tag_info tag_Info = DB.Queryable<tag_info>()
@@ -160,6 +196,12 @@ namespace mpm_web_api.DAL.andon
                 {
                     string s = tag_Info.name.Split(':')[0];
                     string t = tag_Info.name.Split(':')[1];
+                    SendMGMsg(s, t, 1);
+                }
+                else
+                {
+                    string s = "equipment_release";
+                    string t = machine_id.ToString();
                     SendMGMsg(s, t, 1);
                 }
                 // 解除处理
@@ -182,6 +224,12 @@ namespace mpm_web_api.DAL.andon
                 {
                     string s = tag_Info.name.Split(':')[0];
                     string t = tag_Info.name.Split(':')[1];
+                    SendMGMsg(s, t, 1);
+                }
+                else
+                {
+                    string s = "material_release";
+                    string t = machine_id.ToString();
                     SendMGMsg(s, t, 1);
                 }
                 // 解除处理
@@ -207,34 +255,50 @@ namespace mpm_web_api.DAL.andon
                 //如果设备存在
                 if(mc != null)
                 {
-                    //查询责任人员信息
-                    person ps = DB.Queryable<person>()
-                        .Where(x => x.id == ec.response_person_id).First();
-                    //查询当前执行的工单
-                    wo_machine_cur_log wocr = DB.Queryable<wo_machine_cur_log>()
-                                    .Where(x => x.machine_id == machine_id).First();
-
-                    error_log el = new error_log();
-                    el.error_config_id = ec.id;
-                    if (mc != null)
-                        el.machine_name = mc.name_en;
-                    el.tag_type_sub_name = ts.name_en;
-                    if (ps != null)
-                        el.responsible_name = ps.user_name;
-                    if (wocr != null)
+                    List<error_log> error_logs = DB.Queryable<error_log>()
+                                                    .Where(x => x.tag_type_sub_name == ts.name_en)
+                                                    .Where(x=>x.machine_name ==mc.name_en)
+                                                    .Where(x => x.arrival_time == new DateTime() || x.release_time == new DateTime()).ToList();
+                    //如果没有未签到或者未解除的异常记录 才允许重复添加log
+                    if(error_logs.Count == 0)
                     {
-                        //查询主工单信息
-                        wo_config wo = DB.Queryable<wo_config>()
-                                        .Where(x => x.id == wocr.wo_config_id).First();
-                        if(wo !=null)
-                        {
-                            el.work_order = wo.work_order;
-                            el.part_number = wo.part_num;
-                        }
+                        //查询责任人员信息
+                        person ps = DB.Queryable<person>()
+                            .Where(x => x.id == ec.response_person_id).First();
+                        //查询当前执行的工单
+                        wo_machine_cur_log wocr = DB.Queryable<wo_machine_cur_log>()
+                                        .Where(x => x.machine_id == machine_id).First();
 
+                        error_log el = new error_log();
+                        el.error_config_id = ec.id;
+                        if (mc != null)
+                            el.machine_name = mc.name_en;
+                        el.tag_type_sub_name = ts.name_en;
+                        if (ps != null)
+                            el.responsible_name = ps.user_name;
+                        if (wocr != null)
+                        {
+                            //查询主工单信息
+                            wo_config wo = DB.Queryable<wo_config>()
+                                            .Where(x => x.id == wocr.wo_config_id).First();
+                            if (wo != null)
+                            {
+                                el.work_order = wo.work_order;
+                                el.part_number = wo.part_num;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        el.start_time = DateTime.Now;
+                        return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();
                     }
-                    el.start_time = DateTime.Now;
-                    return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();
+                    else
+                    {
+                        return false;
+                    }
+
                 }
             }
             return false;
@@ -252,7 +316,7 @@ namespace mpm_web_api.DAL.andon
                 if(ps != null)
                 {
                     //如果有替代者 则判断替代者是否正确
-                    if(el.substitutes != "")
+                    if(el.substitutes != null)
                     {
                         if (ps.user_name == el.substitutes)
                         {
@@ -285,30 +349,50 @@ namespace mpm_web_api.DAL.andon
             if (el != null)
             {
                 //查询当前执行的工单信息
-                wo_config wo = DB.Queryable<wo_config>().Where(x => x.status == 2 )
-                                                        .Where(x=>x.work_order == el.work_order).First();
-                //如果存在正在执行的主工单
+                wo_config wo = DB.Queryable<wo_config>().Where(x=>x.work_order == el.work_order).First();
+                //如果存在主工单
                 if(wo != null)
                 {
-                    //查询设备工单日志
-                    wo_machine_cur_log wmcl = DB.Queryable<wo_machine_cur_log>().Where(x => x.wo_config_id == wo.id).First();
-                    //如果存在
-                    if (wmcl != null)
+                    //如果是正在执行的工单 则更新当前你执行的设备/线的工单信息
+                    if(wo.status == 2)
                     {
-                        re = DB.Updateable<wo_machine_cur_log>().Where(x => x.id == wmcl.id).UpdateColumns(it => new wo_machine_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        //查询设备工单日志
+                        wo_machine_cur_log wmcl = DB.Queryable<wo_machine_cur_log>().Where(x => x.wo_config_id == wo.id).First();
+                        //如果存在
+                        if (wmcl != null)
+                        {
+                            re = DB.Updateable<wo_machine_cur_log>().Where(x => x.id == wmcl.id).UpdateColumns(it => new wo_machine_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        }
+                        //查询设备工单日志
+                        virtual_line_cur_log vlcl = DB.Queryable<virtual_line_cur_log>().Where(x => x.wo_config_id == wo.id).First();
+                        if (vlcl != null)
+                        {
+                            re = re & DB.Updateable<virtual_line_cur_log>().Where(x => x.id == vlcl.id).UpdateColumns(it => new virtual_line_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        }
                     }
-                    //查询设备工单日志
-                    virtual_line_cur_log vlcl = DB.Queryable<virtual_line_cur_log>().Where(x => x.wo_config_id == wo.id).First();
-                    if (vlcl != null)
+                    //如果是正在执行的工单 则更新历史的设备/线的工单信息
+                    else if (wo.status == 3)
                     {
-                        re = re&DB.Updateable<virtual_line_cur_log>().Where(x=>x.id == vlcl.id).UpdateColumns(it => new virtual_line_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        //查询设备工单日志
+                        wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.wo_config_id == wo.id).First();
+                        //如果存在
+                        if (wml != null)
+                        {
+                            re = DB.Updateable<wo_machine_log>().Where(x => x.id == wml.id).UpdateColumns(it => new wo_machine_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        }
+                        //查询设备工单日志
+                        virtual_line_log vll = DB.Queryable<virtual_line_log>().Where(x => x.wo_config_id == wo.id).First();
+                        if (vll != null)
+                        {
+                            re = re & DB.Updateable<virtual_line_log>().Where(x => x.id == vll.id).UpdateColumns(it => new virtual_line_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        }
                     }
+
                 }
-
-
+                decimal dif_time = CalTimeDifference(el.arrival_time);
                 return re& DB.Updateable<error_log>()
                          .Where(x=>x.id == log_id)
-                         .UpdateColumns(it => new error_log() { release_time = DateTime.Now, defectives_count = count })
+                         .UpdateColumns(it => new error_log() { release_time = DateTime.Now, defectives_count = count ,cost_time = dif_time })
                          .ExecuteCommand() > 0;
             }
             return false;
@@ -324,9 +408,10 @@ namespace mpm_web_api.DAL.andon
             //如果存在
             if (el != null)
             {
+                decimal dif_time = CalTimeDifference(el.arrival_time);
                 return DB.Updateable<error_log>()
                           .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new error_log() { release_time = DateTime.Now, error_type_name =et.name_cn,error_type_detail_name=etd.name_cn})
+                          .UpdateColumns(it => new error_log() { release_time = DateTime.Now, error_type_name =et.name_cn,error_type_detail_name=etd.name_cn,cost_time = dif_time })
                           .ExecuteCommand() > 0;
             }
             return false;
@@ -346,82 +431,50 @@ namespace mpm_web_api.DAL.andon
                 //查询设备设备名
                 machine mc = DB.Queryable<machine>()
                                     .Where(x => x.id == machine_id).First();
-                //如果设备存在
-                if (mc != null)
+                List<material_request_info> error_logs = DB.Queryable<material_request_info>()
+                                .Where(x => x.machine_name == mc.name_en)
+                                .Where(x => x.take_time == new DateTime()).ToList();
+                //如果没有未签到或者未解除的异常记录 才允许重复添加log
+                if (error_logs.Count == 0)
                 {
-                    //查询责任人员信息
-                    person ps = DB.Queryable<person>()
-                        .Where(x => x.id == ec.response_person_id).First();
-                    //查询当前执行的工单
-                    wo_machine_cur_log wocr = DB.Queryable<wo_machine_cur_log>()
-                                    .Where(x => x.machine_id == machine_id).First();
-                    //查询主工单信息
-                    wo_config wo = DB.Queryable<wo_config>()
-                                    .Where(x => x.id == wocr.wo_config_id).First();
-                    material_request_info mri = new material_request_info();
-                    mri.error_config_id = ec.id;
+                    //如果设备存在
                     if (mc != null)
-                        mri.machine_name = mc.name_en;
-                    mri.material_code = material_code;
-                    mri.request_count = count;
-                    mri.createtime = DateTime.Now;
-                    if (ps != null)
-                        mri.take_person_name = ps.user_name;
-                    if (wo != null)
                     {
-                        mri.work_order = wo.work_order;
-                        mri.part_number = wo.part_num;
+                        //查询责任人员信息
+                        person ps = DB.Queryable<person>()
+                            .Where(x => x.id == ec.response_person_id).First();
+                        //查询当前执行的工单
+                        wo_machine_cur_log wocr = DB.Queryable<wo_machine_cur_log>()
+                                        .Where(x => x.machine_id == machine_id).First();
+                        //查询主工单信息
+                        wo_config wo = DB.Queryable<wo_config>()
+                                        .Where(x => x.id == wocr.wo_config_id).First();
+                        material_request_info mri = new material_request_info();
+                        mri.error_config_id = ec.id;
+                        if (mc != null)
+                            mri.machine_name = mc.name_en;
+                        mri.material_code = material_code;
+                        mri.request_count = count;
+                        mri.createtime = DateTime.Now;
+                        if (ps != null)
+                            mri.take_person_name = ps.user_name;
+                        if (wo != null)
+                        {
+                            mri.work_order = wo.work_order;
+                            mri.part_number = wo.part_num;
+                        }
+                        return DB.Insertable<material_request_info>(mri).ExecuteCommand()>0;
                     }
-                    return DB.Insertable<material_request_info>(mri).ExecuteCommandIdentityIntoEntity();
                 }
+                else
+                {
+                    return false;
+                }
+
             }
             return false;
         }
 
-
-        private bool AddMaterialLog(int machine_id,int tag_type_sub_id,string material,int person_id , int count)
-        {
-            //查看是否有配置异常配置 理论上最多只会有一条数据
-            error_config ec = DB.Queryable<error_config>()
-                                                    .Where(x => x.machine_id == machine_id)
-                                                    .Where(x => x.tag_type_sub_id == tag_type_sub_id)
-                                                    .First();
-            //如果已配置
-            if (ec != null)
-            {
-                //查询设备设备名
-                machine mc = DB.Queryable<machine>()
-                                    .Where(x => x.id == machine_id).First();
-                //如果设备存在
-                if (mc != null)
-                {
-                    //查询责任人员信息
-                    person ps = DB.Queryable<person>()
-                        .Where(x => x.id == ec.response_person_id).First();
-                    //查询当前执行的工单
-                    wo_machine_cur_log wocr = DB.Queryable<wo_machine_cur_log>()
-                                    .Where(x => x.machine_id == machine_id).First();
-                    //查询主工单信息
-                    wo_config wo = DB.Queryable<wo_config>()
-                                    .Where(x => x.id == wocr.wo_config_id).First();
-                    error_log el = new error_log();
-                    el.error_config_id = ec.id;
-                    if (mc != null)
-                        el.machine_name = mc.name_en;
-                    el.tag_type_sub_name = "material_require";
-                    if (ps != null)
-                        el.responsible_name = ps.user_name;
-                    if (wo != null)
-                    {
-                        el.work_order = wo.work_order;
-                        el.part_number = wo.part_num;
-                    }
-                    el.start_time = DateTime.Now;
-                    return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();
-                }
-            }
-            return false;
-        }
 
         private bool UpdateMaterialLog(int machine_id, int log_id,string description)
         {
@@ -430,9 +483,11 @@ namespace mpm_web_api.DAL.andon
             //如果存在
             if (mri != null)
             {
+
+                decimal dif_time = CalTimeDifference(mri.createtime);
                 return DB.Updateable<material_request_info>()
                           .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new material_request_info() {take_time = DateTime.Now })
+                          .UpdateColumns(it => new material_request_info() {take_time = DateTime.Now,cost_time =Convert.ToDecimal(dif_time) })
                           .ExecuteCommand() > 0;
             }
             return false;
@@ -449,6 +504,18 @@ namespace mpm_web_api.DAL.andon
             mongoDbTag.v = v;
             mongoDbTag.ts = DateTime.Now;
             mh.InsertOne(mongoDbTag);
+        }
+        /// <summary>
+        /// 计算时间差
+        /// </summary>
+        /// <param name="start_time"></param>
+        /// <returns></returns>
+        private decimal CalTimeDifference(DateTime start_time)
+        {
+            DateTime dt1 = DateTime.Now;
+            DateTime dt2 = start_time;
+            TimeSpan ts = dt1.Subtract(dt2);
+            return Convert.ToDecimal(ts.TotalSeconds);
         }
     }
 }

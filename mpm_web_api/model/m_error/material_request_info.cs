@@ -53,5 +53,9 @@ namespace mpm_web_api.model
         /// 异常配置id
         /// </summary>
         public int error_config_id { get; set; }
+        /// <summary>
+        /// 花费时间
+        /// </summary>
+        public decimal cost_time { get; set; }
     }
 }
