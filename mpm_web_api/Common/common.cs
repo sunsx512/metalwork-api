@@ -1,4 +1,5 @@
 ﻿using mpm_web_api.db;
+using mpm_web_api.DB;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -58,6 +59,17 @@ namespace mpm_web_api
                 string pg = "Server={0};Port={1};Database={2};User Id={3};Password={4};";
                 pg = string.Format(pg, jo[postgres][0]["credentials"]["host"].ToString(), jo[postgres][0]["credentials"]["port"].ToString(), jo[postgres][0]["credentials"]["database"].ToString(), jo[postgres][0]["credentials"]["username"].ToString(), jo[postgres][0]["credentials"]["password"].ToString());
                 PostgreBase.connString = pg;
+                //mongo
+                Console.WriteLine(jo[mongo][0]["credentials"]["host"].ToString());
+                Console.WriteLine(jo[mongo][0]["credentials"]["port"].ToString());
+                Console.WriteLine(jo[mongo][0]["credentials"]["username"].ToString());
+                Console.WriteLine(jo[mongo][0]["credentials"]["database"].ToString());
+                Console.WriteLine(jo[mongo][0]["credentials"]["password"].ToString());
+                string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
+                mg = string.Format(mg, jo[mongo][0]["credentials"]["username"].ToString(), jo[mongo][0]["credentials"]["password"].ToString(), jo[mongo][0]["credentials"]["host"].ToString(), jo[mongo][0]["credentials"]["port"].ToString(), jo[mongo][0]["credentials"]["database"].ToString());
+                MongoHelper.connectionstring = mg;
+                Console.WriteLine(mg);
+                MongoHelper.databaseName = jo[mongo][0]["credentials"]["database"].ToString();
             }
         }
 

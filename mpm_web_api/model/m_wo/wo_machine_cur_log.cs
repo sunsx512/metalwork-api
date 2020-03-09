@@ -24,7 +24,7 @@ namespace mpm_web_api.model.m_wo
         /// <summary>
         /// 当前数量
         /// </summary>
-        public int quantity { get; set; }
+        public decimal quantity { get; set; }
         /// <summary>
         /// 不良数量
         /// </summary>

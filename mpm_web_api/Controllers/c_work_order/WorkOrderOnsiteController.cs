@@ -29,32 +29,13 @@ namespace mpm_web_api.Controllers.c_work_order
             List<wo_config> lty = os.GetExecutableWo(machine_id);
             object obj = common.ResponseStr<wo_config>((int)httpStatus.succes, "调用成功", lty);
             return Json(obj);
-            //switch (type)
-            //{
-            //    case 0:
-            //        lty = os.GetExecutableWo(virtual_line_id);
-            //        strJson = JsonConvert.SerializeObject(lty);
-            //        obj = common.ResponseStr<wo_config>((int)httpStatus.succes, "调用成功", lty);
-            //        break;
-            //    case 1:
-            //        lty = os.GetExecutingWo(virtual_line_id);
-            //        strJson = JsonConvert.SerializeObject(lty);
-            //        obj = common.ResponseStr<wo_config>((int)httpStatus.succes, "调用成功", lty);
-            //        break;
-            //}
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            //}
 
         }
 
         /// <summary>
         /// 开始或者结束工单 
         /// </summary>
-        /// <param name="type">0:开始工单 1:结束工单</param>
+        /// <param name="type">0:开始工单 1:结束工单 2:暂停工单(未结)</param>
         /// <param name="machine_id"> 设备id</param>
         /// <param name="work_order_id"> 工单号</param>
         /// <response code="200">调用成功</response>
@@ -81,6 +62,17 @@ namespace mpm_web_api.Controllers.c_work_order
                 else if(type == 1)
                 {
                     if (os.FinishWorkOrder(machine_id, work_order_id))
+                    {
+                        obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                    }
+                    else
+                    {
+                        obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+                    }
+                }
+                else if (type == 2)
+                {
+                    if (os.SuspendWorkOrder(work_order_id))
                     {
                         obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
                     }
