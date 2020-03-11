@@ -18,25 +18,29 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_error").First();
             if(tag_Type_Sub != null)
             {
-                tag_info tag_Info = DB.Queryable<tag_info>()
-                                               .Where(x => x.machine_id == machine_id)
-                                               .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                //如果有该按钮则需要
-                if(tag_Info != null)
+                if(AddLog(machine_id, tag_Type_Sub))
                 {
-                    string s = tag_Info.name.Split(':')[0];
-                    string t = tag_Info.name.Split(':')[1];
-                    SendMGMsg(s, t, 1);
+
+                    tag_info tag_Info = DB.Queryable<tag_info>()
+                                                   .Where(x => x.machine_id == machine_id)
+                                                   .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                    //如果有该按钮则需要
+                    if(tag_Info != null)
+                    {
+                        string s = tag_Info.name.Split(':')[0];
+                        string t = tag_Info.name.Split(':')[1];
+                        SendMGMsg(s, t, 1);
+                    }
+                    else
+                    {
+                        string s = "quality_error";
+                        string t = machine_id.ToString();
+                        SendMGMsg(s, t, 1);
+                    }
+                    return true;
                 }
-                else
-                {
-                    string s = "quality_error";
-                    string t = machine_id.ToString();
-                    SendMGMsg(s, t, 1);
-                }
-                return AddLog(machine_id, tag_Type_Sub);
             }
-            return true;
+            return false;
         }
         /// <summary>
         /// 设备异常触发
@@ -49,25 +53,28 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_error").First();
             if (tag_Type_Sub != null)
             {
-                tag_info tag_Info = DB.Queryable<tag_info>()
-                                               .Where(x => x.machine_id == machine_id)
-                                               .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                //如果有该按钮则需要
-                if (tag_Info != null)
+                if(AddLog(machine_id, tag_Type_Sub))
                 {
-                    string s = tag_Info.name.Split(':')[0];
-                    string t = tag_Info.name.Split(':')[1];
-                    SendMGMsg(s, t, 1);
+                    tag_info tag_Info = DB.Queryable<tag_info>()
+                                                   .Where(x => x.machine_id == machine_id)
+                                                   .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                    //如果有该按钮则需要
+                    if (tag_Info != null)
+                    {
+                        string s = tag_Info.name.Split(':')[0];
+                        string t = tag_Info.name.Split(':')[1];
+                        SendMGMsg(s, t, 1);
+                    }
+                    else
+                    {
+                        string s = "equipment_error";
+                        string t = machine_id.ToString();
+                        SendMGMsg(s, t, 1);
+                    }
+                    return true;
                 }
-                else
-                {
-                    string s = "equipment_error";
-                    string t = machine_id.ToString();
-                    SendMGMsg(s, t, 1);
-                }
-                return AddLog(machine_id, tag_Type_Sub);
             }
-            return true;
+            return false;
         }
 
         public bool MaterialRequestTrigger(int machine_id ,int count,string material_code)
@@ -76,25 +83,29 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "material_require").First();
             if (tag_Type_Sub != null)
             {
-                tag_info tag_Info = DB.Queryable<tag_info>()
-                                               .Where(x => x.machine_id == machine_id)
-                                               .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                //如果有该按钮则需要
-                if (tag_Info != null)
+                if(MaterialRequestLog(machine_id,count,material_code, tag_Type_Sub))
                 {
-                    string s = tag_Info.name.Split(':')[0];
-                    string t = tag_Info.name.Split(':')[1];
-                    SendMGMsg(s, t, 1);
+                    tag_info tag_Info = DB.Queryable<tag_info>()
+                                                   .Where(x => x.machine_id == machine_id)
+                                                   .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                    //如果有该按钮则需要
+                    if (tag_Info != null)
+                    {
+                        string s = tag_Info.name.Split(':')[0];
+                        string t = tag_Info.name.Split(':')[1];
+                        SendMGMsg(s, t, 1);
+                    }
+                    else
+                    {
+                        string s = "material_require";
+                        string t = machine_id.ToString();
+                        SendMGMsg(s, t, 1);
+                    }
+                    return true;
                 }
-                else
-                {
-                    string s = "material_require";
-                    string t = machine_id.ToString();
-                    SendMGMsg(s, t, 1);
-                }
-                MaterialRequestLog(machine_id,count,material_code, tag_Type_Sub);
+                
             }
-            return true;
+            return false;
         }
 
         public bool QualityConfirm(int machine_id, int log_id,string person_id)
@@ -103,24 +114,27 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_sign_in").First();
             if (tag_Type_Sub != null)
             {
-                tag_info tag_Info = DB.Queryable<tag_info>()
-                                                .Where(x => x.machine_id == machine_id)
-                                                .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                //如果有该按钮则需要
-                if (tag_Info != null)
+                if(Confirm(log_id, person_id))
                 {
-                    string s = tag_Info.name.Split(':')[0];
-                    string t = tag_Info.name.Split(':')[1];
-                    SendMGMsg(s, t, 1);
+                    tag_info tag_Info = DB.Queryable<tag_info>()
+                                                    .Where(x => x.machine_id == machine_id)
+                                                    .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                    //如果有该按钮则需要
+                    if (tag_Info != null)
+                    {
+                        string s = tag_Info.name.Split(':')[0];
+                        string t = tag_Info.name.Split(':')[1];
+                        SendMGMsg(s, t, 1);
+                    }
+                    else
+                    {
+                        string s = "quality_sign_in";
+                        string t = machine_id.ToString();
+                        SendMGMsg(s, t, 1);
+                    }
+                    return true ;
                 }
-                else
-                {
-                    string s = "quality_sign_in";
-                    string t = machine_id.ToString();
-                    SendMGMsg(s, t, 1);
-                }
-                // 签到处理
-                return Confirm(log_id, person_id);
+                
             }
             return false;
             
@@ -132,24 +146,26 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_sign_in").First();
             if (tag_Type_Sub != null)
             {
-                tag_info tag_Info = DB.Queryable<tag_info>()
+                if(Confirm(log_id, person_id))
+                {
+                    tag_info tag_Info = DB.Queryable<tag_info>()
                                                 .Where(x => x.machine_id == machine_id)
                                                 .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                //如果有该按钮则需要
-                if (tag_Info != null)
-                {
-                    string s = tag_Info.name.Split(':')[0];
-                    string t = tag_Info.name.Split(':')[1];
-                    SendMGMsg(s, t, 1);
+                    //如果有该按钮则需要
+                    if (tag_Info != null)
+                    {
+                        string s = tag_Info.name.Split(':')[0];
+                        string t = tag_Info.name.Split(':')[1];
+                        SendMGMsg(s, t, 1);
+                    }
+                    else
+                    {
+                        string s = "equipment_sign_in";
+                        string t = machine_id.ToString();
+                        SendMGMsg(s, t, 1);
+                    }
+                    return true;
                 }
-                else
-                {
-                    string s = "equipment_sign_in";
-                    string t = machine_id.ToString();
-                    SendMGMsg(s, t, 1);
-                }
-                // 签到处理
-                return Confirm(log_id, person_id);
             }
             return false;
 
@@ -161,24 +177,26 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_release").First();
             if (tag_Type_Sub != null)
             {
-                tag_info tag_Info = DB.Queryable<tag_info>()
+                if(QualityErrorRelease(log_id, count))
+                {
+                    tag_info tag_Info = DB.Queryable<tag_info>()
                                                 .Where(x => x.machine_id == machine_id)
                                                 .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                //如果有该按钮则需要
-                if (tag_Info != null)
-                {
-                    string s = tag_Info.name.Split(':')[0];
-                    string t = tag_Info.name.Split(':')[1];
-                    SendMGMsg(s, t, 1);
+                    //如果有该按钮则需要
+                    if (tag_Info != null)
+                    {
+                        string s = tag_Info.name.Split(':')[0];
+                        string t = tag_Info.name.Split(':')[1];
+                        SendMGMsg(s, t, 1);
+                    }
+                    else
+                    {
+                        string s = "quality_release";
+                        string t = machine_id.ToString();
+                        SendMGMsg(s, t, 1);
+                    }
+                    return true;
                 }
-                else
-                {
-                    string s = "quality_release";
-                    string t = machine_id.ToString();
-                    SendMGMsg(s, t, 1);
-                }
-                // 签到处理
-                return QualityErrorRelease(log_id, count);
             }
             return false;
         }
@@ -188,24 +206,26 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_release").First();
             if (tag_Type_Sub != null)
             {
-                tag_info tag_Info = DB.Queryable<tag_info>()
+                if(EquipmentErrorRelease(log_id, error_type_id, error_type_detail_id))
+                {
+                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                 .Where(x => x.machine_id == machine_id)
                                                 .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                //如果有该按钮则需要
-                if (tag_Info != null)
-                {
-                    string s = tag_Info.name.Split(':')[0];
-                    string t = tag_Info.name.Split(':')[1];
-                    SendMGMsg(s, t, 1);
+                    //如果有该按钮则需要
+                    if (tag_Info != null)
+                    {
+                        string s = tag_Info.name.Split(':')[0];
+                        string t = tag_Info.name.Split(':')[1];
+                        SendMGMsg(s, t, 1);
+                    }
+                    else
+                    {
+                        string s = "equipment_release";
+                        string t = machine_id.ToString();
+                        SendMGMsg(s, t, 1);
+                    }
+                    return true;
                 }
-                else
-                {
-                    string s = "equipment_release";
-                    string t = machine_id.ToString();
-                    SendMGMsg(s, t, 1);
-                }
-                // 解除处理
-                return EquipmentErrorRelease(log_id, error_type_id, error_type_detail_id);
             }
             return false;          
         }
@@ -216,24 +236,26 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "material_release").First();
             if (tag_Type_Sub != null)
             {
-                tag_info tag_Info = DB.Queryable<tag_info>()
+                if(UpdateMaterialLog(machine_id, log_id, description))
+                {
+                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                 .Where(x => x.machine_id == machine_id)
                                                 .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                //如果有该按钮则需要
-                if (tag_Info != null)
-                {
-                    string s = tag_Info.name.Split(':')[0];
-                    string t = tag_Info.name.Split(':')[1];
-                    SendMGMsg(s, t, 1);
+                    //如果有该按钮则需要
+                    if (tag_Info != null)
+                    {
+                        string s = tag_Info.name.Split(':')[0];
+                        string t = tag_Info.name.Split(':')[1];
+                        SendMGMsg(s, t, 1);
+                    }
+                    else
+                    {
+                        string s = "material_release";
+                        string t = machine_id.ToString();
+                        SendMGMsg(s, t, 1);
+                    }
+                     return true;
                 }
-                else
-                {
-                    string s = "material_release";
-                    string t = machine_id.ToString();
-                    SendMGMsg(s, t, 1);
-                }
-                // 解除处理
-                return UpdateMaterialLog(machine_id, log_id, description);
             }
             return false;
         }
