@@ -77,16 +77,15 @@ namespace mpm_web_api.Controllers.c_work_order
         public ActionResult<common.response<virtual_line_detail>> Get()
         {
             object obj;
-            try
-            {
+            //try
+            //{
                 List < virtual_line_detail> lty = vls.QueryableToList();
-                string strJson = JsonConvert.SerializeObject(lty);
                 obj = common.ResponseStr<virtual_line_detail>((int)httpStatus.succes, "调用成功", lty);
-            }
-            catch (Exception ex)
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+            //}
             return Json(obj);
         }
 

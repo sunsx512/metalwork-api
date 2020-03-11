@@ -289,7 +289,9 @@ namespace mpm_web_api.DAL.andon
                         }
                         else
                         {
-                            return false;
+                            //如果是设备异常 是不需要在生产工单
+                            if(ts.name_en != "equipment_error")
+                                return false;
                         }
                         el.start_time = DateTime.Now;
                         return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();
@@ -298,7 +300,6 @@ namespace mpm_web_api.DAL.andon
                     {
                         return false;
                     }
-
                 }
             }
             return false;
@@ -329,10 +330,8 @@ namespace mpm_web_api.DAL.andon
                         if (ps.user_name == el.responsible_name)
                         {
                             return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = DateTime.Now }).ExecuteCommand() > 0;
-
                         }
                     }
-                    
                 }
             }
             return false;
@@ -446,10 +445,19 @@ namespace mpm_web_api.DAL.andon
                         //查询当前执行的工单
                         wo_machine_cur_log wocr = DB.Queryable<wo_machine_cur_log>()
                                         .Where(x => x.machine_id == machine_id).First();
-                        //查询主工单信息
-                        wo_config wo = DB.Queryable<wo_config>()
-                                        .Where(x => x.id == wocr.wo_config_id).First();
                         material_request_info mri = new material_request_info();
+                        if (wocr != null)
+                        {
+                            //查询主工单信息
+                            wo_config wo = DB.Queryable<wo_config>()
+                                            .Where(x => x.id == wocr.wo_config_id).First();
+                            if (wo != null)
+                            {
+                                mri.work_order = wo.work_order;
+                                mri.part_number = wo.part_num;
+                            }
+                        }
+
                         mri.error_config_id = ec.id;
                         if (mc != null)
                             mri.machine_name = mc.name_en;
@@ -458,11 +466,7 @@ namespace mpm_web_api.DAL.andon
                         mri.createtime = DateTime.Now;
                         if (ps != null)
                             mri.take_person_name = ps.user_name;
-                        if (wo != null)
-                        {
-                            mri.work_order = wo.work_order;
-                            mri.part_number = wo.part_num;
-                        }
+
                         return DB.Insertable<material_request_info>(mri).ExecuteCommand()>0;
                     }
                 }
@@ -483,7 +487,6 @@ namespace mpm_web_api.DAL.andon
             //如果存在
             if (mri != null)
             {
-
                 decimal dif_time = CalTimeDifference(mri.createtime);
                 return DB.Updateable<material_request_info>()
                           .Where(x => x.id == log_id)

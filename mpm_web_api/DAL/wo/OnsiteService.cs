@@ -222,23 +222,16 @@ namespace mpm_web_api.DAL.wo
                         List<wo_machine> ml = DB.Queryable<wo_machine>().Where(x => x.virtual_line_id == vl.id).ToList();
                         if (ml != null)
                         {
-                            //如果是第一台设备 则需要开启线，设备工单 修改主工单状态
-                            if (ml.First().machine_id == machine_id)
+                            virtual_line_cur_log vlcl = DB.Queryable<virtual_line_cur_log>().Where(x => x.wo_config_id == work_order_id).First();
+                            if(vlcl != null)
                             {
-
-                                re = StartWoVirtualLine(vl.id, work_order_id);
-                                return re & StartWoMachine(machine_id, work_order_id);
+                                return StartWoMachine(machine_id, work_order_id);
                             }
+                            //如果没有开启工单 则自动开启线工单
                             else
                             {
-                                //int index = ml.IndexOf(ml.Where(x => x.machine_id == machine_id).First());
-                                ////查询上一个设备的id
-                                //wo_machine prewom = ml[index - 1];
-                                //wo_machine_cur_log prewmcl = DB.Queryable<wo_machine_cur_log>().Where(x => x.machine_id == prewom.machine_id).First();
-                                //if(prewmcl != null)
-                                //{
-                                return StartWoMachine(machine_id, work_order_id);
-                                //}   
+                                re = StartWoVirtualLine(vl.id, work_order_id);
+                                return re & StartWoMachine(machine_id, work_order_id);
                             }
                         }
                     }
@@ -269,23 +262,28 @@ namespace mpm_web_api.DAL.wo
                     List<wo_machine> ml = DB.Queryable<wo_machine>().Where(x => x.virtual_line_id == vl.id).ToList();
                     if (ml != null)
                     {
-                        //如果是第最后一台设备 则需要结束线，设备工单 修改主工单状态
-                        if (ml.Last().machine_id == machine_id)
+                        //判断该虚拟线下的其他设备是否已经完结
+                        bool OtherMachinesFinshed = true;
+                        foreach(wo_machine wm in ml.Where(x=>x.machine_id != machine_id))
+                        {
+                            wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.machine_id == wm.machine_id).First();
+                            if(wml != null)
+                            {
+                                OtherMachinesFinshed = false;
+                                break;
+                            }
+                        }
+                        
+                        //如果其他站位已经完结了 则完结当前站位 及整个虚拟线
+                        if (OtherMachinesFinshed)
                         {
                             re = FinshWoMachine(machine_id);
                             return re & FinishWoVirtualLine(vl.id, work_order_id,3);
                         }
+                        //如果没有完结  则完结当前站位
                         else
                         {
-                            //int index = ml.IndexOf(ml.Where(x => x.machine_id == machine_id).First());
-                            ////查询上一个设备的id
-                            //wo_machine prewom = ml[index - 1];
-                            //wo_machine_cur_log prewmcl = DB.Queryable<wo_machine_cur_log>().Where(x => x.machine_id == prewom.machine_id).First();
-                            ////只有前面工单完结了 才可以结束工单
-                            //if (prewmcl == null)
-                            //{
-                                return FinshWoMachine(machine_id);
-                            //}
+                            return FinshWoMachine(machine_id);
                         }
                     }
                 }

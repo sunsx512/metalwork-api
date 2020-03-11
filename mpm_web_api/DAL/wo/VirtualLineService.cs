@@ -14,7 +14,7 @@ namespace mpm_web_api.DAL
             var list = DB.Queryable<virtual_line_detail>()
                    .Mapper((it) =>
                    {
-                       var machinelist = DB.Queryable<wo_machine_detail>().Where(x => x.virtual_line_id == it.id).ToList();
+                       var machinelist = DB.Queryable<wo_machine_detail>().Where(x => x.virtual_line_id == it.id).OrderBy("id").ToList();
                        it.id = it.id;
                        it.name_cn = it.name_cn;
                        it.name_en = it.name_en;
