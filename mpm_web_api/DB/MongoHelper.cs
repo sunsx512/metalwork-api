@@ -11,10 +11,10 @@ namespace mpm_web_api.DB
 {
     public class MongoHelper
     {
-        public static string connectionstring = "";
-        public static string databaseName = "";
-        //public static string connectionstring = "mongodb://0a844dbd-a706-4d7a-996a-2e0d36152778:3nfazZmdC3GWxyZKnnFtogz3p@42.159.119.214:27017/ae62444a-f51c-4628-923b-a1e1629008b2";
-        //public static string databaseName = "ae62444a-f51c-4628-923b-a1e1629008b2";
+        //public static string connectionstring = "";
+        //public static string databaseName = "";
+        public static string connectionstring = "mongodb://0a844dbd-a706-4d7a-996a-2e0d36152778:3nfazZmdC3GWxyZKnnFtogz3p@42.159.119.214:27017/ae62444a-f51c-4628-923b-a1e1629008b2";
+        public static string databaseName = "ae62444a-f51c-4628-923b-a1e1629008b2";
         private readonly IMongoDatabase _database = null;
         public MongoHelper()
         {

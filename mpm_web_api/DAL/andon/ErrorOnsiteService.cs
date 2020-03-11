@@ -391,7 +391,7 @@ namespace mpm_web_api.DAL.andon
                             re = re & DB.Updateable<virtual_line_cur_log>().Where(x => x.id == vlcl.id).UpdateColumns(it => new virtual_line_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
                         }
                     }
-                    //如果是正在执行的工单 则更新历史的设备/线的工单信息
+                    //如果是已经执行完的工单 则更新历史的设备/线的工单信息
                     else if (wo.status == 3)
                     {
                         //查询设备工单日志
@@ -405,7 +405,7 @@ namespace mpm_web_api.DAL.andon
                         virtual_line_log vll = DB.Queryable<virtual_line_log>().Where(x => x.wo_config_id == wo.id).First();
                         if (vll != null)
                         {
-                            re = re & DB.Updateable<virtual_line_log>().Where(x => x.id == vll.id).UpdateColumns(it => new virtual_line_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                            re = re & DB.Updateable<virtual_line_log>().Where(x => x.id == vll.id).UpdateColumns(it => new virtual_line_log() { bad_quantity = count }).ExecuteCommand() > 0;
                         }
                     }
 
