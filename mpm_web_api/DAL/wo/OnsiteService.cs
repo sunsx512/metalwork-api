@@ -267,7 +267,7 @@ namespace mpm_web_api.DAL.wo
                         foreach(wo_machine wm in ml.Where(x=>x.machine_id != machine_id))
                         {
                             wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.machine_id == wm.machine_id).First();
-                            if(wml != null)
+                            if(wml == null)
                             {
                                 OtherMachinesFinshed = false;
                                 break;
