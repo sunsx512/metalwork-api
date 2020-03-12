@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using mpm_web_api.Common;
+using mpm_web_api.DAL;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace mpm_web_api
@@ -41,7 +42,7 @@ namespace mpm_web_api
                 c.EnableAnnotations();
 
             });
-
+            services.AddTransient<Microsoft.Extensions.Hosting.IHostedService, Job>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
         }

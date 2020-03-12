@@ -35,4 +35,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="4.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\c_onsite_machine_status\" />
+  </ItemGroup>
+
 </Project>
