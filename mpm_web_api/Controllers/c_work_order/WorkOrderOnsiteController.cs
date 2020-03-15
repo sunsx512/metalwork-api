@@ -29,7 +29,6 @@ namespace mpm_web_api.Controllers.c_work_order
             List<wo_config> lty = os.GetExecutableWo(machine_id);
             object obj = common.ResponseStr<wo_config>((int)httpStatus.succes, "调用成功", lty);
             return Json(obj);
-
         }
 
         /// <summary>
@@ -46,45 +45,60 @@ namespace mpm_web_api.Controllers.c_work_order
         public ActionResult<common.response> Post(int type, int machine_id,int work_order_id)
         {
             object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败"); ;
-            try
+            if(type == 0)
             {
-                if(type == 0)
+                if(os.StartWorkOrder(machine_id, work_order_id))
                 {
-                    if(os.StartWorkOrder(machine_id, work_order_id))
-                    {
-                        obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                    }
-                    else
-                    {
-                        obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
-                    }
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
                 }
-                else if(type == 1)
+                else
                 {
-                    if (os.FinishWorkOrder(machine_id, work_order_id))
-                    {
-                        obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                    }
-                    else
-                    {
-                        obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
-                    }
-                }
-                else if (type == 2)
-                {
-                    if (os.SuspendWorkOrder(work_order_id))
-                    {
-                        obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                    }
-                    else
-                    {
-                        obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
-                    }
+                    obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
                 }
             }
-            catch (Exception ex)
+            else if(type == 1)
             {
-                obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
+                if (os.FinishWorkOrder(machine_id, work_order_id))
+                {
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                }
+                else
+                {
+                    obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+                }
+            }
+            else if (type == 2)
+            {
+                if (os.SuspendWorkOrder(work_order_id))
+                {
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                }
+                else
+                {
+                    obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+                }
+            }
+            return Json(obj);
+        }
+
+        /// <summary>
+        /// 修改当前工单的实际生产数量
+        /// </summary>
+        /// <param name="machine_id">设备号</param>
+        /// <param name="work_order_id">工单号</param>
+        /// <param name="count">数量</param>
+        /// <returns></returns>
+        [HttpPut]
+        public ActionResult<common.response> Put( int machine_id, int work_order_id,int count)
+        {
+            object obj ;
+            if (os.modifyCount(machine_id, work_order_id,count))
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            }
+            else
+            {
+                obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
             }
             return Json(obj);
         }

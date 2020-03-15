@@ -398,5 +398,25 @@ namespace mpm_web_api.DAL.wo
             }
             return re;
         }
+
+        /// <summary>
+        /// 修改工单实际的修改数量
+        /// </summary>
+        /// <param name="machine_id"></param>
+        /// <param name="wo_config_id"></param>
+        /// <returns></returns>
+        public bool modifyCount(int machine_id, int wo_config_id,decimal count)
+        {
+            wo_config wo = DB.Queryable<wo_config>().Where(x => x.id == wo_config_id).First();
+            wo_machine_cur_log wmcl = DB.Queryable<wo_machine_cur_log>()
+                                         .Where(x => x.machine_id == machine_id || x.wo_config_id == machine_id).First();
+            if(wmcl != null)
+            {
+                return DB.Updateable<wo_machine_cur_log>().Where(x=>x.machine_id == machine_id).UpdateColumns(it => new wo_machine_cur_log() { quantity = count }).ExecuteCommand() > 0;
+            }
+            return false;
+        }
+
+
     }
 }

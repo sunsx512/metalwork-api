@@ -68,7 +68,7 @@ namespace mpm_web_api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreWebApi");
             });
             //异常处理中间件
-            app.UseMiddleware(typeof(ExceptionHandlerMiddleWare));
+            app.UseMiddleware(typeof(MiddleWare));
             app.UseMvc();
         }
     }

@@ -18,7 +18,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/area_layer")]
     [SwaggerTag("区域层级")]
     [ApiController]
-    public class Area_LayerController : SSOController,IController<area_layer>
+    public class AreaLayerController : SSOController,IController<area_layer>
     {
         ControllerHelper<area_layer> ch = new ControllerHelper<area_layer>();
 

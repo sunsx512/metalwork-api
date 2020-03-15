@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace mpm_web_api.DAL
 {
-    public class ApiExceptionLogService: SqlSugarBase
+    public class ApiLogService: SqlSugarBase
     {
-        public bool InsertLog(api_exception_log entity)
+        public bool InsertExceptionLog(api_exception_log entity)
         {
             return DB.Insertable<api_exception_log>(entity).ExecuteCommand() > 0;
+        }
+
+        public bool InsertRequestLog(api_request_log entity)
+        {
+            return DB.Insertable<api_request_log>(entity).ExecuteCommand() > 0;
         }
     }
 }
