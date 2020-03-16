@@ -13,6 +13,6 @@ namespace mpm_web_api.model.m_common
         /// <summary>
         /// 版本号
         /// </summary>
-        public string migration_id { get; set; }
+        public string migration_version { get; set; }
     }
 }

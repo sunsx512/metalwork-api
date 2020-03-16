@@ -1,25 +1,20 @@
-INSERT INTO fimp.system_tag_type(type_name_en, type_name_cn, type_name_tw, type_description, id) VALUES ('LightTower', '现场警示灯', '警示燈', '警示燈', 1);
-INSERT INTO fimp.system_tag_type(type_name_en, type_name_cn, type_name_tw, type_description, id) VALUES ('Error', '异常类别（安灯类别）', '安燈異常通知類別', '触发异常通知流程类别', 2);
-INSERT INTO fimp.system_tag_type(type_name_en, type_name_cn, type_name_tw, type_description, id) VALUES ('CircleTime', '节拍时间类别', '', '节拍时间类别', 3);
-INSERT INTO fimp.system_tag_type(type_name_en, type_name_cn, type_name_tw, type_description, id) VALUES ('ProductionSchedule', '工单相关信息', '工单相关信息', '工单相关信息', 4);
-INSERT INTO fimp.system_tag_type(type_name_en, type_name_cn, type_name_tw, type_description, id) VALUES ('Other', '其他类别', '其他类别', '其他类别', 5);
+INSERT INTO "common"."tag_type" VALUES (1, '设备', 'Machine', '設備', '设备标签类型');
+INSERT INTO "common"."tag_type" VALUES (2, '节拍时间', 'Cycle_Time', '節拍時間', '节拍时间类标签类型');
+INSERT INTO "common"."tag_type" VALUES (3, '异常', 'Error', '异常', '异常标签类型');
+INSERT INTO "common"."tag_type" VALUES (4, '其他', 'Other', '其他', '其他标签类型');
 
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (1,'red_light_on','红灯输出','红灯输出','红灯输出',1);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (1,'yellow_light_on','黄灯输出','黄灯输出','黄灯输出',2);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (1,'green_light_on','绿灯输出','绿灯输出','绿灯输出',3);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (1,'blue_light_on','蓝灯输出','蓝灯输出','蓝灯输出',4);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (1,'white_light_on','白色灯输出','白色灯输出','白色灯输出',5);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (2,'quality_error','品质呼叫','品质呼叫','品质呼叫',6);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (2,'material_require','物料呼叫','物料呼叫','物料呼叫',7);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (2,'machine_time_error','设备工时异常','设备工时异常','设备工时异常',8);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (2,'maintain_mode','设备维修模式','设备维修模式','设备维修模式',9);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (2,'machine_error_code','设备运行异常','设备运行异常','设备运行异常',10);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (2,'equipment_tools_abnormal','设备工治具异常','设备工治具异常','设备工治具异常',11);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (2,'staff_error','人员异常','人员异常','人员异常',12);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (3,'cycle_time','节拍时间','节拍时间','节拍时间',13);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (4,'work_order','工单','工单','工单',14);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (4,'part_number','机种信息','机种信息','机种信息',15);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (5,'andon_ack_person','安灯人员确认信息','安灯人员确认信息','安灯人员确认信息',16);
-INSERT INTO fimp.system_tag_code(type_id, code_name_en, code_name_cn, code_name_tw, code_description, id) VALUES (5,'andon_ack_code','安灯异常编码','安灯异常编码','安灯异常编码',17);
+INSERT INTO "common"."tag_type_sub" VALUES (1, 1, '设备状态', 'machine_status', '設備狀態', '设备状态');
+INSERT INTO "common"."tag_type_sub" VALUES (2, 1, '设备状态灯颜色', 'lamp_color', '設備狀態', '設備狀態燈顏色');
+INSERT INTO "common"."tag_type_sub" VALUES (3, 1, '设备状态w', '设备状态w', '设备状态w', '设备状态w');
+INSERT INTO "common"."tag_type_sub" VALUES (4, 2, '设备总节拍时间', 'total_cycle_time', '設備总節拍時間', '设备总节拍时间');
+INSERT INTO "common"."tag_type_sub" VALUES (5, 3, '设备异常', 'equipment_error', '設備异常', '设备异常');
+INSERT INTO "common"."tag_type_sub" VALUES (6, 3, '品质异常', 'quality_error', '品質异常', '品质异常');
+INSERT INTO "common"."tag_type_sub" VALUES (7, 3, '物料呼叫', 'material_require', '物料呼叫', '物料呼叫');
+INSERT INTO "common"."tag_type_sub" VALUES (8, 3, '品质签到', 'quality_sign_in', '品質簽到', '品质签到');
+INSERT INTO "common"."tag_type_sub" VALUES (9, 3, '设备异常签到', 'equipment_sign_in', '設備異常簽到', '设备异常签到');
+INSERT INTO "common"."tag_type_sub" VALUES (10, 3, '品质解除', 'quality_release', '品質解除', '品质解除');
+INSERT INTO "common"."tag_type_sub" VALUES (11, 3, '物料解除', 'material_release', '物料解除', '物料解除');
+INSERT INTO "common"."tag_type_sub" VALUES (12, 3, '设备异常解除', 'equipment_release', '設備異常解除', '设备异常解除');
+INSERT INTO "common"."tag_type_sub" VALUES (13, 3, '异常灯颜色', 'lamp_color', '异常灯颜色', '异常灯颜色');
 
-INSERT INTO oee.utilization_rate_formula(id, run_time_formula, error_time_formula, others_time_formula, boot_time_formula)VALUES (1, 'Run','Down', 'Idle', 'Run+Idle+Down+Break');
+

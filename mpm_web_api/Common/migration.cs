@@ -20,8 +20,7 @@ namespace mpm_web_api.Common
             foreach (FileInfo fileInfo in fileInfos)
             {
                 // 查看日志 如果没有更新 则需要更新
-
-                if (migration_Logs == null || !migration_Logs.Exists(x => x.migration_id == fileInfo.Name))
+                if (migration_Logs == null || !migration_Logs.Exists(x => x.migration_version == fileInfo.Name))
                 {
                     string text = File.ReadAllText("sql/" + fileInfo.Name);
                     string[] tp = text.Split(';');
@@ -29,7 +28,7 @@ namespace mpm_web_api.Common
                     {
                         CreateOne(str.Replace("\n", "").Replace("\t", "").Replace("\r", ""));
                     }
-                    string cmd = string.Format("INSERT INTO fimp.migration_log( migration_id) VALUES ('{0}')", fileInfo.Name);
+                    string cmd = string.Format("INSERT INTO common.migration_log(migration_version) VALUES ('{0}')", fileInfo.Name);
                     CreateOne(cmd);
                 }
 
@@ -41,7 +40,7 @@ namespace mpm_web_api.Common
         {
             try
             {
-                DB.SqlQueryable<migration_log>(cmd);
+                DB.Ado.ExecuteCommand(cmd);
                 return true;
             }
             catch (Exception ex)
