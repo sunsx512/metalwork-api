@@ -222,16 +222,26 @@ namespace mpm_web_api.DAL.wo
                         List<wo_machine> ml = DB.Queryable<wo_machine>().Where(x => x.virtual_line_id == vl.id).ToList();
                         if (ml != null)
                         {
-                            virtual_line_cur_log vlcl = DB.Queryable<virtual_line_cur_log>().Where(x => x.wo_config_id == work_order_id).First();
-                            if(vlcl != null)
+                            wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.machine_id == machine_id)
+                                                   .Where(x => x.wo_config_id == work_order_id).First();
+                            ///只有没有结束过的设备工单才能再次被开启
+                            if(wml == null)
                             {
-                                return StartWoMachine(machine_id, work_order_id);
+                                virtual_line_cur_log vlcl = DB.Queryable<virtual_line_cur_log>().Where(x => x.wo_config_id == work_order_id).First();
+                                if (vlcl != null)
+                                {
+                                    return StartWoMachine(machine_id, work_order_id);
+                                }
+                                //如果没有开启工单 则自动开启线工单
+                                else
+                                {
+                                    re = StartWoVirtualLine(vl.id, work_order_id);
+                                    return re & StartWoMachine(machine_id, work_order_id);
+                                }
                             }
-                            //如果没有开启工单 则自动开启线工单
                             else
                             {
-                                re = StartWoVirtualLine(vl.id, work_order_id);
-                                return re & StartWoMachine(machine_id, work_order_id);
+                                return false;
                             }
                         }
                     }
@@ -266,7 +276,8 @@ namespace mpm_web_api.DAL.wo
                         bool OtherMachinesFinshed = true;
                         foreach(wo_machine wm in ml.Where(x=>x.machine_id != machine_id))
                         {
-                            wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.machine_id == wm.machine_id).First();
+                            wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.machine_id == wm.machine_id)
+                                                                               .Where(x=>x.wo_config_id == work_order_id).First();
                             if(wml == null)
                             {
                                 OtherMachinesFinshed = false;

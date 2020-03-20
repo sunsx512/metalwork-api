@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_oee
 {
+    [ApiExplorerSettings(GroupName = "OEE")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/oee/machine_lease")]
     [SwaggerTag("租赁信息配置")]

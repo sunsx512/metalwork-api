@@ -11,6 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers
 {
+    [ApiExplorerSettings(GroupName = "Common")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/licence")]
     [SwaggerTag("授权设备数量")]

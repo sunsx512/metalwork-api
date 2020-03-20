@@ -19,6 +19,7 @@ namespace mpm_web_api
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,7 +35,12 @@ namespace mpm_web_api
             services.AddSwaggerGen(c =>
             {
                 // 添加文档信息
-                c.SwaggerDoc("v1", new Info { Title = "CoreWebApi", Version = "v1" });
+                c.SwaggerDoc("Common", new Info { Title = "公共配置接口", Version = "Common" });   //分组显示
+                c.SwaggerDoc("OEE", new Info { Title = "OEE配置接口", Version = "OEE" });   //分组显示
+                c.SwaggerDoc("Andon", new Info { Title = "Andon配置接口", Version = "Andon" });   //分组显示
+                c.SwaggerDoc("WorkOrder", new Info { Title = "工单配置接口", Version = "WorkOrder" });   //分组显示
+                c.SwaggerDoc("Dashboard", new Info { Title = "Dashboard数据源", Version = "Dashboard" });   //分组显示
+
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
                 var xmlPath = Path.Combine(basePath, "mpm_web_api.xml");
                 c.IncludeXmlComments(xmlPath);
@@ -44,7 +50,6 @@ namespace mpm_web_api
             });
             services.AddTransient<Microsoft.Extensions.Hosting.IHostedService, Job>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,15 +63,18 @@ namespace mpm_web_api
             {
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseSwagger();
-
             // 配置SwaggerUI
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreWebApi");
+                c.SwaggerEndpoint("/swagger/Common/swagger.json", "公共配置接口");
+                c.SwaggerEndpoint("/swagger/OEE/swagger.json", "OEE相关接口");
+                c.SwaggerEndpoint("/swagger/Andon/swagger.json", "Andon配置接口");
+                c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
+                c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
             });
+
             //异常处理中间件
             app.UseMiddleware(typeof(MiddleWare));
             app.UseMvc();

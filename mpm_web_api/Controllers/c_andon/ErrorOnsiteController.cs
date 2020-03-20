@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_andon
 {
+    [ApiExplorerSettings(GroupName = "Andon")]
     [Produces(("application/json"))]
     [Route("api/v1/client/error/onsite")]
     [SwaggerTag("现场操作页面异常呼叫使用")]

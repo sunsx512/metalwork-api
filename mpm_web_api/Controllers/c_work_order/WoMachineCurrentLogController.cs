@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_work_order
 {
+    [ApiExplorerSettings(GroupName = "WorkOrder")]
     [Produces(("application/json"))]
     [Route("api/v1/client/work_order/machine_current_log")]
     [SwaggerTag("(当前执行)工单设备日志")]

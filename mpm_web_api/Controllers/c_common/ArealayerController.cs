@@ -14,6 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 /// </summary>
 namespace mpm_web_api.Controllers.c_common
 {
+    [ApiExplorerSettings(GroupName = "Common")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/area_layer")]
     [SwaggerTag("区域层级")]

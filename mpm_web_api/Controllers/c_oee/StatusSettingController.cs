@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace mpm_web_api.Controllers.oee
 {
+    [ApiExplorerSettings(GroupName = "OEE")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/oee/status_setting")]
     [ApiController]

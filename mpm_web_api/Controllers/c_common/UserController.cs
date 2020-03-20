@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_common
 {
+    [ApiExplorerSettings(GroupName = "Common")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/user")]
     [SwaggerTag("用户登录信息")]

@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_work_order
 {
+    [ApiExplorerSettings(GroupName = "WorkOrder")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/work_order/produced_work_order")]
     [SwaggerTag("设定工单信息")]

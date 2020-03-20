@@ -11,6 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_work_order
 {
+    [ApiExplorerSettings(GroupName = "WorkOrder")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/work_order/virtual_line")]
     [SwaggerTag("设定虚拟线信息")]

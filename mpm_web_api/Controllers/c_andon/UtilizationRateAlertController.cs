@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_andon
 {
+    [ApiExplorerSettings(GroupName = "Andon")]
     [Produces(("application/json"))]
     [Route("/api/v1/configuration/andon/utilization_rate_alert")]
     [SwaggerTag("稼动率预警配置")]

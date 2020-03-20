@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers
 {
+    [ApiExplorerSettings(GroupName = "Common")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/dept")]
     [SwaggerTag("部门")]

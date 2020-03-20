@@ -11,6 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_andon
 {
+    [ApiExplorerSettings(GroupName = "Andon")]
     [Produces(("application/json"))]
     [Route("/api/v1/configuration/andon/notification_group")]
     [SwaggerTag("通知人员群组")]

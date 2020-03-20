@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace mpm_web_api.Controllers.c_andon
 {
+    [ApiExplorerSettings(GroupName = "Andon")]
     [Produces(("application/json"))]
     [Route("/api/v1/configuration/andon/material_request_info")]
     [SwaggerTag("物料请求信息")]

@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers.c_andon
 {
+    [ApiExplorerSettings(GroupName = "Andon")]
     [Produces(("application/json"))]
     [Route("/api/v1/configuration/andon/error_log_detail")]
     [SwaggerTag("详细异常日志")]

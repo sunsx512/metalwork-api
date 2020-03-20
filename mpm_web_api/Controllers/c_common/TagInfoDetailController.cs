@@ -11,6 +11,7 @@ using static mpm_web_api.common;
 
 namespace mpm_web_api.Controllers.c_common
 {
+    [ApiExplorerSettings(GroupName = "Common")]
     [Produces(("application/json"))]
     [Route("api/v1/configuration/public/tag_detail")]
     [SwaggerTag("标签详细信息")]

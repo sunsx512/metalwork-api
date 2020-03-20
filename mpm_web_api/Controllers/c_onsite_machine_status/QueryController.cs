@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using mpm_web_api.Common;
 using mpm_web_api.DAL;
 using mpm_web_api.model.m_oee;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ using OnsiteStatusWorker.Models;
 
 namespace OnsiteStatusWorker.Controllers
 {
+    [ApiExplorerSettings(GroupName = "Dashboard")]
     [Route("api/[controller]")]
     [ApiController]
     public class QueryController : ControllerBase
