@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
 using mpm_web_api.model;
+using mpm_web_api.model.m_common;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace mpm_web_api.Controllers
@@ -14,9 +15,10 @@ namespace mpm_web_api.Controllers
     [Route("api/v1/configuration/public/tag_type_sub")]
     [SwaggerTag("二级标签类型")]
     [ApiController]
-    public class TagTypeSubController : SSOController, IController<tag_type_sub>
+    public class TagTypeSubController : SSOController
     {
         ControllerHelper<tag_type_sub> ch = new ControllerHelper<tag_type_sub>();
+        ControllerHelper<tag_type_sub_custom> tysc = new ControllerHelper<tag_type_sub_custom>();
         /// <summary>
         /// 删除tag sub类型
         /// </summary>
@@ -28,7 +30,7 @@ namespace mpm_web_api.Controllers
         [HttpDelete]
         public ActionResult<common.response> Delete(int id)
         {
-            return Json(ch.Delete(id));
+            return Json(tysc.Delete(id));
         }
         /// <summary>
         /// 获取
@@ -52,9 +54,9 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<common.response> Post(tag_type_sub t)
+        public ActionResult<common.response> Post(tag_type_sub_custom t)
         {
-            return Json(ch.Post(t));
+            return Json(tysc.Post(t));
         }
 
         /// <summary>
@@ -66,9 +68,9 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(tag_type_sub t)
+        public ActionResult<common.response> Put(tag_type_sub_custom t)
         {
-            return Json(ch.Put(t));
+            return Json(tysc.Put(t));
         }
     }
 }

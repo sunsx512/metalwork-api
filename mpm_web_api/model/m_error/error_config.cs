@@ -48,6 +48,19 @@ namespace mpm_web_api.model
         /// 预警形式，个人/群组
         /// </summary>
         public int notice_type { get; set; }
+        /// <summary>
+        /// 标签名
+        /// </summary>
+        public string tag_name { get; set; }
+        /// <summary>
+        /// 判断点标签名
+        /// </summary>
+        public string judge_tag_name { get; set; }
+        /// <summary>
+        /// 逻辑类型 0:安灯逻辑 1:自定义逻辑
+        /// </summary>
+        public int  logic_type{ get; set; }
+        
     }
     public class error_config_detail : error_config
     {
