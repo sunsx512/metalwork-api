@@ -32,25 +32,25 @@ namespace mpm_web_api.DAL.andon
                                 .Mapper((it) =>
                                 {
                                     List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
-                                    it.error_config = error_configs.First();
+                                    it.error_config = error_configs.FirstOrDefault();
                                 }).ToList(); break;
                 case 1: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time == dt)
                                 .Mapper((it) =>
                                 {
                                     List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
-                                    it.error_config = error_configs.First();
+                                    it.error_config = error_configs.FirstOrDefault();
                                 }).ToList(); break; 
                 case 2: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt && x.release_time == dt)
                                 .Mapper((it) =>
                                 {
                                     List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
-                                    it.error_config = error_configs.First();
+                                    it.error_config = error_configs.FirstOrDefault();
                                 }).ToList(); break;
                 case 3: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt)
                                 .Mapper((it) =>
                                 {
                                     List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
-                                    it.error_config = error_configs.First();
+                                    it.error_config = error_configs.FirstOrDefault();
                                 }).ToList(); break;
             }
             return list;

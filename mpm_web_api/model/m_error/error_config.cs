@@ -68,5 +68,7 @@ namespace mpm_web_api.model
         public notification_group level2_notification_group { get; set; }
         [SugarColumn(IsIgnore = true)]
         public notification_group level3_notification_group { get; set; }
+        [SugarColumn(IsIgnore = true)]
+        public tag_info tag { get; set; }
     }
  }

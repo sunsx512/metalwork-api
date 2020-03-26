@@ -17,8 +17,8 @@ namespace mpm_web_api.DAL.andon
                                 {
                                     List<machine> machines = DB.Queryable<machine>().Where(x => x.id == it.machine_id).ToList();
                                     List<notification_group> notification_groups = DB.Queryable<notification_group>().Where(x => x.id == it.notice_group_id).ToList();
-                                    it.machine = machines.First();
-                                    it.notice_group = notification_groups.First();
+                                    it.machine = machines.FirstOrDefault();
+                                    it.notice_group = notification_groups.FirstOrDefault();
                                 }).ToList();
             return list;
         }

@@ -18,9 +18,9 @@ namespace mpm_web_api.DAL.andon
                                     List<error_type_details> error_type_details = DB.Queryable<error_type_details>().Where(x => x.id == it.error_type_detail_id).ToList();
                                     List<error_type> error_types = DB.Queryable<error_type>().Where(x => x.id == error_type_details.First().error_type_id).ToList();
                                     List<notification_group> notification_groups = DB.Queryable<notification_group>().Where(x => x.id == it.notice_group_id).ToList();
-                                    it.notice_group = notification_groups.First();
-                                    it.error_type = error_types.First();
-                                    it.error_type_detail = error_type_details.First();
+                                    it.notice_group = notification_groups.FirstOrDefault();
+                                    it.error_type = error_types.FirstOrDefault();
+                                    it.error_type_detail = error_type_details.FirstOrDefault();
                                 }).ToList();
             return list;
         }

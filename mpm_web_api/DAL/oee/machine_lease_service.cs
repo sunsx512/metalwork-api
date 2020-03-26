@@ -16,7 +16,7 @@ namespace mpm_web_api.DAL.oee
             .Mapper((it) =>
             {
                 List<machine> machines = DB.Queryable<machine>().Where(x => x.id == it.machine_id).ToList();
-                it.machine = machines.First();
+                it.machine = machines.FirstOrDefault();
             }).ToList();
             return list;
         }

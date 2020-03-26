@@ -45,6 +45,7 @@ namespace mpm_web_api.Common
             }
             catch (Exception ex)
             {
+                Console.WriteLine(cmd + "：" + ex.Message);
                 return false;
             }
         }

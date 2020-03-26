@@ -19,18 +19,20 @@ namespace mpm_web_api.DAL.andon
                 List<notification_group> level1_notification_group = DB.Queryable<notification_group>().Where(x => x.id == it.level1_notification_group_id).ToList();
                 List<notification_group> level2_notification_group = DB.Queryable<notification_group>().Where(x => x.id == it.level2_notification_group_id).ToList();
                 List<notification_group> level3_notification_group = DB.Queryable<notification_group>().Where(x => x.id == it.level3_notification_group_id).ToList();
+                List<tag_info> tag = DB.Queryable<tag_info>().Where(x => x.machine_id == it.machine_id && x.tag_type_sub_id == it.tag_type_sub_id).ToList();
                 it.id = it.id;
                 it.alert_active = it.alert_active;
-                it.level1_notification_group = level1_notification_group.First();
-                it.level2_notification_group = level2_notification_group.First();
-                it.level3_notification_group = level3_notification_group.First();
-                it.machine = machines.First();
+                it.level1_notification_group = level1_notification_group.FirstOrDefault();
+                it.level2_notification_group = level2_notification_group.FirstOrDefault();
+                it.level3_notification_group = level3_notification_group.FirstOrDefault();
+                it.machine = machines.FirstOrDefault();
+                it.tag = tag.FirstOrDefault();
                 it.notice_type = it.notice_type;
-                it.response_person = persons.First();
+                it.response_person = persons.FirstOrDefault();
                 it.response_person_id = it.response_person_id;
                 it.timeout_setting = it.timeout_setting;
                 it.trigger_out_color = it.trigger_out_color;
-                it.type = types.First();
+                it.type = types.FirstOrDefault();
             }).ToList();
             return list;
         }

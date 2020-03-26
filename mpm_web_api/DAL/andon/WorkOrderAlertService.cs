@@ -17,8 +17,8 @@ namespace mpm_web_api.DAL.andon
                                 {
                                     List<virtual_line> virtual_lines = DB.Queryable<virtual_line>().Where(x => x.id == it.virtual_line_id).ToList();
                                     List<notification_group> notification_groups = DB.Queryable<notification_group>().Where(x => x.id == it.notice_group_id).ToList();
-                                    it.virtual_line = virtual_lines.First();
-                                    it.notice_group = notification_groups.First();
+                                    it.virtual_line = virtual_lines.FirstOrDefault();
+                                    it.notice_group = notification_groups.FirstOrDefault();
                                 }).ToList();
             return list;
         }

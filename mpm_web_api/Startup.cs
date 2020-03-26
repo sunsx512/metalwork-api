@@ -24,7 +24,7 @@ namespace mpm_web_api
         {
             Configuration = configuration;
             common.GetEnv();
-            migration.Create();
+            //migration.Create();
         }
 
         public IConfiguration Configuration { get; }

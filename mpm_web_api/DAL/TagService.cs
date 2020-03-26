@@ -39,12 +39,12 @@ namespace mpm_web_api.DAL
                 List<tag_type> tag_types = DB.Queryable<tag_type>().Where(x => x.id == tag_type_subs.First().tag_type_id).ToList();
                 List<machine> machines = DB.Queryable<machine>().Where(x => x.id == it.machine_id).ToList();
                 it.id = it.id;
-                it.machine = machines.First();
+                it.machine = machines.FirstOrDefault();
                 it.name = it.name;
                 it.description = it.description;
                 it.machine_id = it.machine_id;
-                it.tag_type = tag_types.First();
-                it.tag_type_sub = tag_type_subs.First();
+                it.tag_type = tag_types.FirstOrDefault();
+                it.tag_type_sub = tag_type_subs.FirstOrDefault();
             }).ToList();
             return list;
         }

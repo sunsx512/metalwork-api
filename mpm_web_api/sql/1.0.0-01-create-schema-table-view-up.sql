@@ -755,7 +755,7 @@ CREATE VIEW "common"."tag_type_sub" AS  SELECT tag_type_sub_fixed.id,
     tag_type_sub_fixed.name_en,
     tag_type_sub_fixed.name_tw,
     tag_type_sub_fixed.description
-   FROM common.tag_type_sub_fixed
+   FROM common.tag_type_sub_fixed 
 UNION ALL
  SELECT tag_type_sub_custom.id,
     tag_type_sub_custom.tag_type_id,

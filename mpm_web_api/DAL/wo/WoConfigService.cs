@@ -22,7 +22,7 @@ namespace mpm_web_api.DAL
                        it.standard_num = it.standard_num;
                        it.standard_time = it.standard_time;
                        it.status = it.status;
-                       it.virtual_Line = virtual_line.First();
+                       it.virtual_Line = virtual_line.FirstOrDefault();
                        it.virtual_line_id = it.virtual_line_id;
                        it.work_order = it.work_order;
                    }).ToList();
@@ -31,9 +31,16 @@ namespace mpm_web_api.DAL
 
         public List<wo_config> QueryableByMachine(int machine_id)
         {
+            List<wo_config> list = new List<wo_config>();
             var machines = DB.Queryable<wo_machine_detail>().Where(x => x.machine_id == machine_id).ToList();
-            var virtual_line = DB.Queryable<virtual_line>().Where(x => x.id == machines.First().virtual_line_id).ToList();
-            var list = DB.Queryable<wo_config>().Where(x => x.virtual_line_id == virtual_line.First().id).ToList();
+            if(machines.Count > 0)
+            {
+                var virtual_line = DB.Queryable<virtual_line>().Where(x => x.id == machines.First().virtual_line_id).ToList();
+                if(virtual_line.Count >0)
+                {
+                    list = DB.Queryable<wo_config>().Where(x => x.virtual_line_id == virtual_line.First().id).ToList();
+                }
+            }
             return list;
         }
 
@@ -57,8 +64,8 @@ namespace mpm_web_api.DAL
                            it.standard_time = it.standard_time;
                            it.status = it.status;
                            it.virtual_line_id = it.virtual_line_id;
-                           it.virtual_Line_log = virtual_line_log.First();
-                           it.virtual_Line = virtual_line.First();
+                           it.virtual_Line_log = virtual_line_log.FirstOrDefault();
+                           it.virtual_Line = virtual_line.FirstOrDefault();
                            it.work_order = it.work_order;
                        }
 
