@@ -68,10 +68,7 @@ namespace mpm_web_api.DAL
                            it.virtual_Line = virtual_line.FirstOrDefault();
                            it.work_order = it.work_order;
                        }
-
                    }).ToList();
-
-
             return list;
         }
 

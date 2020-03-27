@@ -34,7 +34,8 @@ namespace mpm_web_api.DAL.andon
                     else
                     {
                         string s = "quality_error";
-                        string t = machine_id.ToString();
+                        machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+                        string t = mc.name_en;
                         SendMGMsg(s, t, 1);
                     }
                     return true;
@@ -68,7 +69,8 @@ namespace mpm_web_api.DAL.andon
                     else
                     {
                         string s = "equipment_error";
-                        string t = machine_id.ToString();
+                        machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+                        string t = mc.name_en;
                         SendMGMsg(s, t, 1);
                     }
                     return true;
@@ -98,7 +100,8 @@ namespace mpm_web_api.DAL.andon
                     else
                     {
                         string s = "material_require";
-                        string t = machine_id.ToString();
+                        machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+                        string t = mc.name_en;
                         SendMGMsg(s, t, 1);
                     }
                     return true;
@@ -129,7 +132,8 @@ namespace mpm_web_api.DAL.andon
                     else
                     {
                         string s = "quality_sign_in";
-                        string t = machine_id.ToString();
+                        machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+                        string t = mc.name_en;
                         SendMGMsg(s, t, 1);
                     }
                     return true ;
@@ -161,7 +165,8 @@ namespace mpm_web_api.DAL.andon
                     else
                     {
                         string s = "equipment_sign_in";
-                        string t = machine_id.ToString();
+                        machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+                        string t = mc.name_en;
                         SendMGMsg(s, t, 1);
                     }
                     return true;
@@ -192,7 +197,8 @@ namespace mpm_web_api.DAL.andon
                     else
                     {
                         string s = "quality_release";
-                        string t = machine_id.ToString();
+                        machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+                        string t = mc.name_en;
                         SendMGMsg(s, t, 1);
                     }
                     return true;
@@ -221,7 +227,8 @@ namespace mpm_web_api.DAL.andon
                     else
                     {
                         string s = "equipment_release";
-                        string t = machine_id.ToString();
+                        machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+                        string t = mc.name_en;
                         SendMGMsg(s, t, 1);
                     }
                     return true;
@@ -251,7 +258,8 @@ namespace mpm_web_api.DAL.andon
                     else
                     {
                         string s = "material_release";
-                        string t = machine_id.ToString();
+                        machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+                        string t = mc.name_en;
                         SendMGMsg(s, t, 1);
                     }
                      return true;

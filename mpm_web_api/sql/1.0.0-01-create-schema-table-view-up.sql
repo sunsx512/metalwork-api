@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS "andon"."capacity_alert" (
   "capacity" numeric(8,2) NOT NULL,
   "notice_type" int4 NOT NULL,
   "enable" bool NOT NULL,
-  "tag_name" varchar(200) COLLATE "pg_catalog"."default",
   CONSTRAINT "capacity_alert_pkey" PRIMARY KEY ("id"),
   CONSTRAINT "capacity_alert_date_key1" UNIQUE ("date")
 );
