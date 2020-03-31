@@ -41,11 +41,25 @@ namespace mpm_web_api
                 c.SwaggerDoc("WorkOrder", new Info { Title = "工单配置接口", Version = "WorkOrder" });   //分组显示
                 c.SwaggerDoc("Dashboard", new Info { Title = "Dashboard数据源", Version = "Dashboard" });   //分组显示
 
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "请输入带有Bearer的Token",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "Bearer", Enumerable.Empty<string>() }
+                });
+
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
                 var xmlPath = Path.Combine(basePath, "mpm_web_api.xml");
+                
                 c.IncludeXmlComments(xmlPath);
                 //启用数据注解
                 c.EnableAnnotations();
+                
 
             });
             services.AddTransient<Microsoft.Extensions.Hosting.IHostedService, Job>();
@@ -74,7 +88,8 @@ namespace mpm_web_api
                 c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
                 c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
             });
-
+            //权限处理中间件
+            app.UseMiddleware(typeof(AuthMiddleWare));
             //异常处理中间件
             app.UseMiddleware(typeof(MiddleWare));
             app.UseMvc();

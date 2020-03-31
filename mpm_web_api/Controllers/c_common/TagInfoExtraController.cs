@@ -28,7 +28,6 @@ namespace mpm_web_api.Controllers.c_common
         [HttpDelete]
         public ActionResult<common.response> Delete(int id)
         {
-
             return Json(ch.Delete(id));
         }
         /// <summary>

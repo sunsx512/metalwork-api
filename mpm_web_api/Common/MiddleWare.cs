@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Wise_Paas;
+using Wise_Paas.models;
+using Wise_Pass;
 
 namespace mpm_web_api.Common
 {
