@@ -13,7 +13,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using mpm_web_api.Common;
 using mpm_web_api.DAL;
+using mpm_web_api.db;
+using mpm_web_api.DB;
 using Swashbuckle.AspNetCore.Swagger;
+using Wise_Paas.models;
+using Wise_Pass;
 
 namespace mpm_web_api
 {
@@ -23,8 +27,15 @@ namespace mpm_web_api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            common.GetEnv();
-            //migration.Create();
+            //EnvironmentInfo  environmentInfo = EnvironmentVariable.Get();
+            //string pg = "Server={0};Port={1};Database={2};User Id={3};Password={4};";
+            //pg = string.Format(pg, environmentInfo.postgres_externalHost, environmentInfo.postgres_port, environmentInfo.postgres_database, environmentInfo.postgres_username, environmentInfo.postgres_password);
+            //PostgreBase.connString = pg;
+
+            //string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
+            //mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_externalHost, environmentInfo.mongo_port, environmentInfo.mongo_database);
+            //MongoHelper.connectionstring = mg;
+            //migration.Create(true);
         }
 
         public IConfiguration Configuration { get; }

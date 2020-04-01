@@ -11,7 +11,7 @@ namespace mpm_web_api.Common
 {
     public class migration: SqlSugarBase
     {
-        public static bool Create()
+        public static bool Create(bool IsLinux)
         {
             List<migration_log> migration_Logs = new List<migration_log>();
             DirectoryInfo root = new DirectoryInfo("sql");
@@ -22,7 +22,11 @@ namespace mpm_web_api.Common
                 // 查看日志 如果没有更新 则需要更新
                 if (migration_Logs == null || !migration_Logs.Exists(x => x.migration_version == fileInfo.Name))
                 {
-                    string text = File.ReadAllText("sql/" + fileInfo.Name);
+                    string text = "";
+                    if (IsLinux)
+                        text = File.ReadAllText("sql\\" + fileInfo.Name);
+                    else
+                        text = File.ReadAllText("sql/" + fileInfo.Name);
                     string[] tp = text.Split(';');
                     foreach (string str in tp)
                     {

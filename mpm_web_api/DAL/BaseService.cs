@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace mpm_web_api.DAL
@@ -38,7 +39,20 @@ namespace mpm_web_api.DAL
         /// <returns></returns>
         public bool Update(T entity, Expression<Func<T, bool>> expression) 
         {
-            return DB.Updateable(entity).Where(expression).IgnoreColumns(ignoreAllNullColumns: true,ignoreAllDefaultValue:true).ExecuteCommand() > 0;
+            List<string> Ignorestr = new List<string>() ;
+            //过滤掉 DateTime的默认值
+            foreach (PropertyInfo p in entity.GetType().GetProperties())
+            {
+                if(p.PropertyType.Name == "DateTime")
+                {
+                    if(p.GetValue(entity).ToString() == "0001/1/1 0:00:00")
+                    {
+                        Ignorestr.Add(p.Name);
+                    }
+                }
+            }
+            return DB.Updateable(entity).Where(expression).IgnoreColumns(ignoreAllNullColumns: true).IgnoreColumns(Ignorestr.ToArray()).ExecuteCommand() > 0;
+
         }
 
         /// <summary>

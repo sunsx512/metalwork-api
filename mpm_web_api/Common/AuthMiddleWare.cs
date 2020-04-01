@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wise_Paas;
 using Wise_Paas.models;
+using wise_paas_sso.models;
 using Wise_Pass;
 
 namespace mpm_web_api.Common
@@ -23,29 +24,33 @@ namespace mpm_web_api.Common
         {
             try
             {
-
-                string token = "";
-                //if (context.Request.Headers)
-                //{
-
-                //}
-                EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
-                if (client_id == "")
+                string token = context.Request.Headers["Authorization"].ToString();
+                if (token != "")
                 {
-                    Client client = SSO.GetClient("IFactory-Metalwork", token, environmentInfo.sso_url);
-                    if(client != null)
+                    if(token.Contains("Bearer"))
                     {
-                        client_id = client.clientId;
+                        token = token.Split(' ')[1];
+                        EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
+                        if (client_id == "")
+                        {
+                            Client client = SSO.GetClient("Metalwork", token, environmentInfo.sso_url);
+                            if (client != null)
+                            {
+                                client_id = client.clientId;
+                            }
+                        }
+                        if (client_id != "")
+                        {
+                            SrpRole srpRole = SSO.GetRole(client_id, token, environmentInfo.sso_url);
+                            //只有有权限的情况 才会放行
+                            if (srpRole != null)
+                            {
+                                await next(context);
+                            }
+                        }
                     }
                 }
-                if (client_id != "")
-                {
-                    //只有有权限的情况 才会放行
-                   if(Integration.CheckRole(context, "IFactory-Metalwork"))
-                    {
-                        await next(context);
-                    }
-                }
+
                 //没有权限的话返回401
                 HttpResponse response = context.Response;
                 response.ContentType = context.Request.Headers["Accept"];
