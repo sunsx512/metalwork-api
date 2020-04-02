@@ -40,11 +40,11 @@ namespace mpm_web_api.model
         /// <summary>
         /// 花费时间
         /// </summary>
-        public DateTime take_time { get; set; }
+        public DateTime? take_time { get; set; }
         /// <summary>
         /// 触发时间
         /// </summary>
-        public DateTime createtime { get; set; }
+        public DateTime? createtime { get; set; }
         /// <summary>
         /// 描述
         /// </summary>
@@ -56,6 +56,6 @@ namespace mpm_web_api.model
         /// <summary>
         /// 花费时间
         /// </summary>
-        public decimal cost_time { get; set; }
+        public decimal? cost_time { get; set; }
     }
 }

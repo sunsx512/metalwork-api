@@ -12,11 +12,11 @@ namespace mpm_web_api.model.m_wo
         /// <summary>
         /// 开始时间 结束时间
         /// </summary>
-        public DateTime start_time { set; get; }
+        public DateTime? start_time { set; get; }
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime end_time { set; get; }
+        public DateTime? end_time { set; get; }
         /// <summary>
         /// 逾期时间
         /// </summary>

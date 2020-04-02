@@ -27,7 +27,7 @@ namespace mpm_web_api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //EnvironmentInfo  environmentInfo = EnvironmentVariable.Get();
+            //EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
             //string pg = "Server={0};Port={1};Database={2};User Id={3};Password={4};";
             //pg = string.Format(pg, environmentInfo.postgres_externalHost, environmentInfo.postgres_port, environmentInfo.postgres_database, environmentInfo.postgres_username, environmentInfo.postgres_password);
             //PostgreBase.connString = pg;
@@ -100,7 +100,7 @@ namespace mpm_web_api
                 c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
             });
             //权限处理中间件
-            app.UseMiddleware(typeof(AuthMiddleWare));
+            //app.UseMiddleware(typeof(AuthMiddleWare));
             //异常处理中间件
             app.UseMiddleware(typeof(MiddleWare));
             app.UseMvc();

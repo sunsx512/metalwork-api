@@ -28,7 +28,7 @@ namespace mpm_web_api.model.m_oee
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime start_time { get; set; }
+        public DateTime? start_time { get; set; }
     }
     public class machine_lease_detail: machine_lease
     {

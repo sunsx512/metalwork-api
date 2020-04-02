@@ -36,7 +36,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTime start_time { get; set; }
+        public DateTime? start_time { get; set; }
         /// <summary>
         /// 替代者
         /// </summary>
@@ -44,7 +44,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 签到时间
         /// </summary>
-        public DateTime arrival_time { get; set; }
+        public DateTime? arrival_time { get; set; }
         /// <summary>
         /// 异常类型名称
         /// </summary>
@@ -56,7 +56,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 解除时间
         /// </summary>
-        public DateTime release_time { get; set; }
+        public DateTime? release_time { get; set; }
         /// <summary>
         /// 不良数量
         /// </summary>
@@ -68,7 +68,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 花费时间
         /// </summary>
-        public decimal cost_time { get; set; }
+        public decimal? cost_time { get; set; }
 
     }
 

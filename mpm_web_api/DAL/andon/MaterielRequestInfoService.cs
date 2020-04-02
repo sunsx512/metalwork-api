@@ -11,7 +11,6 @@ namespace mpm_web_api.DAL.andon
     {
         public List<material_request_info> QueryableToListByMachineAndStatus(int status, string machine)
         {
-            DateTime dt = new DateTime();
             List<material_request_info> list = new List<material_request_info>();
             switch (status)
             {
@@ -19,7 +18,7 @@ namespace mpm_web_api.DAL.andon
                                                            .Where(x=>x.machine_name  == machine).ToList(); break;
                 case 1: list = DB.Queryable<material_request_info>()
                                                            .Where(x => x.machine_name == machine)
-                                                           .Where(x => x.take_time == dt).ToList(); break;
+                                                           .Where(x => x.take_time == null).ToList(); break;
             }
             return list;
         }

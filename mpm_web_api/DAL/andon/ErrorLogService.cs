@@ -8,16 +8,15 @@ namespace mpm_web_api.DAL.andon
 {
     public class ErrorLogService : BaseService<error_log>
     {
-        DateTime dt = new DateTime();
         public  List<error_log> QueryableToListByStatus(int status)
         {
             List<error_log> list = new List<error_log>();
             switch (status)
             {
                 case 0: list = DB.Queryable<error_log>().ToList();break;
-                case 1: list = DB.Queryable<error_log>().Where(x => x.arrival_time == dt).ToList();; break;
-                case 2: list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt && x.release_time == dt).ToList(); break;
-                case 3: list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt).ToList(); break;
+                case 1: list = DB.Queryable<error_log>().Where(x => x.arrival_time == null).ToList();; break;
+                case 2: list = DB.Queryable<error_log>().Where(x => x.arrival_time != null && x.release_time == null).ToList(); break;
+                case 3: list = DB.Queryable<error_log>().Where(x => x.arrival_time != null).ToList(); break;
             }
             return list;
         }
@@ -34,19 +33,19 @@ namespace mpm_web_api.DAL.andon
                                     List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
                                     it.error_config = error_configs.FirstOrDefault();
                                 }).ToList(); break;
-                case 1: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time == dt)
+                case 1: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time == null)
                                 .Mapper((it) =>
                                 {
                                     List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
                                     it.error_config = error_configs.FirstOrDefault();
                                 }).ToList(); break; 
-                case 2: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt && x.release_time == dt)
+                case 2: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != null && x.release_time == null)
                                 .Mapper((it) =>
                                 {
                                     List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
                                     it.error_config = error_configs.FirstOrDefault();
                                 }).ToList(); break;
-                case 3: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt)
+                case 3: list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != null)
                                 .Mapper((it) =>
                                 {
                                     List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
@@ -70,21 +69,21 @@ namespace mpm_web_api.DAL.andon
                                 it.error_config = error_configs.First();
                             }).ToList(); break;
                 case 1:
-                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time == dt)
+                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time == null)
                             .Mapper((it) =>
                             {
                                 List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
                                 it.error_config = error_configs.First();
                             }).ToList(); break;
                 case 2:
-                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt && x.release_time == dt)
+                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != null && x.release_time == null)
                             .Mapper((it) =>
                             {
                                 List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
                                 it.error_config = error_configs.First();
                             }).ToList(); break;
                 case 3:
-                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != dt)
+                    list = DB.Queryable<error_log_detail>().Where(x => x.arrival_time != null)
                             .Mapper((it) =>
                             {
                                 List<error_config> error_configs = DB.Queryable<error_config>().Where(x => x.id == it.error_config_id).ToList();
@@ -107,9 +106,9 @@ namespace mpm_web_api.DAL.andon
             switch (status)
             {
                 case 0: list = DB.Queryable<error_log>().ToList(); break;
-                case 1: list = DB.Queryable<error_log>().Where(x => x.arrival_time == dt).ToList();  break;
-                case 2: list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt && x.release_time == dt).ToList(); break;
-                case 3: list = DB.Queryable<error_log>().Where(x => x.arrival_time != dt).ToList(); break;
+                case 1: list = DB.Queryable<error_log>().Where(x => x.arrival_time == null).ToList();  break;
+                case 2: list = DB.Queryable<error_log>().Where(x => x.arrival_time != null && x.release_time == null).ToList(); break;
+                case 3: list = DB.Queryable<error_log>().Where(x => x.arrival_time != null).ToList(); break;
             }
             switch (type)
             {
