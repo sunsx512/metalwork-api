@@ -200,7 +200,7 @@ namespace mpm_web_api.DAL.wo
             //完结 当前执行的线工单日志
             re = re & DB.Deleteable<virtual_line_cur_log>(vlcl.id).ExecuteCommand()>0;
             //插入到线工单历史记录中
-            return re & DB.Insertable<virtual_line_log>(vll).ExecuteCommand()>0;
+            return re & DB.Insertable(vll).ExecuteCommand()>0;
         }
 
 
@@ -227,7 +227,7 @@ namespace mpm_web_api.DAL.wo
             //完结 当前执行的线工单日志
             re = DB.Deleteable<virtual_line_cur_log>(vlcl.id).ExecuteCommand() > 0;
             //插入到线工单历史记录中
-            return re & DB.Insertable<virtual_line_log>(vll).ExecuteCommand() > 0;
+            return re & DB.Insertable(vll).ExecuteCommand() > 0;
         }
 
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using mpm_web_api.DAL;
+using mpm_web_api.model.m_common;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ namespace mpm_web_api.Common
     public class AuthMiddleWare
     {
         private readonly RequestDelegate next;
+        static ApiLogService aes = new ApiLogService();
         static string client_id = "";
         public AuthMiddleWare(RequestDelegate next)
         {
@@ -27,7 +30,7 @@ namespace mpm_web_api.Common
                 string token = context.Request.Headers["Authorization"].ToString();
                 if (token != "")
                 {
-                    if(token.Contains("Bearer"))
+                    if (token.Contains("Bearer"))
                     {
                         token = token.Split(' ')[1];
                         EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
@@ -50,7 +53,7 @@ namespace mpm_web_api.Common
                         }
                     }
                 }
-
+                await next(context);
                 //没有权限的话返回401
                 HttpResponse response = context.Response;
                 response.ContentType = context.Request.Headers["Accept"];
@@ -59,17 +62,11 @@ namespace mpm_web_api.Common
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                
             }
         }
 
-        private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
-            if (exception == null)
-            {
 
-                return;
-            }
-        }
+
     }
 }

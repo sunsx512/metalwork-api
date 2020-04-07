@@ -12,6 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Wise_Paas.models;
+using Wise_Pass;
 
 namespace mpm_web_api.Common
 {
@@ -127,32 +129,37 @@ namespace mpm_web_api.Common
         public static bool CheckSpaceID(string space_id)
         {
             IDictionary tp = Environment.GetEnvironmentVariables();
-            string str = "";
             string Env_space_id = "";
-            foreach (DictionaryEntry tt in tp)
+            EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
+
+            //EnSaaS 4.0 环境
+            if (environmentInfo.cluster != null)
             {
-                if (tt.Key.ToString() == "VCAP_APPLICATION")
-                {
-                    str = tt.Value.ToString();
-                    break;
-                }
+                Env_space_id = environmentInfo.workspace;
+                if (Env_space_id == space_id)
+                    return true;
+                else
+                    return false;
             }
-            if (str != "")
+            //docker 环境
+            else
             {
-                JObject jo = (JObject)JsonConvert.DeserializeObject(str);
-                foreach (var t in jo)
+                string mac_path = Environment.GetEnvironmentVariable("MAC_PATH");
+                string mac_list = File.ReadAllText(mac_path);
+                //只要符合一个mac地址就可以授权
+                if(mac_list != null)
                 {
-                    if (t.Key == "space_id")
+                    string[] str_list = mac_list.Split("\r\n");
+                    foreach(string str in str_list)
                     {
-                        Env_space_id = (string)t.Value;
-                        break;
+                        Env_space_id = str;
+                        if (Env_space_id == space_id)
+                            return true;
                     }
                 }
             }
-            if (Env_space_id == space_id)
-                return true;
-            else
-                return false;
+            return false;
+
         }
     }
 }

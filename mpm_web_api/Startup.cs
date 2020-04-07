@@ -23,19 +23,37 @@ namespace mpm_web_api
 {
     public class Startup
     {
-
+        public bool IsCloud = true;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             //EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
             //string pg = "Server={0};Port={1};Database={2};User Id={3};Password={4};";
-            //pg = string.Format(pg, environmentInfo.postgres_externalHost, environmentInfo.postgres_port, environmentInfo.postgres_database, environmentInfo.postgres_username, environmentInfo.postgres_password);
+            //pg = string.Format(pg, environmentInfo.postgres_host, environmentInfo.postgres_port, environmentInfo.postgres_database, environmentInfo.postgres_username, environmentInfo.postgres_password);
             //PostgreBase.connString = pg;
 
-            //string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
-            //mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_externalHost, environmentInfo.mongo_port, environmentInfo.mongo_database);
-            //MongoHelper.connectionstring = mg;
-            //migration.Create(true);
+            ////EnSaaS 4.0 环境
+            //if ( environmentInfo.cluster != null)
+            //{
+            //    string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
+            //    mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_host, environmentInfo.mongo_port, environmentInfo.mongo_database);
+            //    MongoHelper.connectionstring = mg;
+            //    MongoHelper.databaseName = environmentInfo.mongo_database;
+            //    IsCloud = true;
+            //    migration.Create(true);
+            //}
+            ////docker 环境
+            //else
+            //{
+            //    string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
+            //    mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_host, environmentInfo.mongo_port, environmentInfo.mongo_database);
+            //    MongoHelper.connectionstring = mg+ "?authSource=admin";
+            //    MongoHelper.databaseName = environmentInfo.mongo_database;
+            //    IsCloud = false;
+            //    migration.Create(false);
+            //}
+
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -99,8 +117,9 @@ namespace mpm_web_api
                 c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
                 c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
             });
-            //权限处理中间件
-            //app.UseMiddleware(typeof(AuthMiddleWare));
+            if(IsCloud)
+                //如果是云端的话 需要启动权限处理中间件
+                app.UseMiddleware(typeof(AuthMiddleWare));
             //异常处理中间件
             app.UseMiddleware(typeof(MiddleWare));
             app.UseMvc();

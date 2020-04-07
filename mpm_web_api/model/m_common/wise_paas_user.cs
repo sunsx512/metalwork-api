@@ -12,7 +12,11 @@ namespace mpm_web_api.model.m_common
         [SugarColumn(IsIdentity = true, ColumnName = "id")]
         public int id { set; get; }
         [SugarColumn(IsPrimaryKey = true,  ColumnName = "name")]
+        //用户名
         public string name { set; get; }
+        //密码
         public string password { set; get; }
+        //角色
+        public string role { set; get; }
     }
 }

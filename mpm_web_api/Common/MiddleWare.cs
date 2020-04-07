@@ -43,6 +43,7 @@ namespace mpm_web_api.Common
             }
         }
 
+
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             if (exception == null)
@@ -50,7 +51,6 @@ namespace mpm_web_api.Common
 
                 return;
             }
-
             await WriteExceptionAsync(context, exception).ConfigureAwait(false);
         }
 
@@ -66,9 +66,9 @@ namespace mpm_web_api.Common
             //返回友好的提示
             HttpResponse response = context.Response;
             response.ContentType = context.Request.Headers["Accept"];
-
             response.ContentType = "application/json";
             await response.WriteAsync(JsonConvert.SerializeObject(common.ResponseStr((int)httpStatus.serverError, exception.Message))).ConfigureAwait(false);
         }
+
     }
 }

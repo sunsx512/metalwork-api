@@ -41,7 +41,7 @@
 
   <ItemGroup>
     <Reference Include="Wise_Paas">
-      <HintPath>..\..\WebApplication1\WebApplication1\wise_paas_sso\bin\Debug\netstandard2.0\Wise_Paas.dll</HintPath>
+      <HintPath>..\..\WebApplication1\WebApplication1\wise_paas_sso\bin\Release\netstandard2.0\Wise_Paas.dll</HintPath>
     </Reference>
   </ItemGroup>
 

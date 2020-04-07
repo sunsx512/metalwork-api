@@ -9,7 +9,6 @@ namespace mpm_web_api.model
     [SugarTable("common.person")]
     public class person:base_model
     {
-
         /// <summary>
         /// 人员名
         /// </summary>
