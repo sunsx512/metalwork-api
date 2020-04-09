@@ -13,11 +13,7 @@ namespace mpm_web_api.DAL
         BaseService<wise_paas_user> baseService = new BaseService<wise_paas_user>();
         public bool InsertInfo(wise_paas_user t)
         {
-            //权限字符串卡关
-            if (t.role != "Editor" && t.role != "Viewer")
-                return false;
-            else
-                return DB.Saveable<wise_paas_user>(t).ExecuteCommand() > 0;
+            return DB.Saveable<wise_paas_user>(t).ExecuteCommand() > 0;
         }
 
         public bool DeleteUser(string user)

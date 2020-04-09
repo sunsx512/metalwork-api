@@ -11,7 +11,7 @@ namespace mpm_web_api.Common
 {
     public class migration: SqlSugarBase
     {
-        public static bool Create(bool IsLinux)
+        public static bool Create(bool IsCloud)
         {
             List<migration_log> migration_Logs = new List<migration_log>();
             DirectoryInfo root = new DirectoryInfo("sql");
@@ -23,7 +23,7 @@ namespace mpm_web_api.Common
                 if (migration_Logs == null || !migration_Logs.Exists(x => x.migration_version == fileInfo.Name))
                 {
                     string text = "";
-                    if (IsLinux)
+                    if (IsCloud)
                         text = File.ReadAllText("sql\\" + fileInfo.Name);
                     else
                         text = File.ReadAllText("sql/" + fileInfo.Name);
@@ -34,6 +34,9 @@ namespace mpm_web_api.Common
                     }
                     string cmd = string.Format("INSERT INTO common.migration_log(migration_version) VALUES ('{0}')", fileInfo.Name);
                     CreateOne(cmd);
+                    //dockr版本需要自己新建账密
+                    if (!IsCloud)
+                        InsertAdmin();
                 }
 
             }
@@ -64,6 +67,27 @@ namespace mpm_web_api.Common
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 新建初始账密
+        /// </summary>
+        /// <returns></returns>
+        public static bool InsertAdmin()
+        {
+            try
+            {
+                wise_paas_user wise_Paas_User = new wise_paas_user();
+                wise_Paas_User.name = "admin";
+                wise_Paas_User.password = "admin";
+                wise_Paas_User.role = "Admin";
+                return DB.Saveable<wise_paas_user>(wise_Paas_User).ExecuteCommand() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
     }

@@ -53,7 +53,6 @@ namespace mpm_web_api.Common
                         }
                     }
                 }
-                await next(context);
                 //没有权限的话返回401
                 HttpResponse response = context.Response;
                 response.ContentType = context.Request.Headers["Accept"];

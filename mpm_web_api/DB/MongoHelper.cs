@@ -13,8 +13,9 @@ namespace mpm_web_api.DB
     {
         public static string connectionstring = "";
         public static string databaseName = "";
-        //public static string connectionstring = "mongodb://0a844dbd-a706-4d7a-996a-2e0d36152778:3nfazZmdC3GWxyZKnnFtogz3p@42.159.119.214:27017/ae62444a-f51c-4628-923b-a1e1629008b2";
-        //public static string databaseName = "ae62444a-f51c-4628-923b-a1e1629008b2";
+        //public static string connectionstring = "mongodb://590f6990-f451-4266-a762-790b94b5cff4:AkoJVH1ysyuwaR97Dc6qWX7wv@42.159.119.214:27017/f76eca8b-4c83-4b07-8541-7efa3401ca3f";
+        //public static string databaseName = "f76eca8b-4c83-4b07-8541-7efa3401ca3f";
+
         private readonly IMongoDatabase _database = null;
         public MongoHelper()
         {

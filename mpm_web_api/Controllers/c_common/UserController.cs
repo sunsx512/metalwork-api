@@ -24,6 +24,8 @@ namespace mpm_web_api.Controllers.c_common
             return Json(wpus.GetUser());
         }
 
+
+        #if (docker)
         /// <summary>
         /// 新增或更新用户信息 权限分为三层  Admin Editor Viewer
         /// </summary>
@@ -35,19 +37,22 @@ namespace mpm_web_api.Controllers.c_common
         [HttpPost]
         public ActionResult<common.response> Post(wise_paas_user t)
         {
-            object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败"); ;
-            if (wpus.InsertInfo(t))
+            object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+            //权限字符串卡关
+            if (t.role == "Editor" || t.role == "Viewer")
             {
-                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                if (wpus.InsertInfo(t))
+                {
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                }
+                else
+                {
+                    obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+                }
             }
-            else
-            {
-                obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
-            }
+
             return Json(obj);
         }
-
-
         /// <summary>
         /// 删除用户
         /// </summary>
@@ -57,13 +62,13 @@ namespace mpm_web_api.Controllers.c_common
         public ActionResult<common.response> Delete(string user)
         {
             //如果是初始账号 则不可删除
-            object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败"); 
+            object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
             if (user == "admin")
             {
                 obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
                 return Json(obj);
             }
-            
+
             if (wpus.DeleteUser(user))
             {
                 obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
@@ -75,7 +80,6 @@ namespace mpm_web_api.Controllers.c_common
             return Json(obj);
         }
 
-        #if (docker)
         /// <summary>
         /// 验证登录权限
         /// </summary>
@@ -83,9 +87,30 @@ namespace mpm_web_api.Controllers.c_common
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpPut]
-        public ActionResult<common.response> Patch(string user,string password)
+        public ActionResult<common.response> Patch(string user, string password)
         {
-            return Json(wpus.Check(user,password));
+            return Json(wpus.Check(user, password));
+        }
+        #else
+        /// <summary>
+        /// 保存账号密码 供worker使用
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<common.response> Post(wise_paas_user t)
+        {
+            object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+            //权限字符串卡关
+            if (wpus.InsertInfo(t))
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            }
+            else
+            {
+                obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+            }
+            return Json(obj);
         }
         #endif
     }
