@@ -40,7 +40,7 @@ namespace mpm_web_api
                 MongoHelper.connectionstring = mg;
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 IsCloud = true;
-                migration.Create(IsCloud);
+                migration.Create(!IsCloud);
             }
             //docker 环境
             else
@@ -52,8 +52,6 @@ namespace mpm_web_api
                 IsCloud = false;
                 migration.Create(IsCloud);
             }
-
-
         }
 
         public IConfiguration Configuration { get; }

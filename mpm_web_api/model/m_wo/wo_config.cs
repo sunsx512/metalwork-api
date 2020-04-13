@@ -49,6 +49,10 @@ namespace mpm_web_api.model
         /// 创建时间
         /// </summary>
         public DateTime? create_time { get; set; }
+        /// <summary>
+        /// 平衡率公式
+        /// </summary>
+        public string lbr_formula { get; set; }
 
     }
 

@@ -14,7 +14,7 @@ namespace mpm_web_api.model
         /// </summary>
         public int virtual_line_id { set; get; }
         /// <summary>
-        /// 预警类型 0:瓶颈站 1:工单完成 2:逾期未完成  3:超过标准工时
+        /// 预警类型 0:平衡率预警 1:工单完成 2:逾期未完成  3:超过标准工时
         /// </summary>
         public int alert_type { set; get; }
 
@@ -30,6 +30,14 @@ namespace mpm_web_api.model
         /// 是否启用
         /// </summary>
         public bool enable { set; get; }
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        public decimal maximum { set; get; }
+        /// <summary>
+        /// 最小值
+        /// </summary>
+        public decimal minimum { set; get; }
     }
 
 
