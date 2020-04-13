@@ -72,5 +72,23 @@ namespace mpm_web_api.DAL
             return list;
         }
 
+
+        public bool InserWorkOrder(wo_config wo)
+        {
+            string str = "";
+            List<wo_machine> list = DB.Queryable<wo_machine>()
+                         .Where(x => x.virtual_line_id == wo.virtual_line_id).ToList();
+            if(list.Count > 0)
+            {
+                foreach(wo_machine wm in list)
+                {
+                    str += wm.machine_id.ToString() + ";";
+                }
+            }
+            //删除最后一位
+            wo.lbr_formula = str.Remove(str.Length - 1, 1);
+            return DB.Insertable<wo_machine>(wo).ExecuteCommand() > 0;
+        }
+
     }
 }

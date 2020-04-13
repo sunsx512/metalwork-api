@@ -75,7 +75,16 @@ namespace mpm_web_api.Controllers.c_work_order
         [HttpPost]
         public ActionResult<common.response> Post(wo_config t)
         {
-            return Json(ch.Post(t));
+            object obj;
+            if (wcs.InserWorkOrder(t))
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            }
+            else
+            {
+                obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+            }
+            return Json(obj);
         }
 
         /// <summary>

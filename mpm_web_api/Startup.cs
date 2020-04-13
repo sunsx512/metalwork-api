@@ -115,7 +115,7 @@ namespace mpm_web_api
                 c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
                 c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
             });
-            if(IsCloud)
+            if (IsCloud)
                 //如果是云端的话 需要启动权限处理中间件
                 app.UseMiddleware(typeof(AuthMiddleWare));
             //异常处理中间件
