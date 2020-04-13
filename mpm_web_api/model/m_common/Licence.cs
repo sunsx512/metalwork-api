@@ -15,13 +15,25 @@ namespace mpm_web_api.model.m_common
         /// 授权数量
         /// </summary>
         public int authorized_number { set; get; }
+        /// <summary>
+        /// 过期日期
+        /// </summary>
+        public DateTime expire_date { set; get; }
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        public string version { set; get; }
+        /// <summary>
+        /// 功能
+        /// </summary>
+        public string module { set; get; }
     }
     public class Licence_Original
     {
         /// <summary>
-        /// 空间id
+        /// 唯一性标识
         /// </summary>
-        public string space_id { set; get; }
+        public string unique_identifier { set; get; }
         /// <summary>
         /// 授权数量
         /// </summary>
@@ -30,6 +42,18 @@ namespace mpm_web_api.model.m_common
         /// 授权类型 0:覆盖数量 1:新增数量
         /// </summary>
         public int type { set; get; }
+        /// <summary>
+        /// 到期时间
+        /// </summary>
+        public DateTime expire_date { set; get; }
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        public string version { set; get; }
+        /// <summary>
+        /// 功能
+        /// </summary>
+        public string module { set; get; }
     }
 
     public class Licence_Str

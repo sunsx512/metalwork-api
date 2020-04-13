@@ -80,20 +80,15 @@ namespace mpm_web_api.Common
             return false;
         }
 
-        static   MachineService ms = new MachineService();
-        public static Licence ReadLicence()
+        public static Licence_Original ReadLicence()
         {
-            Licence lc = new Licence();
             Licence_Original lco = new Licence_Original();
             if (System.IO.File.Exists("Licence"))
             {
                 string str = File.ReadAllText("Licence");
-                lco = JsonConvert.DeserializeObject<Licence_Original>(str);   
-                //获取已使用的设备数量
-                lc.used_number = ms.GetMachineCount();
-                //获取已授权的设备数量
-                lc.authorized_number = lco.machineNum;
-                return lc;
+                lco = JsonConvert.DeserializeObject<Licence_Original>(str);
+
+                return lco;
             }
             else
             {
@@ -128,7 +123,6 @@ namespace mpm_web_api.Common
         /// <returns></returns>
         public static bool CheckSpaceID(string space_id)
         {
-            IDictionary tp = Environment.GetEnvironmentVariables();
             string Env_space_id = "";
             EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
 

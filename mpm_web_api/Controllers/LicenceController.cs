@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
+using mpm_web_api.DAL;
 using mpm_web_api.model.m_common;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
@@ -38,20 +39,29 @@ namespace mpm_web_api.Controllers
         public ActionResult<common.response<Licence>> Get()
         {
             object obj;
-            //try
-            //{
-                Licence lc = LicenceHelper.ReadLicence();
+            Licence_Original lco = LicenceHelper.ReadLicence();
+            //验证Licence合法性
+            if (LicenceHelper.CheckSpaceID(lco.unique_identifier))
+            {
+                Licence lc = new Licence();
+                MachineService ms = new MachineService();
+                //获取已使用的设备数量
+                lc.used_number = ms.GetMachineCount();
+                //获取已授权的设备数量
+                lc.authorized_number = lco.machineNum;
+                lc.expire_date = lco.expire_date;
+                lc.module = lco.module;
+                lc.version = lco.version;
+
                 List<Licence> list = new List<Licence>();
                 list.Add(lc);
-                obj = common.ResponseStr<Licence>((int)httpStatus.succes, "调用成功", list);
-            //}
-            //catch (Exception ex)
-            //{
-            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            //}
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功", list);
+            }
+            else
+            {
+                obj = common.ResponseStr(401, "未授权");
+            }
 
-            LicenceHelper.SaveLicenceLog("123");
-            LicenceHelper.ReadLicenceLog();
             return Json(obj);
         }
 
@@ -82,7 +92,7 @@ namespace mpm_web_api.Controllers
                         if (!LicenceHelper.CheckLicenceLog(licence_str.Licence))
                         {
                             //验证Licence是否合法
-                            if (LicenceHelper.CheckSpaceID(lco.space_id))
+                            if (LicenceHelper.CheckSpaceID(lco.unique_identifier))
                             {
                                 //覆盖原授权数
                                 if (lco.type == 0)
@@ -94,9 +104,9 @@ namespace mpm_web_api.Controllers
                                 else if (lco.type == 1)
                                 {
                                     //获取之前的授权数量
-                                    Licence pre_licence = LicenceHelper.ReadLicence();
+                                    Licence_Original pre_licence = LicenceHelper.ReadLicence();
                                     //相加
-                                    lco.machineNum = lco.machineNum + pre_licence.authorized_number;
+                                    lco.machineNum = lco.machineNum + pre_licence.machineNum;
                                     LicenceHelper.SaveLicence(JsonConvert.SerializeObject(lco));
                                     LicenceHelper.SaveLicenceLog(licence_str.Licence);
                                 }

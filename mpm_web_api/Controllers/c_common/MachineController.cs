@@ -56,8 +56,11 @@ namespace mpm_web_api.Controllers
         [HttpPost]
         public ActionResult<common.response> Post(machine t)
         {
-            Licence lc = LicenceHelper.ReadLicence();
-            if(lc.used_number >= lc.authorized_number)
+            MachineService ms = new MachineService();
+            //获取已使用的设备数量
+            int used_number = ms.GetMachineCount();
+            Licence_Original lco = LicenceHelper.ReadLicence();
+            if(used_number >= lco.machineNum - 1)
             {
                 object obj = common.ResponseStr(401, "超出授权数");
                 return Json(obj);

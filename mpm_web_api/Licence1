@@ -1,8 +1,8 @@
 {
   "unique_identifier": "54-8D-5A-F6-23-76",
-  "machineNum": 150,
+  "machineNum": 100,
   "type": 0,
-  "expire_date": "2021-01-01 00:00:00",
+  "expire_date": "2020-01-01 00:00:00",
   "version": "1.0.0",
   "module": "ALL"
 }
