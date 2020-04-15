@@ -4,23 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
-using mpm_web_api.DAL;
-using mpm_web_api.model;
-using mpm_web_api.model.m_common;
+using mpm_web_api.DAL.wo;
+using mpm_web_api.model.m_wo;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace mpm_web_api.Controllers
+namespace mpm_web_api.Controllers.c_work_order
 {
-    [ApiExplorerSettings(GroupName = "Common")]
+    [ApiExplorerSettings(GroupName = "WorkOrder")]
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/machine")]
-    [SwaggerTag("设备")]
+    [Route("api/v1/configuration/work_order/capacity_config")]
+    [SwaggerTag("设定标准产能")]
     [ApiController]
-    public class MachineController : SSOController,IController<machine>
+    public class CapacityConfigController : Controller
     {
-        ControllerHelper<machine> ch = new ControllerHelper<machine>();
+
+        CapacityConfigService ccs = new CapacityConfigService();
+
         /// <summary>
-        /// 删除设备
+        /// 删除
         /// </summary>
         /// <param name="id">主键id</param>
         /// <response code="200">调用成功</response>
@@ -30,23 +32,35 @@ namespace mpm_web_api.Controllers
         [HttpDelete]
         public ActionResult<common.response> Delete(int id)
         {
-            
-            return Json(ch.Delete(id));
+            object obj;
+            if (ccs.Delete(id))
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            }
+            else
+            {
+                obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+            }
+            return Json(obj);
         }
         /// <summary>
-        /// 获取所有设备信息
+        /// 获取
         /// </summary>
         /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<common.response<machine>> Get()
+        public ActionResult<common.response<capacity_config>> Get()
         {
-            return Json(ch.Get());
+            object obj;
+            List<capacity_config> lty = ccs.Get();
+            obj = common.ResponseStr((int)httpStatus.succes, "调用成功", lty);
+            return Json(obj);
         }
+
         /// <summary>
-        /// 新增设备
+        /// 新增
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -54,23 +68,22 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<common.response> Post(machine t)
+        public ActionResult<common.response> Post(capacity_config t)
         {
-            MachineService ms = new MachineService();
-            //获取已使用的设备数量
-            int used_number = ms.GetMachineCount();
-            if(used_number >= GlobalVar.authorized_number - 1)
+            object obj;
+            if (ccs.Post(t))
             {
-                object obj = common.ResponseStr(401, "超出授权数");
-                return Json(obj);
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
             }
             else
             {
-                return Json(ch.Post(t));
-            }       
+                obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+            }
+            return Json(obj);
         }
+
         /// <summary>
-        /// 更新设备
+        /// 更新
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -78,9 +91,18 @@ namespace mpm_web_api.Controllers
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(machine t)
+        public ActionResult<common.response> Put(capacity_config t)
         {
-            return Json(ch.Put(t));
+            object obj;
+            if (ccs.Put(t))
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            }
+            else
+            {
+                obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+            }
+            return Json(obj);
         }
     }
 }

@@ -545,6 +545,15 @@ CREATE TABLE IF NOT EXISTS "work_order"."breakpoint_log" (
   CONSTRAINT "breakpoint_log_pkey" PRIMARY KEY ("machine_id")
 );
 
+
+CREATE TABLE IF NOT EXISTS "work_order"."capacity_config" (
+  "id" serial NOT NULL,
+  "date" date NOT NULL,
+  "capacity" numeric(8,2) NOT NULL,
+  "utilization" numeric(8,2),
+  CONSTRAINT "capacity_config_pkey" PRIMARY KEY ("date")
+);
+
 CREATE TABLE IF NOT EXISTS "work_order"."capacity_log" (
   "id" serial NOT NULL,
   "year" int4 NOT NULL,
@@ -553,6 +562,7 @@ CREATE TABLE IF NOT EXISTS "work_order"."capacity_log" (
   "date" date NOT NULL,
   CONSTRAINT "capacity_log_pkey" PRIMARY KEY ("date")
 );
+
 
 CREATE TABLE IF NOT EXISTS "work_order"."ct_log" (
   "id" serial NOT NULL,
@@ -568,7 +578,7 @@ CREATE TABLE IF NOT EXISTS "work_order"."overdue_work_order" (
   "id" serial NOT NULL,
   "start_time" timestamptz(0) NOT NULL,
   "end_time" timestamptz(0) NOT NULL,
-  "overdue_time" numeric(8,2) NOT NULL,
+  "overdue_time" numeric(16,2) NOT NULL,
   "wo_config_id" int4 NOT NULL,
   CONSTRAINT "overdue_work_order_pkey" PRIMARY KEY ("id")
 );
@@ -784,6 +794,47 @@ CREATE VIEW "work_order"."wo_machine_detail" AS  SELECT wo_machine.id,
    FROM (work_order.wo_machine
      JOIN common.machine ON ((wo_machine.machine_id = machine.id)));
 
+CREATE OR REPLACE VIEW work_order.work_order_detail
+ AS
+ SELECT wo_config.id,
+    wo_config.virtual_line_id,
+    wo_config.work_order,
+    wo_config.part_num,
+    wo_config.shift,
+    wo_config.auto,
+    wo_config.status,
+    wo_config.lbr_formula,
+    wo_machine_current_log.machine_id,
+    wo_machine_current_log.standard_time,
+    wo_machine_current_log.start_time,
+    NULL::timestamp with time zone AS end_time,
+    wo_machine_current_log.quantity,
+    wo_machine_current_log.bad_quantity,
+    wo_machine_current_log.cycle_time,
+    wo_machine_current_log.cycle_time_average,
+    wo_machine_current_log.standard_num
+   FROM work_order.wo_config
+     JOIN work_order.wo_machine_current_log ON wo_machine_current_log.wo_config_id = wo_config.id 
+UNION ALL
+ SELECT wo_config.id,
+    wo_config.virtual_line_id,
+    wo_config.work_order,
+    wo_config.part_num,
+    wo_config.shift,
+    wo_config.auto,
+    wo_config.status,
+    wo_config.lbr_formula,
+    wo_machine_log.machine_id,
+    wo_machine_log.standard_time,
+    wo_machine_log.start_time,
+    wo_machine_log.end_time,
+    wo_machine_log.quantity,
+    wo_machine_log.bad_quantity,
+    wo_machine_log.cycle_time,
+    wo_machine_log.cycle_time_average,
+    wo_machine_log.standard_num
+   FROM work_order.wo_config
+     JOIN work_order.wo_machine_log ON wo_machine_log.wo_config_id = wo_config.id;
 
 GRANT ALL ON SCHEMA common TO "ifactoryMetal";
 ALTER DEFAULT PRIVILEGES IN SCHEMA common GRANT ALL ON TABLES TO "ifactoryMetal";

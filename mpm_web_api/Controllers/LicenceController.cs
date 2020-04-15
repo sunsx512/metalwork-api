@@ -39,33 +39,46 @@ namespace mpm_web_api.Controllers
         public ActionResult<common.response<Licence>> Get()
         {
             object obj;
-            Licence_Original lco = LicenceHelper.ReadLicence();
-            //验证Licence合法性
-            if (LicenceHelper.CheckSpaceID(lco.unique_identifier))
+            MachineService ms = new MachineService();
+            //云端环境
+            if (GlobalVar.IsCloud)
             {
                 Licence lc = new Licence();
-                MachineService ms = new MachineService();
-                //获取已使用的设备数量
                 lc.used_number = ms.GetMachineCount();
                 //获取已授权的设备数量
-                lc.authorized_number = lco.machineNum;
-                lc.expire_date = lco.expire_date;
-                lc.module = lco.module;
-                lc.version = lco.version;
-
+                lc.authorized_number = GlobalVar.authorized_number;
                 List<Licence> list = new List<Licence>();
                 list.Add(lc);
                 obj = common.ResponseStr((int)httpStatus.succes, "调用成功", list);
             }
+            //docker环境
             else
             {
-                obj = common.ResponseStr(401, "未授权");
+                Licence_Original lco = LicenceHelper.ReadLicence();
+                //验证Licence合法性
+                if (LicenceHelper.CheckSpaceID(lco.unique_identifier))
+                {
+                    Licence lc = new Licence();
+                    
+                    //获取已使用的设备数量
+                    lc.used_number = ms.GetMachineCount();
+                    //获取已授权的设备数量
+                    lc.authorized_number = lco.machineNum;
+                    lc.expire_date = lco.expire_date;
+                    lc.module = lco.module;
+                    lc.version = lco.version;
+                    List<Licence> list = new List<Licence>();
+                    list.Add(lc);
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功", list);
+                }
+                else
+                {
+                    obj = common.ResponseStr(401, "未授权");
+                }
             }
 
             return Json(obj);
         }
-
-
 
 
         /// <summary>

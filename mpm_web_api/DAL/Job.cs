@@ -16,24 +16,24 @@ namespace mpm_web_api.DAL
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
 
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                await new TaskFactory().StartNew(() =>
-                {
-                    try
-                    {
-                        tricolor_Tag_Statuses = onsite.QueryableDetailToList();
-                    }
-                    catch (Exception exp)
-                    {
-                        Console.WriteLine(exp);
-                        //错误处理
-                    }
+            //while (!stoppingToken.IsCancellationRequested)
+            //{
+            //    await new TaskFactory().StartNew(() =>
+            //    {
+            //        try
+            //        {
+            //            tricolor_Tag_Statuses = onsite.QueryableDetailToList();
+            //        }
+            //        catch (Exception exp)
+            //        {
+            //            Console.WriteLine(exp);
+            //            //错误处理
+            //        }
 
-                    //定时任务休眠
-                    Thread.Sleep(1 * 1000);
-                });
-            }
+            //        //定时任务休眠
+            //        Thread.Sleep(1 * 1000);
+            //    });
+            //}
 
         }
     }

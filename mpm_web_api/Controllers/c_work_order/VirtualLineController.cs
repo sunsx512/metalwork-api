@@ -49,21 +49,14 @@ namespace mpm_web_api.Controllers.c_work_order
         public ActionResult<common.response> DeleteM(int virtual_line_id, int machine_id)
         {
             object obj;
-            //try
-            //{
-                if(vls.DeleteByMachine(virtual_line_id, machine_id))
-                {
-                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                }
-                else
-                {
-                    obj = common.ResponseStr((int)httpStatus.succes, "删除失败");
-                } 
-            //}
-            //catch (Exception ex)
-            //{
-            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            //}
+            if(vls.DeleteByMachine(virtual_line_id, machine_id))
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            }
+            else
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "删除失败");
+            } 
             return Json(obj);
         }
 
@@ -78,15 +71,8 @@ namespace mpm_web_api.Controllers.c_work_order
         public ActionResult<common.response<virtual_line_detail>> Get()
         {
             object obj;
-            //try
-            //{
-                List < virtual_line_detail> lty = vls.QueryableToList();
-                obj = common.ResponseStr<virtual_line_detail>((int)httpStatus.succes, "调用成功", lty);
-            //}
-            //catch (Exception ex)
-            //{
-            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            //}
+            List < virtual_line_detail> lty = vls.QueryableToList();
+            obj = common.ResponseStr<virtual_line_detail>((int)httpStatus.succes, "调用成功", lty);
             return Json(obj);
         }
 

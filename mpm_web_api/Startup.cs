@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,7 +24,6 @@ namespace mpm_web_api
 {
     public class Startup
     {
-        public bool IsCloud = false;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -39,8 +39,12 @@ namespace mpm_web_api
                 mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_host, environmentInfo.mongo_port, environmentInfo.mongo_database);
                 MongoHelper.connectionstring = mg;
                 MongoHelper.databaseName = environmentInfo.mongo_database;
-                IsCloud = true;
-                migration.Create(!IsCloud);
+                GlobalVar.IsCloud = true;
+                migration.Create(false);
+                //开启4.0 Licence认证
+                EnsaasLicenceService els = new EnsaasLicenceService();
+                CancellationToken token = new CancellationToken();
+                els.StartAsync(token);
             }
             //docker 环境
             else
@@ -49,9 +53,10 @@ namespace mpm_web_api
                 mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_host, environmentInfo.mongo_port, environmentInfo.mongo_database);
                 MongoHelper.connectionstring = mg + "?authSource=admin";
                 MongoHelper.databaseName = environmentInfo.mongo_database;
-                IsCloud = false;
-                migration.Create(IsCloud);
+                GlobalVar.IsCloud = false;
+                migration.Create(false);
             }
+
         }
 
         public IConfiguration Configuration { get; }

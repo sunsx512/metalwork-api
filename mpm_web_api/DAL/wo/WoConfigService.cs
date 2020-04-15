@@ -87,7 +87,7 @@ namespace mpm_web_api.DAL
             }
             //删除最后一位
             wo.lbr_formula = str.Remove(str.Length - 1, 1);
-            return DB.Insertable<wo_machine>(wo).ExecuteCommand() > 0;
+            return DB.Insertable(wo).ExecuteCommand() > 0;
         }
 
     }
