@@ -20,7 +20,7 @@ namespace mpm_web_api.DAL
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             string pn = Environment.GetEnvironmentVariable("PN");
-            string licence_server_url = Environment.GetEnvironmentVariable("licence_server_url");
+            string licence_server_url = Environment.GetEnvironmentVariable("license_server_url");
             EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
             
             while (!stoppingToken.IsCancellationRequested)

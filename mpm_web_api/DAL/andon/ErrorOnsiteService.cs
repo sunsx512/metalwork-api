@@ -418,7 +418,7 @@ namespace mpm_web_api.DAL.andon
                     }
 
                 }
-                decimal dif_time = CalTimeDifference((DateTime)el.arrival_time);
+                decimal dif_time = CalTimeDifference((DateTime)el.start_time);
                 return re& DB.Updateable<error_log>()
                          .Where(x=>x.id == log_id)
                          .UpdateColumns(it => new error_log() { release_time = DateTime.Now, defectives_count = count ,cost_time = dif_time })
@@ -437,7 +437,7 @@ namespace mpm_web_api.DAL.andon
             //如果存在
             if (el != null)
             {
-                decimal dif_time = CalTimeDifference((DateTime)el.arrival_time);
+                decimal dif_time = CalTimeDifference((DateTime)el.start_time);
                 return DB.Updateable<error_log>()
                           .Where(x => x.id == log_id)
                           .UpdateColumns(it => new error_log() { release_time = DateTime.Now, error_type_name =et.name_cn,error_type_detail_name=etd.name_cn,cost_time = dif_time })
