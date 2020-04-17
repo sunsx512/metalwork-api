@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: api-ifactory-mw
+spec:
+  rules:
+  - host: api-ifactory-mw.metalwork.eks005.en.internal
+    http:
+      paths:
+      - backend:
+          serviceName: api-ifactory-mw
+          servicePort: 80

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-ifactory-mw
+  labels:
+    app: api-ifactory-mw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-ifactory-mw
+  template:
+    metadata:
+      labels:
+        app: api-ifactory-mw
+    spec:   
+      containers:
+      - name: api-ifactory-mw
+        image: harbor.arfa.wise-paas.com/sunsx/api-ifactory-mw:latest
+        resources:
+          limits:
+            memory: "200Mi"
+            cpu: "100m"
+            ephemeral-storage: "512Mi"
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+        env:        
+        - name: ENSAAS_SERVICES
+          valueFrom:
+            secretKeyRef:
+              name: ifactory-metalwork-secret
+              key: ENSAAS_SERVICES
+        - name: ENSAAS_DOMAIN
+          value: hz.wise-paas.com.cn
+        - name: SSO_URL
+          value: http://api.sso.ensaas.en.internal/v4.0
+        ports:
+        - containerPort: 5000
+          name: "api-ifactory-mw"
