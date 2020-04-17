@@ -121,7 +121,7 @@ namespace mpm_web_api.Controllers.c_andon
         /// <param name="machine_id">设备id</param>
         /// <param name="log_id">日志id</param>
         /// <param name="count">不良数量(品质异常解除时填写)</param>
-        /// <param name="error_type_id">异常类型(设备异常时填写)</param>
+        /// <param name="error_type_id">异常类型</param>
         /// <param name="error_type_detail_id">异常类型详细信息(设备异常时填写)</param>
         /// <returns></returns>
         [HttpDelete("{type}")]
@@ -132,7 +132,7 @@ namespace mpm_web_api.Controllers.c_andon
             //{
                 if (type == 0)
                 {
-                    if (eos.Qualityrelease(machine_id, log_id, count))
+                    if (eos.Qualityrelease(machine_id, log_id, error_type_id, error_type_detail_id, count))
                     {
                         obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
                     }

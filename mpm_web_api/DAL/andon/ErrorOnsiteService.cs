@@ -176,13 +176,13 @@ namespace mpm_web_api.DAL.andon
 
         }
 
-        public bool Qualityrelease(int machine_id,int log_id,decimal count)
+        public bool Qualityrelease(int machine_id,int log_id, int error_type_id, int error_type_detail_id, decimal count)
         {
             //查询绑定的异常解除按钮
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_release").First();
             if (tag_Type_Sub != null)
             {
-                if(QualityErrorRelease(log_id, count))
+                if(QualityErrorRelease(log_id, error_type_id, error_type_detail_id, count))
                 {
                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                 .Where(x => x.machine_id == machine_id)
@@ -369,11 +369,13 @@ namespace mpm_web_api.DAL.andon
 
 
         //更新日志
-        private bool QualityErrorRelease(int log_id, decimal count)
+        private bool QualityErrorRelease(int log_id, int error_type_id, int error_type_detail_id, decimal count)
         {
             bool re = false;
             //查询当前日志是否存在
             error_log el = DB.Queryable<error_log>().Where(x => x.id == log_id).First();
+            error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id).First();
+            error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id).First();
             //如果存在
             if (el != null)
             {
@@ -421,7 +423,7 @@ namespace mpm_web_api.DAL.andon
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
                 return re& DB.Updateable<error_log>()
                          .Where(x=>x.id == log_id)
-                         .UpdateColumns(it => new error_log() { release_time = DateTime.Now, defectives_count = count ,cost_time = dif_time })
+                         .UpdateColumns(it => new error_log() { release_time = DateTime.Now,error_type_name = et.name_en,error_type_detail_name = etd.name_en, defectives_count = count ,cost_time = dif_time })
                          .ExecuteCommand() > 0;
             }
             return false;
