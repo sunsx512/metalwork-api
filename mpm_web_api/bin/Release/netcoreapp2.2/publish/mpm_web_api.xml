@@ -1,0 +1,3184 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mpm_web_api</name>
+    </assembly>
+    <members>
+        <member name="F:mpm_web_api.Common.GlobalVar.IsCloud">
+            <summary>
+            是否为云端环境
+            </summary>
+        </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.authorized_number">
+            <summary>
+            授权数量
+            </summary>
+        </member>
+        <member name="M:mpm_web_api.Common.LicenceHelper.SaveLicenceLog(System.String)">
+            <summary>
+            保存已授权许可证(防止多次授权使用)
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Common.LicenceHelper.CheckLicenceLog(System.String)">
+            <summary>
+            检查Licence是否已经被授权了
+            </summary>
+            <param name="str">外部Licence字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Common.LicenceHelper.CheckSpaceID(System.String)">
+            <summary>
+            验证spaceID是否正确
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Common.migration.InsertAdmin">
+            <summary>
+            新建初始账密
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.common.ResponseStr``1(System.Int32,System.String,System.Collections.Generic.List{``0})">
+            <summary>
+            回复给网页的字符串
+            </summary>
+            <param name="code">状态码</param>
+            <param name="message">信息</param>
+            <param name="content">内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.CapacityAlertController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.CapacityAlertController.Get">
+            <summary>
+            查询
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.CapacityAlertController.Post(mpm_web_api.model.m_error.capacity_alert)">
+            <summary>
+            新增
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.CapacityAlertController.Put(mpm_web_api.model.m_error.capacity_alert)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.CapacityAlertDetailController.Get">
+            <summary>
+            获取详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorConfigController.Delete(System.Int32)">
+            <summary>
+            删除异常配置
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorConfigController.Get">
+            <summary>
+            查询异常配置
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorConfigController.Post(mpm_web_api.model.error_config)">
+            <summary>
+            新增异常配置
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorConfigController.Put(mpm_web_api.model.error_config)">
+            <summary>
+            更新异常配置
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorConfigDetailController.Get">
+            <summary>
+            查询详细异常配置
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorLogController.Get(System.Int32)">
+            <summary>
+            按状态获取异常日志信息
+            </summary>
+            <param name="status">状态分为 0:所有异常日志 1:等待处理的异常日志 2:正在处理的异常日志 3:已处理的异常日志 四种</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorLogController.Get(System.Int32,System.Int32)">
+            <summary>
+            按异常类型和状态获取异常日志信息
+            </summary>
+            <param name="type">异常的类型 0:设备类异常 1:品质类异常 2.物料请求类异常 </param>
+            <param name="status">状态分为 0:所有异常日志 1:等待处理的异常日志 2:正在处理的异常日志 3:已处理的异常日志 四种</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorLogController.Put(mpm_web_api.model.error_log)">
+            <summary>
+            更新异常信息
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorLogController.Put(System.Int32,System.String)">
+            <summary>
+            更新替代者的名字
+            </summary>
+            <param name="id">异常日志id</param>
+            <param name="name">替代者名字</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorLogDetailController.Get(System.Int32)">
+            <summary>
+            按状态获取详细异常日志信息
+            </summary>
+            <param name="status">状态分为 0:所有异常日志 1:等待处理的异常日志 2:正在处理的异常日志 3:已处理的异常日志 四种</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorLogDetailController.Get(System.Int32,System.Int32)">
+            <summary>
+            按异常类型和状态获取详细异常日志信息
+            </summary>
+            <param name="type">异常的类型 0:设备类异常 1:品质类异常 2.物料请求类异常 </param>
+            <param name="status">状态分为 0:所有异常日志 1:等待处理的异常日志 2:正在处理的异常日志 3:已处理的异常日志 四种</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Post(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            触发异常 
+            </summary>
+            <param name="type">0:品质异常 1:设备异常 2:物料呼叫</param>
+            <param name="machine_id"> 设备id</param>
+            <param name="count">物料请求数量(仅物料呼叫需要填写)</param>
+            <param name="material_name">物料名称(仅物料呼叫需要填写)</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Put(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            异常签到
+            </summary>
+            <param name="type">0:品质异常 1:设备异常</param>
+            <param name="machine_id">设备id</param>
+            <param name="log_id">日志id</param>
+            <param name="number">人员工号</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Put(System.Int32,System.Int32,System.Int32,System.Decimal,System.Int32,System.Int32)">
+            <summary>
+            异常解除
+            </summary>
+            <param name="type">0:品质异常 1:设备异常 2:物料</param>
+            <param name="machine_id">设备id</param>
+            <param name="log_id">日志id</param>
+            <param name="count">不良数量(品质异常解除时填写)</param>
+            <param name="error_type_id">异常类型</param>
+            <param name="error_type_detail_id">异常类型详细信息(设备异常时填写)</param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeController.Delete(System.Int32)">
+            <summary>
+            删除异常类型
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeController.Get">
+            <summary>
+            查询异常类型
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeController.Post(mpm_web_api.model.error_type)">
+            <summary>
+            新增异常类型
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeController.Put(mpm_web_api.model.error_type)">
+            <summary>
+            更新异常类型
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeDetailController.Delete(System.Int32)">
+            <summary>
+            删除详细异常信息
+            </summary>
+            <param name="id"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeDetailController.Get">
+            <summary>
+            获取详细异常信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeDetailController.Post(mpm_web_api.model.error_type_details)">
+            <summary>
+            添加详细异常信息
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeDetailController.Put(mpm_web_api.model.error_type_details)">
+            <summary>
+            更新详细异常信息
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineCostAlertController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineCostAlertController.Get">
+            <summary>
+            查询
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineCostAlertController.Post(mpm_web_api.model.m_error.machine_cost_alert)">
+            <summary>
+            新增
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineCostAlertController.Put(mpm_web_api.model.m_error.machine_cost_alert)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineCostAlertDetailController.Get">
+            <summary>
+            获取详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineErrorLogController.Get(System.String,System.String)">
+            <summary>
+            按设备名及工单号查询异常日志
+            </summary>
+            <param name="machine"> 设备名</param>
+            <param name="work_order">工单号</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineErrorLogController.Post(System.Int32,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            添加异常信息
+            </summary>
+            <param name="config_id">异常配置id</param>
+            <param name="error_name">异常名称</param>
+            <param name="machine_name">设备名</param>
+            <param name="responsible_name">责任人</param>
+            <param name="work_order">工单</param>
+            <param name="part_number">机种</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineErrorLogController.Put(System.Int32,System.Int32)">
+            <summary>
+            异常签到或解除
+            </summary>
+            <param name="id">id</param>
+            <param name="type">0:签到  1:解除</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineFaultAlertController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineFaultAlertController.Get">
+            <summary>
+            查询
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineFaultAlertController.Post(mpm_web_api.model.m_error.machine_fault_alert)">
+            <summary>
+            新增
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineFaultAlertController.Put(mpm_web_api.model.m_error.machine_fault_alert)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineFaultAlertDetailController.Get">
+            <summary>
+            获取详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusAlertController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusAlertController.Get">
+            <summary>
+            查询
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusAlertController.Post(mpm_web_api.model.m_error.machine_status_alert)">
+            <summary>
+            新增
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusAlertController.Put(mpm_web_api.model.m_error.machine_status_alert)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusAlertDetailController.Get">
+            <summary>
+            获取详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusDurationAlertController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusDurationAlertController.Get">
+            <summary>
+            查询
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusDurationAlertController.Post(mpm_web_api.model.m_error.machine_status_duration_alert)">
+            <summary>
+            新增
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusDurationAlertController.Put(mpm_web_api.model.m_error.machine_status_duration_alert)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineStatusDurationAlertDetailController.Get">
+            <summary>
+            获取详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MaterielRequestInfoController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MaterielRequestInfoController.Get">
+            <summary>
+            查询异常类型
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MaterielRequestInfoController.Get(System.Int32,System.String)">
+            <summary>
+            查询异常类型
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MaterielRequestInfoController.Post(mpm_web_api.model.material_request_info)">
+            <summary>
+            新增异常类型
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.MaterielRequestInfoController.Put(mpm_web_api.model.material_request_info)">
+            <summary>
+            更新异常类型
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.NotificationGroupController.Delete(System.Int32,System.Int32)">
+            <summary>
+            删除该群组下的指定人员
+            </summary>
+            <param name="group_id">群组名字</param>
+            <param name="person_id">人员id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.NotificationGroupController.Get">
+            <summary>
+            获取详细的通知群组信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.NotificationGroupController.Post(mpm_web_api.model.notification_group)">
+            <summary>
+            
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.NotificationGroupController.Post(System.Int32,System.Int32)">
+            <summary>
+            添加该群组下的人员
+            </summary>
+            <param name="group_id">群组id</param>
+            <param name="person_id">人员id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.NotificationGroupController.Put(mpm_web_api.model.notification_group)">
+            <summary>
+            更新通知群组信息
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.QualityAlertController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.QualityAlertController.Get">
+            <summary>
+            查询
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.QualityAlertController.Post(mpm_web_api.model.m_error.quality_alert)">
+            <summary>
+            新增
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.QualityAlertController.Put(mpm_web_api.model.m_error.quality_alert)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.QualityAlertDetailController.Get">
+            <summary>
+            获取详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.UtilizationRateAlertController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.UtilizationRateAlertController.Get">
+            <summary>
+            查询
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.UtilizationRateAlertController.Post(mpm_web_api.model.m_error.utilization_rate_alert)">
+            <summary>
+            新增
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.UtilizationRateAlertController.Put(mpm_web_api.model.m_error.utilization_rate_alert)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.UtilizationRateAlertDetailController.Get">
+            <summary>
+            获取详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.WorkOrderAlertController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.WorkOrderAlertController.Get">
+            <summary>
+            查询
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.WorkOrderAlertController.Post(mpm_web_api.model.work_order_alert)">
+            <summary>
+            新增
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.WorkOrderAlertController.Put(mpm_web_api.model.work_order_alert)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.WorkOrderAlertDetailController.Get">
+            <summary>
+            获取详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaLayerController.Get">
+            <summary>
+            获取所有层级信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaLayerController.Post(mpm_web_api.model.area_layer)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaLayerController.Put(mpm_web_api.model.area_layer)">
+            <summary>
+            更新Area_layer
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaLayerController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaNodeController.Get">
+            <summary>
+            获取所有区域节点信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaNodeController.Get(System.String)">
+            <summary>
+            获取所有区域属性详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaNodeController.Post(mpm_web_api.model.area_node)">
+            <summary>
+            新增Area_Node
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaNodeController.Put(mpm_web_api.model.area_node)">
+            <summary>
+            更新Area_Node
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaNodeController.Delete(System.Int32)">
+            <summary>
+            删除Area_Node
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaPropertyController.Get(System.String)">
+            <summary>
+            获取所有节点属性信息
+            </summary>
+            <param name="type">对应四种种类别 shift:班别  unfixed_break:非固定排休 fixed_break:固定排休 time_zone:时区</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaPropertyController.Post(mpm_web_api.model.area_property)">
+            <summary>
+            新增区域节点属性(排休，班别，非固定排休)
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+            <remarks>
+            format字段说明
+            如果是班别填入格式如下  name_cn :shift
+            {"day":{"start":"8:00:00","end":"16:00:00"},"night":{"start":"16:00:00","end":"8:00:00"}}
+            固定排休格式: name_cn :fixed_break
+            {"rest":[{"start":"8:00:00","end":"16:00:00"},{"start":"8:00:00","end":"16:00:00"}]}
+            非固定排休格式: name_cn :unfixed_break
+            {"rest":[{"start":"2019-11-12 8:00:00","end":"2019-11-12 16:00:00"},{"start":"2019-11-12 8:00:00","end":"2019-11-12 16:00:00"}]}
+            时区: 8    (直接填数字)
+            注意:format为json格式数据 一定要满足以上格式要求，不然后端解析会出错
+            </remarks>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaPropertyController.Put(mpm_web_api.model.area_property)">
+            <summary>
+            更新Area_Property
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.AreaPropertyController.Delete(System.Int32)">
+            <summary>
+            删除Area_Property
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.EmailServerController.Get">
+            <summary>
+            获取所有邮件服务器信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.EmailServerController.Put(mpm_web_api.model.email_server)">
+            <summary>
+            更新邮件服务器信息
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoController.Delete(System.Int32)">
+            <summary>
+            删除标签
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoController.Get">
+            <summary>
+            获取所有标签信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoController.Post(mpm_web_api.model.tag_info)">
+            <summary>
+            新增标签
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoController.Put(mpm_web_api.model.tag_info)">
+            <summary>
+            更新标签信息
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoDetailController.Get">
+            <summary>
+            获取所有标签信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoExtraController.Delete(System.Int32)">
+            <summary>
+            删除标签
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoExtraController.Get">
+            <summary>
+            获取所有标签信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoExtraController.Post(mpm_web_api.model.m_common.tag_info_extra)">
+            <summary>
+            新增标签
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.TagInfoExtraController.Put(mpm_web_api.model.m_common.tag_info_extra)">
+            <summary>
+            更新标签信息
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.UserController.Post(mpm_web_api.model.m_common.wise_paas_user)">
+            <summary>
+            新增或更新用户信息 权限分为三层  Admin Editor Viewer
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.UserController.Delete(System.String)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="user">用户名</param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.UserController.Patch(System.String,System.String)">
+            <summary>
+            验证登录权限
+            </summary>
+            <param name="user"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.WechartServerController.Get">
+            <summary>
+            获取所有Wechart_Server信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.WechartServerController.Put(mpm_web_api.model.wechart_server)">
+            <summary>
+            更新Wechart_Server
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.DeptController.Delete(System.Int32)">
+            <summary>
+            删除部门
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.DeptController.Get">
+            <summary>
+            获取所有部门信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.DeptController.Post(mpm_web_api.model.department)">
+            <summary>
+            新增部门
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.DeptController.Put(mpm_web_api.model.department)">
+            <summary>
+            更新部门
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.MachineController.Delete(System.Int32)">
+            <summary>
+            删除设备
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.MachineController.Get">
+            <summary>
+            获取所有设备信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.MachineController.Post(mpm_web_api.model.machine)">
+            <summary>
+            新增设备
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.MachineController.Put(mpm_web_api.model.machine)">
+            <summary>
+            更新设备
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.PersonController.Delete(System.Int32)">
+            <summary>
+            删除人员信息
+            </summary>
+            <param name="id">主键id</param>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.PersonController.Get">
+            <summary>
+            获取人员信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.PersonController.Post(mpm_web_api.model.person)">
+            <summary>
+            新增人员
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.PersonController.Put(mpm_web_api.model.person)">
+            <summary>
+            更新人员信息
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.TagTypeController.Get">
+            <summary>
+            获取所有tag类型信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.TagTypeSubController.Delete(System.Int32)">
+            <summary>
+            删除tag sub类型
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.TagTypeSubController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.TagTypeSubController.Post(mpm_web_api.model.m_common.tag_type_sub_custom)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.TagTypeSubController.Put(mpm_web_api.model.m_common.tag_type_sub_custom)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_oee.MachineLeaseController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_oee.MachineLeaseController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_oee.MachineLeaseController.Post(mpm_web_api.model.m_oee.machine_lease)">
+            <summary>
+            新增标签
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_oee.MachineLeaseController.Put(mpm_web_api.model.m_oee.machine_lease)">
+            <summary>
+            更新标签信息
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_oee.MachineLeaseDetailController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.CapacityConfigController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.CapacityConfigController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.CapacityConfigController.Post(mpm_web_api.model.m_wo.capacity_config)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.CapacityConfigController.Put(mpm_web_api.model.m_wo.capacity_config)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.ProducedWoController.Getw">
+            <summary>
+            获取已完结工单信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineController.Delete(System.Int32)">
+            <summary>
+            删除虚拟线
+            </summary>
+            <param name="id">id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineController.DeleteM(System.Int32,System.Int32)">
+            <summary>
+            删除该虚拟线下的设备
+            </summary>
+            <param name="virtual_line_id">虚拟线id</param>
+            <param name="machine_id">设备id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineController.Get">
+            <summary>
+            获取详细的虚拟线信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineController.Post(mpm_web_api.model.virtual_line)">
+            <summary>
+            新增虚拟线
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineController.PostM(System.Int32,System.Int32)">
+            <summary>
+            新增虚拟线下的设备
+            </summary>
+            <param name="virtual_line_id">虚拟线id</param>
+            <param name="machine_id">设备id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineController.Put(mpm_web_api.model.virtual_line)">
+            <summary>
+            更新虚拟线信息
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineCurrentLogController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineCurrentLogController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineCurrentLogController.Post(mpm_web_api.model.m_wo.virtual_line_cur_log)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineCurrentLogController.Put(mpm_web_api.model.m_wo.virtual_line_cur_log)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineLogController.Post(mpm_web_api.model.virtual_line_log)">
+            <summary>
+            添加虚拟线日志
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.VirtualLineLogController.Put(mpm_web_api.model.virtual_line_log)">
+            <summary>
+            修改虚拟线日志
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoConfigController.Delete(System.Int32)">
+            <summary>
+            删除工单信息
+            </summary>
+            <param name="id"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoConfigController.Get">
+            <summary>
+            获取工单详细信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoConfigController.Post(mpm_web_api.model.wo_config)">
+            <summary>
+            新增工单信息
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoConfigController.Put(mpm_web_api.model.wo_config)">
+            <summary>
+            更新工单信息
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoMachineCurrentLogController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoMachineCurrentLogController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoMachineCurrentLogController.Post(mpm_web_api.model.m_wo.wo_machine_cur_log)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoMachineCurrentLogController.Put(mpm_web_api.model.m_wo.wo_machine_cur_log)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoMachineLogController.Post(mpm_web_api.model.wo_machine_log)">
+            <summary>
+            添加虚拟线日志
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WoMachineLogController.Put(mpm_web_api.model.wo_machine_log)">
+            <summary>
+            修改虚拟线日志
+            </summary>
+            <param name="t"></param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Get(System.Int32)">
+            <summary>
+            获取可以执行或者可以开启的工单号
+            </summary>
+            <param name="machine_id">设备id</param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Post(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            开始或者结束工单 
+            </summary>
+            <param name="type">0:开始工单 1:结束工单 2:暂停工单(未结)</param>
+            <param name="machine_id"> 设备id</param>
+            <param name="work_order_id"> 工单号</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Put(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            修改当前工单的实际生产数量
+            </summary>
+            <param name="machine_id">设备号</param>
+            <param name="work_order_id">工单号</param>
+            <param name="count">数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Controllers.LicenceController.Get">
+            <summary>
+            获取已授权数量
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.LicenceController.Post(mpm_web_api.model.m_common.Licence_Str)">
+            <summary>
+            更新授权数量
+            </summary>
+            <param name="licence_str">加密的授权字符串</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.TagValueController.Get(System.String,System.String,System.DateTime,System.DateTime)">
+            <summary>
+            获取标签点的值
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.DAL.andon.ErrorOnsiteService.EquipmentErrorTrigger(System.Int32)">
+            <summary>
+            设备异常触发
+            </summary>
+            <param name="machine_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.andon.ErrorOnsiteService.CalTimeDifference(System.DateTime)">
+            <summary>
+            计算时间差
+            </summary>
+            <param name="start_time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.NotificationGroupService.DeletePerson(System.Int32,System.Int32)">
+            <summary>
+            删除该群组下的指定人员
+            </summary>
+            <param name="group_id"></param>
+            <param name="person_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.AreaPropertyService.QueryShift">
+            <summary>
+            查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.AreaPropertyService.QueryFixedBreak">
+            <summary>
+            固定排休时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.AreaPropertyService.QueryTimeZone">
+            <summary>
+            获取时区信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.AreaPropertyService.QueryUnfixedBreak">
+            <summary>
+            非固定排休时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.BaseService`1.QueryableToList">
+            <summary>
+            获取表内所有数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.BaseService`1.QueryableToList(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            按条件查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.BaseService`1.Update(`0,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            更新
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity"></param>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.BaseService`1.Delete(System.Int32)">
+            <summary>
+            按id删除一行
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.BaseService`1.Insert(`0)">
+            <summary>
+            新增一行数据
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.GetExecutingWoByMachineLog(System.Int32)">
+            <summary>
+            获取执行中的设备工单信息
+            </summary>
+            <param name="machine_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.GetExecutableWo(System.Int32)">
+            <summary>
+            按设备获取可执行的工单信息
+            </summary>
+            <param name="machine_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.GetExecutingWo(System.Int32)">
+            <summary>
+            执行中的工单
+            </summary>
+            <param name="virtual_line_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.StartWoMachine(System.Int32,System.Int32)">
+            <summary>
+            开始设备工单
+            </summary>
+            <param name="machine_id"></param>
+            <param name="wo_config_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.FinshWoMachine(System.Int32)">
+            <summary>
+            结束设备工单
+            </summary>
+            <param name="machine_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.StartWoVirtualLine(System.Int32,System.Int32)">
+            <summary>
+            开始线工单
+            </summary>
+            <param name="virtual_line_id"></param>
+            <param name="wo_config_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.StartWorkOrder(System.Int32,System.Int32)">
+            <summary>
+            开始工单
+            </summary>
+            <param name="machine_id"></param>
+            <param name="work_order_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.FinishWorkOrder(System.Int32,System.Int32)">
+            <summary>
+            结束工单
+            </summary>
+            <param name="machine_id"></param>
+            <param name="work_order_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.SuspendWorkOrder(System.Int32)">
+            <summary>
+            未结工单
+            </summary>
+            <param name="work_order_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.StartSuspendWorkOrder(System.Int32)">
+            <summary>
+            开始未结工单
+            </summary>
+            <param name="work_order_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.modifyCount(System.Int32,System.Int32,System.Decimal)">
+            <summary>
+            修改工单实际的修改数量
+            </summary>
+            <param name="machine_id"></param>
+            <param name="wo_config_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DB.MongoHelper.GetList``1(System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            根据查询条件，获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="TableName">数据表名称</param>
+            <param name="conditions">查询条件，查询条件编写按照Lamada表达式形式</param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DB.MongoHelper.GetList``1(System.String,MongoDB.Driver.FilterDefinition{``0})">
+            <summary>
+            根据查询条件，获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="TableName">数据表名称</param>
+            <param name="Filter">查询条件</param>
+            <param name="LimitNum">默认的限制条数，默认为100</param>
+            <returns></returns>
+        </member>
+        <member name="T:mpm_web_api.DB.MongoDbTag">
+            <summary>
+            云端的MongoDB数据库Tag类
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.DB.MongoDbTag.s">
+            <summary>
+            s云端为scada id 信息
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.DB.MongoDbTag.t">
+            <summary>
+            t在云端为device/tag的组合
+            </summary>
+        </member>
+        <member name="T:mpm_web_api.db.DbConnectionString">
+            <summary>
+            数据库连接属性
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence.used_number">
+            <summary>
+            已使用的设备数
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence.authorized_number">
+            <summary>
+            授权数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence.expire_date">
+            <summary>
+            过期日期
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence.version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence.module">
+            <summary>
+            功能
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence_Original.unique_identifier">
+            <summary>
+            唯一性标识
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence_Original.machineNum">
+            <summary>
+            授权数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence_Original.type">
+            <summary>
+            授权类型 0:覆盖数量 1:新增数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence_Original.expire_date">
+            <summary>
+            到期时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence_Original.version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence_Original.module">
+            <summary>
+            功能
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.Licence_Str.Licence">
+            <summary>
+            加密的授权码
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.migration_log.migration_version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_info_extra.name">
+            <summary>
+            标签名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_info_extra.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_info_extra.target_type">
+            <summary>
+            目标类型 0:machine_id  1:node_id   2:virtual_line_id  3:error_type_detail_id 4:wo_config_id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_info_extra.target_id">
+            <summary>
+            目标id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_info_extra.tag_type_sub_id">
+            <summary>
+            二级标签id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_type_sub_custom.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_type_sub_custom.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_type_sub_custom.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_type_sub_custom.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.tag_type_sub_custom.tag_type_id">
+            <summary>
+            一级标签类型id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_layer.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_layer.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_layer.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_layer.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_node.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_node.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_node.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_node.area_layer_id">
+            <summary>
+            所在层级id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_node.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_node.upper_id">
+            <summary>
+            上一级节点的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_property.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_property.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_property.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_property.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_property.format">
+            <summary>
+            属性格式内容
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.area_property.area_node_id">
+            <summary>
+            绑定的区域节点id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.department.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.department.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.department.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.department.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.email_server.host">
+            <summary>
+            主机ip
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.email_server.port">
+            <summary>
+            端口号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.email_server.user_name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.email_server.password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.machine.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.machine.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.machine.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.machine.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.machine.area_node_id">
+            <summary>
+            绑定的节点id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.user_name">
+            <summary>
+            人员名
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.dept_id">
+            <summary>
+            部门id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.id_num">
+            <summary>
+            员工卡号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.user_level">
+            <summary>
+            员工等级
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.email">
+            <summary>
+            邮件
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.wechart">
+            <summary>
+            微信号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.mobile_phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.user_position">
+            <summary>
+            员工工位地址
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.srp_inner_log.srp_code">
+            <summary>
+            srp模块名
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.srp_inner_log.insert_time">
+            <summary>
+            插入时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_info.name">
+            <summary>
+            标签名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_info.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_info.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_info.tag_type_sub_id">
+            <summary>
+            二级标签id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type_sub.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type_sub.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type_sub.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type_sub.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.tag_type_sub.tag_type_id">
+            <summary>
+            一级标签类型id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wechart_server.apply_name">
+            <summary>
+            应用名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wechart_server.corp_id">
+            <summary>
+            企业id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wechart_server.apply_agentid">
+            <summary>
+            应用id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wechart_server.apply_secret">
+            <summary>
+            应用密钥
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wechart_server.access_token">
+            <summary>
+            应用token
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.capacity_alert.date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.capacity_alert.capacity">
+            <summary>
+            标准产能
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.m_error.capacity_alert.notice_type" -->
+        <member name="P:mpm_web_api.model.m_error.capacity_alert.notice_group_id">
+            <summary>
+            通知群组的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.capacity_alert.enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_cost_alert.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_cost_alert.cost">
+            <summary>
+            在月费用超支预警模式下为最大月费用  在余额不足预警模式下为最小余额数
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_cost_alert.alert_mode">
+            <summary>
+            预警模式  0:月费用超支预警  1:余额不足预警
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.m_error.machine_cost_alert.notice_type" -->
+        <member name="P:mpm_web_api.model.m_error.machine_cost_alert.notice_group_id">
+            <summary>
+            通知群组的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_cost_alert.enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_fault_alert.error_type_detail_id">
+            <summary>
+            详细故障原因id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_fault_alert.fault_times">
+            <summary>
+            预警故障次数/天
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.m_error.machine_fault_alert.notice_type" -->
+        <member name="P:mpm_web_api.model.m_error.machine_fault_alert.notice_group_id">
+            <summary>
+            通知群组的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_fault_alert.enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_status_alert.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_status_alert.machine_status">
+            <summary>
+            设备状态
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.m_error.machine_status_alert.notice_type" -->
+        <member name="P:mpm_web_api.model.m_error.machine_status_alert.notice_group_id">
+            <summary>
+            通知群组的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_status_alert.enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_status_duration_alert.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_status_duration_alert.machine_status">
+            <summary>
+            设备状态
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_status_duration_alert.duration">
+            <summary>
+            持续时间
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.m_error.machine_status_duration_alert.notice_type" -->
+        <member name="P:mpm_web_api.model.m_error.machine_status_duration_alert.notice_group_id">
+            <summary>
+            通知群组的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.machine_status_duration_alert.enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.quality_alert.work_order_id">
+            <summary>
+            工单号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.quality_alert.defective_number">
+            <summary>
+            预警不良数量
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.m_error.quality_alert.notice_type" -->
+        <member name="P:mpm_web_api.model.m_error.quality_alert.notice_group_id">
+            <summary>
+            通知群组的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.quality_alert.enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.utilization_rate_alert.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.utilization_rate_alert.utilization_rate_type">
+            <summary>
+            稼动率类别 0:日稼动率 1:班稼动率 2:工单稼动率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.utilization_rate_alert.maximum">
+            <summary>
+            最大值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.utilization_rate_alert.minimum">
+            <summary>
+            最小值
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.m_error.utilization_rate_alert.notice_type" -->
+        <member name="P:mpm_web_api.model.m_error.utilization_rate_alert.notice_group_id">
+            <summary>
+            通知群组的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_error.utilization_rate_alert.enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.tag_type_sub_id">
+            <summary>
+            标签编码id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.response_person_id">
+            <summary>
+            责任人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.level1_notification_group_id">
+            <summary>
+            一级通知人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.level2_notification_group_id">
+            <summary>
+            二级通知人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.level3_notification_group_id">
+            <summary>
+            三级通知人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.alert_active">
+            <summary>
+            功能是否激活
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.trigger_out_color">
+            <summary>
+            异常灯颜色
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.timeout_setting">
+            <summary>
+            超时设置
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.notice_type">
+            <summary>
+            预警形式，个人/群组
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.logic_type">
+            <summary>
+            逻辑类型 0:安灯逻辑 1:自定义逻辑
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config_person.error_config_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config_person.shift">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config_person.person_level">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config_person.person_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config_person.isowner">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.error_config_id">
+            <summary>
+            异常配置id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.tag_type_sub_name">
+            <summary>
+            二级标签类型名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.responsible_name">
+            <summary>
+            责任人
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.machine_name">
+            <summary>
+            设备名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.work_order">
+            <summary>
+            工单
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.part_number">
+            <summary>
+            机种
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.start_time">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.substitutes">
+            <summary>
+            替代者
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.arrival_time">
+            <summary>
+            签到时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.error_type_name">
+            <summary>
+            异常类型名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.error_type_detail_name">
+            <summary>
+            详细异常信息
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.release_time">
+            <summary>
+            解除时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.defectives_count">
+            <summary>
+            不良数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log.cost_time">
+            <summary>
+            花费时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_log_detail.error_config">
+            <summary>
+            异常配置信息
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type_details.code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type_details.name_en">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type_details.name_cn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type_details.name_tw">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_type_details.description">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.material_code">
+            <summary>
+            物料名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.machine_name">
+            <summary>
+            设备名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.request_person_name">
+            <summary>
+            请求人员名
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.work_order">
+            <summary>
+            工单号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.part_number">
+            <summary>
+            机种号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.request_count">
+            <summary>
+            请求数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.take_person_name">
+            <summary>
+            送料人员名
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.take_time">
+            <summary>
+            花费时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.createtime">
+            <summary>
+            触发时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.error_config_id">
+            <summary>
+            异常配置id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.cost_time">
+            <summary>
+            花费时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_group.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_group.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_group.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_group.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person.person_id">
+            <summary>
+            人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person.notification_group_id">
+            <summary>
+            通知群组id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person_detail.dept_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person_detail.id_num">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person_detail.user_level">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person_detail.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person_detail.wechart">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person_detail.mobile_phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.notification_person_detail.user_position">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.work_order_alert.virtual_line_id">
+            <summary>
+            虚拟线设定
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.work_order_alert.alert_type">
+            <summary>
+            预警类型 0:平衡率预警 1:工单完成 2:逾期未完成  3:超过标准工时
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.work_order_alert.notice_type" -->
+        <member name="P:mpm_web_api.model.work_order_alert.notice_group_id">
+            <summary>
+            通知群组的id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.work_order_alert.enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.work_order_alert.maximum">
+            <summary>
+            最大值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.work_order_alert.minimum">
+            <summary>
+            最小值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.machine_lease.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.machine_lease.unit_price">
+            <summary>
+            租赁单价  每小时
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.machine_lease.type">
+            <summary>
+            0:按月计费模式  1:余额计费模式
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.machine_lease.total_price">
+            <summary>
+            账户存款
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.machine_lease.start_time">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tricolor_tag_status.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tricolor_tag_status.machine_name">
+            <summary>
+            设备名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tricolor_tag_status.status_name">
+            <summary>
+            状态名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tricolor_tag_status.insert_time">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tricolor_tag_status.whether">
+            <summary>
+            预留
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.status_setting.status_name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.utilization_rate_formula.formula">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.capacity_config.utilization">
+            <summary>
+            利用率 计算得到
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.overdue_work_order.start_time">
+            <summary>
+            开始时间 结束时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.overdue_work_order.end_time">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.overdue_work_order.overdue_time">
+            <summary>
+            逾期时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.overdue_work_order.wo_config_id">
+            <summary>
+            工单id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.virtual_line_id">
+            <summary>
+            虚拟线id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.wo_config_id">
+            <summary>
+            工单配置id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.start_time">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.balance_rate">
+            <summary>
+            平衡率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.productivity">
+            <summary>
+            生产率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.quantity">
+            <summary>
+            标准数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.bad_quantity">
+            <summary>
+            不良数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.wo_config_id">
+            <summary>
+            工单id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.standard_time">
+            <summary>
+            标准数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.start_time">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.quantity">
+            <summary>
+            当前数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.bad_quantity">
+            <summary>
+            不良数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.achieving_rate">
+            <summary>
+            达成率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.productivity">
+            <summary>
+            生产率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.cycle_time">
+            <summary>
+            当前C/T
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.cycle_time_average">
+            <summary>
+            平均C/T
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.standard_num">
+            <summary>
+            标准数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log_detail.work_order">
+            <summary>
+            工单信息
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.cycle_log.wo_machine_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.cycle_log.insert_time">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.cycle_log.value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_detail.machines">
+            <summary>
+            设备列表
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_log.virtual_line_id">
+            <summary>
+            虚拟线id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_log.wo_config_id">
+            <summary>
+            工单配置id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_log.start_time">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_log.end_time">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_log.balance_rate">
+            <summary>
+            平衡率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_log.productivity">
+            <summary>
+            生产率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_log.quantity">
+            <summary>
+            标准数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.virtual_line_log.bad_quantity">
+            <summary>
+            不良数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.work_order">
+            <summary>
+            工单名
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.part_num">
+            <summary>
+            机种号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.shift">
+            <summary>
+            班别 0:白班 1:夜班
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.standard_num">
+            <summary>
+            标准数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.auto">
+            <summary>
+            是否自动完结
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.order_index">
+            <summary>
+            执行序号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.status">
+            <summary>
+            状态 0:创建 1:排产 2:执行中  3:完成
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.virtual_line_id">
+            <summary>
+            虚拟线id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.standard_time">
+            <summary>
+            标准时间  格式为 200;100;100
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.create_time">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config.lbr_formula">
+            <summary>
+            平衡率公式
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config_detail.virtual_Line">
+            <summary>
+            虚拟线信息
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_config_excute.virtual_Line_log">
+            <summary>
+            虚拟线日志信息
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_detail.name_en">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_detail.name_tw">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_detail.description">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_detail.area_node_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.wo_config_id">
+            <summary>
+            工单id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.standard_time">
+            <summary>
+            标准数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.start_time">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.end_time">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.quantity">
+            <summary>
+            当前数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.bad_quantity">
+            <summary>
+            不良数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.achieving_rate">
+            <summary>
+            达成率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.productivity">
+            <summary>
+            生产率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.cycle_time">
+            <summary>
+            当前C/T
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.cycle_time_average">
+            <summary>
+            平均C/T
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.wo_machine_log.standard_num">
+            <summary>
+            标准数量
+            </summary>
+        </member>
+        <member name="M:OnsiteStatusWorker.Models.GetData.GetUrl(System.String)">
+            <summary>
+            http get方法
+            </summary>
+            <param name="Url">url地址</param>
+            <param name="paramName">参数名称</param>
+            <param name="postDataStr">抛送参数</param>
+            <returns></returns>
+        </member>
+        <member name="T:OnsiteStatusWorker.Models.QueryRequest.request">
+            <summary>
+            时间序列类型
+            </summary>
+        </member>
+        <member name="T:OnsiteStatusWorker.Models.QueryResponse.Timeseries">
+            <summary>
+            时间序列类型
+            </summary>
+        </member>
+        <member name="M:OnsiteStatusWorker.Models.QueryResponse.GetTimeStamp(System.DateTime)">
+            <summary>
+            获取时间戳
+            </summary>
+            <param name="dt">日期格式</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
