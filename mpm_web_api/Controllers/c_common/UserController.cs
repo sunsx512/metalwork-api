@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using mpm_web_api.Common;
 using mpm_web_api.DAL;
 using mpm_web_api.model.m_common;
 using Swashbuckle.AspNetCore.Annotations;
@@ -38,8 +39,8 @@ namespace mpm_web_api.Controllers.c_common
         public ActionResult<common.response> Post(wise_paas_user t)
         {
             object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
-            //权限字符串卡关
-            if (t.role == "Editor" || t.role == "Viewer")
+
+            if(GlobalVar.IsCloud)
             {
                 if (wpus.InsertInfo(t))
                 {
@@ -50,7 +51,21 @@ namespace mpm_web_api.Controllers.c_common
                     obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
                 }
             }
-
+            else
+            {
+                //权限字符串卡关
+                if (t.role == "Editor" || t.role == "Viewer")
+                {
+                    if (wpus.InsertInfo(t))
+                    {
+                        obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                    }
+                    else
+                    {
+                        obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+                    }
+                }
+            }
             return Json(obj);
         }
         /// <summary>
