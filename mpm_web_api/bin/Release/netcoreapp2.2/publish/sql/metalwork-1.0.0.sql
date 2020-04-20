@@ -866,6 +866,10 @@ INSERT INTO "common"."area_layer" VALUES (1, '群组', 'Group', '群组');
 INSERT INTO "common"."wechart_server" VALUES (1, '', '', '', '','');
 INSERT INTO "common"."email_server" VALUES (1, '', 163, '', '');
 
+INSERT INTO "common"."area_layer" VALUES ('群组', 'group', '群组', '群组');
+INSERT INTO "common"."area_node" VALUES (1,0,'群组01', 'group01', '群组01', '群组01');
+INSERT INTO "common"."area_property" VALUES (1,'时区','time_zone', '时区', '时区', 8);
+
 INSERT INTO "common"."tag_type" VALUES (1, '设备', 'Machine', '設備', '设备标签类型');
 INSERT INTO "common"."tag_type" VALUES (2, '节拍时间', 'Cycle_Time', '節拍時間', '节拍时间类标签类型');
 INSERT INTO "common"."tag_type" VALUES (3, '异常', 'Error', '异常', '异常标签类型');
