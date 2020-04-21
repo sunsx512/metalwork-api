@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
-COPY ["mpm_web_api/mpm_web_api.csproj", "mpm_web_api/"]
+COPY ["mpm_web_api.csproj", "mpm_web_api/"]
 RUN dotnet restore "mpm_web_api/mpm_web_api.csproj"
 COPY . .
 WORKDIR "/src/mpm_web_api"
