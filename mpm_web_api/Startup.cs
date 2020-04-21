@@ -55,6 +55,10 @@ namespace mpm_web_api
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = false;
                 migration.Create(false);
+                //开启docker Licence认证
+                DockerLicenceService dls = new DockerLicenceService();
+                CancellationToken token = new CancellationToken();
+                dls.StartAsync(token);
             }
         }
 

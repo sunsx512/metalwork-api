@@ -52,7 +52,7 @@ namespace mpm_web_api.DAL
                     }
 
                     //定时任务休眠
-                    Thread.Sleep(1 * 1000);
+                    Thread.Sleep(10 * 1000);
                 });
             }
 

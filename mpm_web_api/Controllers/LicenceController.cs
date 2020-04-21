@@ -58,12 +58,12 @@ namespace mpm_web_api.Controllers
                 //验证Licence合法性
                 if (LicenceHelper.CheckSpaceID(lco.unique_identifier))
                 {
-                    Licence lc = new Licence();
-                    
+                    Licence lc = new Licence();                
                     //获取已使用的设备数量
                     lc.used_number = ms.GetMachineCount();
                     //获取已授权的设备数量
                     lc.authorized_number = lco.machineNum;
+                    GlobalVar.authorized_number = lco.machineNum;
                     lc.expire_date = lco.expire_date;
                     lc.module = lco.module;
                     lc.version = lco.version;
