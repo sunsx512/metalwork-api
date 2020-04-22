@@ -869,7 +869,7 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA work_order TO "ifactoryMetal";
 INSERT INTO "common"."wechart_server" VALUES (1, '', '', '', '','');
 INSERT INTO "common"."email_server" VALUES (1, '', 163, '', '');
 
-INSERT INTO "common"."area_layer" (name_cn, name_en, name_tw, description) VALUES ('群组', 'Group', '群组');
+INSERT INTO "common"."area_layer" (name_cn, name_en, name_tw, description) VALUES ('群组', 'Group', '群组','群组');
 INSERT INTO "common"."area_node" (area_layer_id, upper_id, name_cn, name_en, name_tw, description) VALUES (1,0,'群组01', 'group01', '群组01', '群组01');
 INSERT INTO "common"."area_property" (area_node_id, name_cn, name_en, name_tw, description, format) VALUES (1,'时区','time_zone', '时区', 8, '时区');
 
@@ -905,9 +905,9 @@ INSERT INTO "common"."tag_type_sub_fixed" VALUES (23, 4, '产能预警', 'capaci
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (24, 4, '设备故障预警', 'machine_fault_alert', '設備故障預警', '设备故障预警');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (25, 4, '品质异常预警', 'quality_error_alert', '品質异常預警', '品质异常预警');
 
-INSERT INTO "oee"."status_setting" (status_name, value) VALUES (1, 'Idle', 0);
-INSERT INTO "oee"."status_setting" (status_name, value) VALUES (2, 'Run', 1);
-INSERT INTO "oee"."status_setting" (status_name, value) VALUES (3, 'Off', 2);
-INSERT INTO "oee"."status_setting" (status_name, value) VALUES (4, 'Error', 3);
+INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Idle', 0);
+INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Run', 1);
+INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Off', 2);
+INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Error', 3);
 
 INSERT INTO "oee"."utilization_rate_formula" VALUES (1, '$Run/($Run+$Off+$Idle+$Error)');
