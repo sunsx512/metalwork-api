@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS "common"."tag_info_extra" (
   "tag_type_sub_id" int4 NOT NULL,
   "target_type" int4 NOT NULL,
   "target_id" int4 NOT NULL,
-  "tag_name" varchar(200) COLLATE "pg_catalog"."default" NOT NULL,
+  "name" varchar(200) COLLATE "pg_catalog"."default" NOT NULL,
   "description" varchar(200) COLLATE "pg_catalog"."default" ,
   CONSTRAINT "tag_info_extra_pkey" PRIMARY KEY ("id")
 );
