@@ -23,31 +23,31 @@ namespace mpm_web_api.model
         /// <summary>
         /// 一级通知人员id
         /// </summary>
-        public int level1_notification_group_id { get; set; }
+        public int? level1_notification_group_id { get; set; }
         /// <summary>
         /// 二级通知人员id
         /// </summary>
-        public int level2_notification_group_id { get; set; }
+        public int? level2_notification_group_id { get; set; }
         /// <summary>
         /// 三级通知人员id
         /// </summary>
-        public int level3_notification_group_id { get; set; }
+        public int? level3_notification_group_id { get; set; }
         /// <summary>
         /// 功能是否激活
         /// </summary>
-        public bool alert_active { get; set; }
+        public bool? alert_active { get; set; }
         /// <summary>
         /// 异常灯颜色
         /// </summary>
-        public int trigger_out_color { get; set; }
+        public int? trigger_out_color { get; set; }
         /// <summary>
         /// 超时设置
         /// </summary>
-        public int timeout_setting { get; set; }
+        public int? timeout_setting { get; set; }
         /// <summary>
         /// 预警形式，个人/群组
         /// </summary>
-        public int notice_type { get; set; }
+        public int? notice_type { get; set; }
         /// <summary>
         /// 逻辑类型 0:安灯逻辑 1:自定义逻辑
         /// </summary>
