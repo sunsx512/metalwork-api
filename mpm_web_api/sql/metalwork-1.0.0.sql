@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS "common"."tag_info_extra" (
   "tag_type_sub_id" int4 NOT NULL,
   "target_type" int4 NOT NULL,
   "target_id" int4 NOT NULL,
-  "tag_name" varchar(200) COLLATE "pg_catalog"."default" NOT NULL,
+  "name" varchar(200) COLLATE "pg_catalog"."default" NOT NULL,
   "description" varchar(200) COLLATE "pg_catalog"."default" ,
   CONSTRAINT "tag_info_extra_pkey" PRIMARY KEY ("id")
 );
@@ -203,6 +203,12 @@ CREATE TABLE IF NOT EXISTS "common"."wise_paas_user" (
   CONSTRAINT "wise_paas_user_pkey" PRIMARY KEY ("name")
 );
 
+CREATE TABLE IF NOT EXISTS "common"."mqtt_log" (
+  "content" varchar(255) COLLATE "pg_catalog"."default",
+  "create_time" timestamptz(6),
+  "id" serial NOT NULL,
+  CONSTRAINT "mqtt_log_pkey" PRIMARY KEY ("id")
+);
 
 CREATE TABLE IF NOT EXISTS "andon"."alert_mes" (
   "message_flow" varchar(255) COLLATE "pg_catalog"."default",
@@ -228,16 +234,24 @@ CREATE TABLE IF NOT EXISTS "andon"."error_config" (
   "machine_id" int4 NOT NULL,
   "tag_type_sub_id" int4 NOT NULL,
   "response_person_id" int4 NOT NULL,
-  "level1_notification_group_id" int4,
-  "level2_notification_group_id" int4,
-  "level3_notification_group_id" int4,
   "alert_active" bool,
   "trigger_out_color" int4,
-  "timeout_setting" int4,
-  "notice_type" int4,
   "logic_type" int4,
+  "andon_logic_id" int4,
   CONSTRAINT "error_config_pkey" PRIMARY KEY ("id")
 );
+
+CREATE TABLE IF NOT EXISTS "andon"."andon_logic" (
+  "id" serial NOT NULL,
+  "name" varchar(50) COLLATE "pg_catalog"."default" NOT NULL,
+  "level1_notification_group_id" int4 NOT NULL,
+  "level2_notification_group_id" int4 NOT NULL,
+  "level3_notification_group_id" int4 NOT NULL,
+  "notice_type" int4 NOT NULL,
+  "timeout_setting" int4,
+  CONSTRAINT "andon_logic_pkey" PRIMARY KEY ("id")
+);
+
 
 CREATE TABLE IF NOT EXISTS "andon"."error_log" (
   "id" serial NOT NULL,
@@ -695,9 +709,6 @@ CREATE TABLE IF NOT EXISTS "work_order"."worker_exception_log" (
 );
 
 ALTER TABLE "andon"."capacity_alert" ADD CONSTRAINT "capacity_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_level1_notification_group_id_fkey" FOREIGN KEY ("level1_notification_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_level2_notification_group_id_fkey" FOREIGN KEY ("level2_notification_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_level3_notification_group_id_fkey" FOREIGN KEY ("level3_notification_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_response_person_id_fkey" FOREIGN KEY ("response_person_id") REFERENCES "common"."person" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_log" ADD CONSTRAINT "error_log_error_config_id_fkey" FOREIGN KEY ("error_config_id") REFERENCES "andon"."error_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
@@ -860,20 +871,18 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA work_order GRANT ALL ON SEQUENCES TO "ifactor
 GRANT ALL ON ALL TABLES IN SCHEMA work_order TO "ifactoryMetal";
 GRANT ALL ON ALL SEQUENCES IN SCHEMA work_order TO "ifactoryMetal";
 
-
-
 INSERT INTO "common"."wechart_server" VALUES (1, '', '', '', '','');
 INSERT INTO "common"."email_server" VALUES (1, '', 163, '', '');
 
-INSERT INTO "common"."area_layer" VALUES (1, '群组', 'Group', '群组');
-INSERT INTO "common"."area_node" VALUES (1,1,0,'群组01', 'group01', '群组01', '群组01');
-INSERT INTO "common"."area_property" VALUES (1,1,'时区','time_zone', '时区', 8, '时区');
+INSERT INTO "common"."area_layer" (name_cn, name_en, name_tw, description) VALUES ('群组', 'Group', '群组','群组');
+INSERT INTO "common"."area_node" (area_layer_id, upper_id, name_cn, name_en, name_tw, description) VALUES (1,0,'群组01', 'group01', '群组01', '群组01');
+INSERT INTO "common"."area_property" (area_node_id, name_cn, name_en, name_tw, description, format) VALUES (1,'时区','time_zone', '时区', 8, '时区');
 
-INSERT INTO "common"."tag_type" VALUES (1, '设备', 'Machine', '設備', '设备标签类型');
-INSERT INTO "common"."tag_type" VALUES (2, '节拍时间', 'Cycle_Time', '節拍時間', '节拍时间类标签类型');
-INSERT INTO "common"."tag_type" VALUES (3, '异常', 'Error', '异常', '异常标签类型');
-INSERT INTO "common"."tag_type" VALUES (4, '预警', 'Alert', '預警', '预警标签类型');
-INSERT INTO "common"."tag_type" VALUES (5, '其他', 'Other', '其他', '其他标签类型');
+INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('设备', 'Machine', '設備', '设备标签类型');
+INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('节拍时间', 'Cycle_Time', '節拍時間', '节拍时间类标签类型');
+INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('异常', 'Error', '异常', '异常标签类型');
+INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('预警', 'Alert', '預警', '预警标签类型');
+INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('其他', 'Other', '其他', '其他标签类型');
 
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (1, 1, '设备状态', 'machine_status', '設備狀態', '设备状态');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (2, 1, '设备状态灯颜色', 'lamp_color', '設備狀態', '設備狀態燈顏色');
@@ -901,9 +910,9 @@ INSERT INTO "common"."tag_type_sub_fixed" VALUES (23, 4, '产能预警', 'capaci
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (24, 4, '设备故障预警', 'machine_fault_alert', '設備故障預警', '设备故障预警');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (25, 4, '品质异常预警', 'quality_error_alert', '品質异常預警', '品质异常预警');
 
-INSERT INTO "oee"."status_setting" VALUES (1, 'Idle', 0);
-INSERT INTO "oee"."status_setting" VALUES (2, 'Run', 1);
-INSERT INTO "oee"."status_setting" VALUES (3, 'Off', 2);
-INSERT INTO "oee"."status_setting" VALUES (4, 'Error', 3);
+INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Idle', 0);
+INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Run', 1);
+INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Off', 2);
+INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Error', 3);
 
 INSERT INTO "oee"."utilization_rate_formula" VALUES (1, '$Run/($Run+$Off+$Idle+$Error)');

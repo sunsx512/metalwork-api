@@ -234,16 +234,24 @@ CREATE TABLE IF NOT EXISTS "andon"."error_config" (
   "machine_id" int4 NOT NULL,
   "tag_type_sub_id" int4 NOT NULL,
   "response_person_id" int4 NOT NULL,
-  "level1_notification_group_id" int4,
-  "level2_notification_group_id" int4,
-  "level3_notification_group_id" int4,
   "alert_active" bool,
   "trigger_out_color" int4,
-  "timeout_setting" int4,
-  "notice_type" int4,
   "logic_type" int4,
+  "andon_logic_id" int4,
   CONSTRAINT "error_config_pkey" PRIMARY KEY ("id")
 );
+
+CREATE TABLE IF NOT EXISTS "andon"."andon_logic" (
+  "id" serial NOT NULL,
+  "name" varchar(50) COLLATE "pg_catalog"."default" NOT NULL,
+  "level1_notification_group_id" int4 NOT NULL,
+  "level2_notification_group_id" int4 NOT NULL,
+  "level3_notification_group_id" int4 NOT NULL,
+  "notice_type" int4 NOT NULL,
+  "timeout_setting" int4,
+  CONSTRAINT "andon_logic_pkey" PRIMARY KEY ("id")
+);
+
 
 CREATE TABLE IF NOT EXISTS "andon"."error_log" (
   "id" serial NOT NULL,
@@ -701,9 +709,6 @@ CREATE TABLE IF NOT EXISTS "work_order"."worker_exception_log" (
 );
 
 ALTER TABLE "andon"."capacity_alert" ADD CONSTRAINT "capacity_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_level1_notification_group_id_fkey" FOREIGN KEY ("level1_notification_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_level2_notification_group_id_fkey" FOREIGN KEY ("level2_notification_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_level3_notification_group_id_fkey" FOREIGN KEY ("level3_notification_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_response_person_id_fkey" FOREIGN KEY ("response_person_id") REFERENCES "common"."person" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_log" ADD CONSTRAINT "error_log_error_config_id_fkey" FOREIGN KEY ("error_config_id") REFERENCES "andon"."error_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
