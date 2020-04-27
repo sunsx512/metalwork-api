@@ -20,12 +20,6 @@ namespace mpm_web_api.Controllers
     public class LicenceController : Controller
     {
 
-        private readonly IHostingEnvironment _hostingEnvironment;
-
-        public LicenceController(IHostingEnvironment hostingEnvironment)
-        {
-            _hostingEnvironment = hostingEnvironment;
-        }
 
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace mpm_web_api.DAL.oee
 {
     public class machine_lease_service: SqlSugarBase
     {
-        public new List<machine_lease_detail> QueryableToList()
+        public  List<machine_lease_detail> QueryableToList()
         {
             var list = DB.Queryable<machine_lease_detail>()
             .Mapper((it) =>

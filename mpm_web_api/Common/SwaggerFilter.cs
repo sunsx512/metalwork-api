@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
@@ -18,7 +19,7 @@ namespace mpm_web_api.Common
 
     public class HiddenApiFilter : IDocumentFilter
     {
-        public void Apply(SwaggerDocument swaggerDoc, DocumentFilterContext context)
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             foreach (ApiDescription apiDescription in context.ApiDescriptions)
             {
@@ -38,6 +39,11 @@ namespace mpm_web_api.Common
                 }
             }
         }
+
+        //public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
 }

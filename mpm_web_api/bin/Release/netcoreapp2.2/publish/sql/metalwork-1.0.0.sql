@@ -885,7 +885,6 @@ INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES 
 INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('其他', 'Other', '其他', '其他标签类型');
 
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (1, 1, '设备状态', 'machine_status', '設備狀態', '设备状态');
-INSERT INTO "common"."tag_type_sub_fixed" VALUES (2, 1, '设备状态灯颜色', 'lamp_color', '設備狀態', '設備狀態燈顏色');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (3, 2, '设备总节拍时间', 'total_cycle_time', '設備总節拍時間', '设备总节拍时间');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (4, 3, '设备异常', 'equipment_error', '設備异常', '设备异常');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (5, 3, '品质异常', 'quality_error', '品質异常', '品质异常');

@@ -9,7 +9,7 @@ namespace mpm_web_api.DAL
 {
     public class AreaNodeService:SqlSugarBase
     {
-        public new List<area_node_detail> QueryableToList()
+        public  List<area_node_detail> QueryableToList()
         {
             var list = DB.Queryable<area_node_detail>()
             .Mapper((it) =>
