@@ -13,7 +13,6 @@ using mpm_web_api.Common;
 using mpm_web_api.DAL;
 using mpm_web_api.db;
 using mpm_web_api.DB;
-using Swashbuckle.AspNetCore.Swagger;
 using Wise_Paas.models;
 using Wise_Pass;
 
