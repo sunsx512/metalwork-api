@@ -876,7 +876,7 @@ INSERT INTO "common"."email_server" VALUES (1, '', 163, '', '');
 
 INSERT INTO "common"."area_layer" (name_cn, name_en, name_tw, description) VALUES ('群组', 'Group', '群组','群组');
 INSERT INTO "common"."area_node" (area_layer_id, upper_id, name_cn, name_en, name_tw, description) VALUES (1,0,'群组01', 'group01', '群组01', '群组01');
-INSERT INTO "common"."area_property" (area_node_id, name_cn, name_en, name_tw, description, format) VALUES (1,'时区','time_zone', '时区', 8, '时区');
+INSERT INTO "common"."area_property" (area_node_id, name_cn, name_en, name_tw, format,description) VALUES (1,'时区','time_zone', '时区', 8, '时区');
 
 INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('设备', 'Machine', '設備', '设备标签类型');
 INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('节拍时间', 'Cycle_Time', '節拍時間', '节拍时间类标签类型');
