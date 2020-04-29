@@ -35,7 +35,7 @@ namespace mpm_web_api.Common
                     string cmd = string.Format("INSERT INTO common.migration_log(migration_version) VALUES ('{0}')", fileInfo.Name);
                     CreateOne(cmd);
                     //dockr版本需要自己新建账密
-                    if (!IsCloud)
+                    if (!GlobalVar.IsCloud)
                         InsertAdmin();
                 }
 
