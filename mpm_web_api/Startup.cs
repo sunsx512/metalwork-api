@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace mpm_web_api
                 EnsaasLicenceService els = new EnsaasLicenceService();
                 CancellationToken token = new CancellationToken();
                 els.StartAsync(token);
+                GlobalVar.db_time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("db_time_zone"));
             }
             //docker 环境
             else

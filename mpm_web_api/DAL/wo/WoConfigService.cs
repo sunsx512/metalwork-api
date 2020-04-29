@@ -1,4 +1,5 @@
-﻿using mpm_web_api.model;
+﻿using mpm_web_api.Common;
+using mpm_web_api.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +88,10 @@ namespace mpm_web_api.DAL
             }
             //删除最后一位
             wo.lbr_formula = str.Remove(str.Length - 1, 1);
+            if(wo.create_time != null)
+            {
+                wo.create_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+            }         
             return DB.Insertable(wo).ExecuteCommand() > 0;
         }
 

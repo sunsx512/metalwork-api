@@ -59,9 +59,6 @@ namespace mpm_web_api.DAL
                 }
             }
             return common.ResponseStr(401, "No Authority");
-
-
-
         }
     }
 }

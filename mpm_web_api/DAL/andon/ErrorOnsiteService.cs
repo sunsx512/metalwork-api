@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using mpm_web_api.Common;
 using mpm_web_api.db;
 using mpm_web_api.DB;
 using mpm_web_api.model;
@@ -288,7 +289,7 @@ namespace mpm_web_api.DAL.andon
                     List<error_log> error_logs = DB.Queryable<error_log>()
                                                     .Where(x => x.tag_type_sub_name == ts.name_en)
                                                     .Where(x=>x.machine_name ==mc.name_en)
-                                                    .Where(x => x.arrival_time == new DateTime() || x.release_time == new DateTime()).ToList();
+                                                    .Where(x => x.arrival_time == null || x.release_time == null).ToList();
                     //如果没有未签到或者未解除的异常记录 才允许重复添加log
                     if(error_logs.Count == 0)
                     {
@@ -323,7 +324,7 @@ namespace mpm_web_api.DAL.andon
                             if(ts.name_en != "equipment_error")
                                 return false;
                         }
-                        el.start_time = DateTime.Now;
+                        el.start_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                         return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();
                     }
                     else
@@ -351,15 +352,14 @@ namespace mpm_web_api.DAL.andon
                     {
                         if (ps.user_name == el.substitutes)
                         {
-                            return DB.Updateable<error_log>().Where(x=>x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = DateTime.Now }).ExecuteCommand() > 0;
-
+                            return DB.Updateable<error_log>().Where(x=>x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = DateTime.Now.AddHours(GlobalVar.db_time_zone) }).ExecuteCommand() > 0;
                         }
                     }
                     else 
                     {
                         if (ps.user_name == el.responsible_name)
                         {
-                            return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = DateTime.Now }).ExecuteCommand() > 0;
+                            return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = DateTime.Now.AddHours(GlobalVar.db_time_zone) }).ExecuteCommand() > 0;
                         }
                     }
                 }
@@ -423,7 +423,7 @@ namespace mpm_web_api.DAL.andon
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
                 return re& DB.Updateable<error_log>()
                          .Where(x=>x.id == log_id)
-                         .UpdateColumns(it => new error_log() { release_time = DateTime.Now,error_type_name = et.name_en,error_type_detail_name = etd.name_en, defectives_count = count ,cost_time = dif_time })
+                         .UpdateColumns(it => new error_log() { release_time = DateTime.Now.AddHours(GlobalVar.db_time_zone), error_type_name = et.name_en,error_type_detail_name = etd.name_en, defectives_count = count ,cost_time = dif_time })
                          .ExecuteCommand() > 0;
             }
             return false;
@@ -442,7 +442,7 @@ namespace mpm_web_api.DAL.andon
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
                 return DB.Updateable<error_log>()
                           .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new error_log() { release_time = DateTime.Now, error_type_name =et.name_cn,error_type_detail_name=etd.name_cn,cost_time = dif_time })
+                          .UpdateColumns(it => new error_log() { release_time = DateTime.Now.AddHours(GlobalVar.db_time_zone), error_type_name =et.name_cn,error_type_detail_name=etd.name_cn,cost_time = dif_time })
                           .ExecuteCommand() > 0;
             }
             return false;
@@ -464,7 +464,7 @@ namespace mpm_web_api.DAL.andon
                                     .Where(x => x.id == machine_id).First();
                 List<material_request_info> error_logs = DB.Queryable<material_request_info>()
                                 .Where(x => x.machine_name == mc.name_en)
-                                .Where(x => x.take_time == new DateTime()).ToList();
+                                .Where(x => x.take_time == null).ToList();
                 //如果没有未签到或者未解除的异常记录 才允许重复添加log
                 if (error_logs.Count == 0)
                 {
@@ -495,7 +495,7 @@ namespace mpm_web_api.DAL.andon
                             mri.machine_name = mc.name_en;
                         mri.material_code = material_code;
                         mri.request_count = count;
-                        mri.createtime = DateTime.Now;
+                        mri.createtime = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                         if (ps != null)
                             mri.take_person_name = ps.user_name;
 
@@ -522,7 +522,7 @@ namespace mpm_web_api.DAL.andon
                 decimal dif_time = CalTimeDifference((DateTime)mri.createtime);
                 return DB.Updateable<material_request_info>()
                           .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new material_request_info() {take_time = DateTime.Now,cost_time =Convert.ToDecimal(dif_time) })
+                          .UpdateColumns(it => new material_request_info() {take_time = DateTime.Now.AddHours(GlobalVar.db_time_zone), cost_time =Convert.ToDecimal(dif_time) })
                           .ExecuteCommand() > 0;
             }
             return false;
@@ -537,7 +537,7 @@ namespace mpm_web_api.DAL.andon
             mongoDbTag.s = s;
             mongoDbTag.t = t;
             mongoDbTag.v = v;
-            mongoDbTag.ts = DateTime.Now;
+            mongoDbTag.ts = DateTime.Now.AddHours(GlobalVar.db_time_zone);
             mh.InsertOne(mongoDbTag);
         }
         /// <summary>
@@ -547,7 +547,7 @@ namespace mpm_web_api.DAL.andon
         /// <returns></returns>
         private decimal CalTimeDifference(DateTime start_time)
         {
-            DateTime dt1 = DateTime.Now;
+            DateTime dt1 = DateTime.Now.AddHours(GlobalVar.db_time_zone);
             DateTime dt2 = start_time;
             TimeSpan ts = dt1.Subtract(dt2);
             return Convert.ToDecimal(ts.TotalSeconds);

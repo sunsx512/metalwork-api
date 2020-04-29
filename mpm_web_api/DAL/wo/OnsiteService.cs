@@ -1,4 +1,5 @@
-﻿using mpm_web_api.db;
+﻿using mpm_web_api.Common;
+using mpm_web_api.db;
 using mpm_web_api.model;
 using mpm_web_api.model.m_wo;
 using System;
@@ -84,7 +85,7 @@ namespace mpm_web_api.DAL.wo
                 wmcl.wo_config_id = wo_config_id;
                 wmcl.machine_id = machine_id;
                 wmcl.standard_num = wo.standard_num;
-                wmcl.start_time = DateTime.Now;
+                wmcl.start_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
             }
             return DB.Insertable<wo_machine_cur_log>(wmcl).ExecuteCommand()>0;
         }
@@ -107,7 +108,7 @@ namespace mpm_web_api.DAL.wo
                 wml.bad_quantity = curwomachine.bad_quantity;
                 wml.cycle_time = curwomachine.cycle_time;
                 wml.cycle_time_average = curwomachine.cycle_time_average;
-                wml.end_time = DateTime.Now;
+                wml.end_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                 wml.machine_id = curwomachine.machine_id;
                 wml.productivity = curwomachine.productivity;
                 wml.quantity = curwomachine.quantity;
@@ -135,7 +136,7 @@ namespace mpm_web_api.DAL.wo
             wo_config wo = DB.Queryable<wo_config>().Where(x => x.id == wo_config_id).First();
             if(wo != null)
             {
-                vlcl.start_time = DateTime.Now;
+                vlcl.start_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                 vlcl.virtual_line_id = wo.virtual_line_id;
                 vlcl.wo_config_id = wo.id;
                 //更新主工单状态
@@ -164,7 +165,7 @@ namespace mpm_web_api.DAL.wo
             if (vlcl != null)
             {
                 vll.balance_rate = vlcl.balance_rate;
-                vll.end_time = DateTime.Now;
+                vll.end_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                 vll.productivity = vlcl.productivity;
                 vll.quantity = vlcl.quantity;
                 vll.start_time = vlcl.start_time;
@@ -217,7 +218,7 @@ namespace mpm_web_api.DAL.wo
             if (vlcl != null)
             {
                 vll.balance_rate = vlcl.balance_rate;
-                vll.end_time = DateTime.Now;
+                vll.end_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                 vll.productivity = vlcl.productivity;
                 vll.quantity = vlcl.quantity;
                 vll.start_time = vlcl.start_time;
@@ -253,7 +254,7 @@ namespace mpm_web_api.DAL.wo
                         {
                             wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.machine_id == machine_id)
                                                    .Where(x => x.wo_config_id == work_order_id).First();
-                            ///只有没有结束过的设备工单才能再次被开启
+                            //只有没有结束过的设备工单才能再次被开启
                             if(wml == null)
                             {
                                 virtual_line_cur_log vlcl = DB.Queryable<virtual_line_cur_log>().Where(x => x.wo_config_id == work_order_id).First();
@@ -385,7 +386,7 @@ namespace mpm_web_api.DAL.wo
                     vlcl.balance_rate = vll.balance_rate;
                     vlcl.productivity = vll.productivity;
                     vlcl.quantity = vll.quantity;
-                    vlcl.start_time =  DateTime.Now;
+                    vlcl.start_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                     vlcl.virtual_line_id = vll.virtual_line_id;
                     vlcl.wo_config_id = vll.wo_config_id;
                     re = DB.Insertable<virtual_line_cur_log>(vlcl).ExecuteCommand()>0;
@@ -415,7 +416,7 @@ namespace mpm_web_api.DAL.wo
                                     wmcl.bad_quantity = obj.bad_quantity;
                                     wmcl.cycle_time = obj.cycle_time;
                                     wmcl.cycle_time_average = obj.cycle_time_average;
-                                    wmcl.start_time = DateTime.Now;
+                                    wmcl.start_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                                     wmcl.machine_id = obj.machine_id;
                                     wmcl.productivity = obj.productivity;
                                     wmcl.quantity = obj.quantity;

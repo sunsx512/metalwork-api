@@ -15,5 +15,9 @@ namespace mpm_web_api.Common
         /// 授权数量
         /// </summary>
         public static int authorized_number = 0;
+        /// <summary>
+        /// 数据库时区
+        /// </summary>
+        public static double db_time_zone = 0;
     }
 }

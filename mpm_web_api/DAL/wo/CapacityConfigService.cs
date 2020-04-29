@@ -1,4 +1,5 @@
-﻿using mpm_web_api.db;
+﻿using mpm_web_api.Common;
+using mpm_web_api.db;
 using mpm_web_api.model.m_wo;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace mpm_web_api.DAL.wo
         }
         public bool Put(capacity_config entity)
         {
+            entity.date.AddHours(GlobalVar.db_time_zone);
             return DB.Updateable(entity).ExecuteCommand() > 0;
         }
 
         public bool Post(capacity_config entity)
         {
+            entity.date.AddHours(GlobalVar.db_time_zone);
             return DB.Insertable(entity).ExecuteCommand() > 0;
         }
 

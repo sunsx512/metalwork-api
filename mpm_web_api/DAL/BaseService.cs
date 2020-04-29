@@ -1,4 +1,5 @@
-﻿using mpm_web_api.db;
+﻿using mpm_web_api.Common;
+using mpm_web_api.db;
 using mpm_web_api.model;
 using System;
 using System.Collections.Generic;
@@ -39,18 +40,13 @@ namespace mpm_web_api.DAL
         /// <returns></returns>
         public bool Update(T entity, Expression<Func<T, bool>> expression) 
         {
-            //List<string> Ignorestr = new List<string>() ;
-            //过滤掉 DateTime的默认值
-            //foreach (PropertyInfo p in entity.GetType().GetProperties())
-            //{
-            //    if(p.PropertyType.Name == "DateTime")
-            //    {
-            //        if(p.GetValue(entity).ToString() == "0001/1/1 0:00:00")
-            //        {
-            //            Ignorestr.Add(p.Name);
-            //        }
-            //    }
-            //}
+            foreach (PropertyInfo p in entity.GetType().GetProperties())
+            {
+                if (p.PropertyType.Name == "DateTime")
+                {
+                    p.SetValue(p, ((DateTime)p.GetValue(entity)).AddHours(GlobalVar.db_time_zone));
+                }
+            }
             return DB.Updateable(entity).Where(expression).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommand() > 0;
 
         }
@@ -72,6 +68,13 @@ namespace mpm_web_api.DAL
         /// <returns></returns>
         public bool Insert(T t)
         {
+            foreach (PropertyInfo p in t.GetType().GetProperties())
+            {
+                if (p.PropertyType.Name == "DateTime")
+                {
+                    p.SetValue(p, ((DateTime)p.GetValue(t)).AddHours(GlobalVar.db_time_zone));
+                }
+            }
             return DB.Insertable(t).ExecuteCommandIdentityIntoEntity();
         }
 

@@ -1,4 +1,5 @@
-﻿using mpm_web_api.model;
+﻿using mpm_web_api.Common;
+using mpm_web_api.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,7 +137,7 @@ namespace mpm_web_api.DAL.andon
             el.responsible_name = responsible_name;
             el.work_order = work_order;
             el.part_number = part_number;
-            el.start_time = DateTime.Now;
+            el.start_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
             return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();        
         }
 

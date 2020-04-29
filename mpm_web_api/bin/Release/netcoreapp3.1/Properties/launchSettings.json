@@ -23,6 +23,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger/index.html",
       "environmentVariables": {
+        "db_time_zone": "8",
         "PN": "9803WPMPM1",
         "namespace": "metalwork",
         "cluster": "eks005",
