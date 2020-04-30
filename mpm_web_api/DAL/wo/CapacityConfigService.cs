@@ -17,7 +17,7 @@ namespace mpm_web_api.DAL.wo
         public bool Put(capacity_config entity)
         {
             entity.date.AddHours(GlobalVar.db_time_zone);
-            return DB.Updateable(entity).ExecuteCommand() > 0;
+            return DB.Updateable(entity).Where(x => x.id == entity.id).ExecuteCommand() > 0;
         }
 
         public bool Post(capacity_config entity)
@@ -28,7 +28,7 @@ namespace mpm_web_api.DAL.wo
 
         public bool Delete(int id)
         {
-            return DB.Deleteable<capacity_config>(id).ExecuteCommand() > 0;
+            return DB.Deleteable<capacity_config>().Where(x=>x.id == id).ExecuteCommand() > 0;
         }
     }
 }
