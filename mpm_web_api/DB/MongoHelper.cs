@@ -110,7 +110,15 @@ namespace mpm_web_api.DB
                 return true;
             }
         }
+
+        public bool InsertForMetalwork(MongoDbTag entity)
+        {
+            var collection = _database.GetCollection<MongoDbTag>("Metalwork");
+            collection.InsertOne(entity);
+            return true;
+        }
     }
+
 
     /// <summary>
     /// 地端的MongoDB数据库Tag类

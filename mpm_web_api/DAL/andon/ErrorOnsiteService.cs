@@ -528,7 +528,6 @@ namespace mpm_web_api.DAL.andon
             return false;
         }
 
-
         MongoHelper mh = new MongoHelper();
         private void  SendMGMsg(string s,string t,int v)
         {
@@ -538,7 +537,7 @@ namespace mpm_web_api.DAL.andon
             mongoDbTag.t = t;
             mongoDbTag.v = v;
             mongoDbTag.ts = DateTime.Now.AddHours(GlobalVar.db_time_zone);
-            mh.InsertOne(mongoDbTag);
+            mh.InsertForMetalwork(mongoDbTag);
         }
         /// <summary>
         /// 计算时间差
