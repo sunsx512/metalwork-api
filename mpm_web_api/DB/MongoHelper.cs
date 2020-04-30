@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using mpm_web_api.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,16 +89,31 @@ namespace mpm_web_api.DB
 
         }
 
-        public bool InsertOne<T>(T entity)
+        public bool InsertOne(MongoDbTag entity)
         {
-            var collection = _database.GetCollection<T>("scada_HistRawData");
-            collection.InsertOne(entity);
-            return true;
+            //如果是云端
+            if(GlobalVar.IsCloud)
+            {
+                string scada_id = entity.s;
+                var collection = _database.GetCollection<CloudMongoDbTag>("datahub_HistRawData_" + scada_id);
+                CloudMongoDbTag cloudMongoDbTag = new CloudMongoDbTag();
+                cloudMongoDbTag.t = entity.t;
+                cloudMongoDbTag.ts = entity.ts;
+                cloudMongoDbTag.v = entity.v;
+                collection.InsertOne(cloudMongoDbTag);
+                return true;
+            }
+            else
+            {
+                var collection = _database.GetCollection<MongoDbTag>("scada_HistRawData");
+                collection.InsertOne(entity);
+                return true;
+            }
         }
     }
 
     /// <summary>
-    /// 云端的MongoDB数据库Tag类
+    /// 地端的MongoDB数据库Tag类
     /// </summary>
     public class MongoDbTag
     {
@@ -117,7 +133,24 @@ namespace mpm_web_api.DB
         public int v { get; set; }
         [BsonElement("ts")]
         public DateTime ts { get; set; }
-
-
     }
+
+    /// <summary>
+    /// 云端的MongoDB数据库Tag类
+    /// </summary>
+    public class CloudMongoDbTag
+    {
+        [BsonId]
+        public ObjectId ID { get; set; }
+        /// <summary>
+        /// t在云端为device/tag的组合
+        /// </summary>
+        [BsonElement("t")]
+        public string t { get; set; }
+        [BsonElement("v")]
+        public int v { get; set; }
+        [BsonElement("ts")]
+        public DateTime ts { get; set; }
+    }
+
 }
