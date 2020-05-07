@@ -225,8 +225,12 @@ namespace mpm_web_api.DAL.wo
                 vll.virtual_line_id = vlcl.virtual_line_id;
                 vll.wo_config_id = vlcl.wo_config_id;
             }
+            if(dBWoConfig != null)
+            {
+                re = DB.Updateable(dBWoConfig).ExecuteCommand() > 0;
+            }
             //完结 当前执行的线工单日志
-            re = DB.Deleteable<virtual_line_cur_log>(vlcl.id).ExecuteCommand() > 0;
+            re = re & DB.Deleteable<virtual_line_cur_log>(vlcl.id).ExecuteCommand() > 0;
             //插入到线工单历史记录中
             return re & DB.Insertable(vll).ExecuteCommand() > 0;
         }
