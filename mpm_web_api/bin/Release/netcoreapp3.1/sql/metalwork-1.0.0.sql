@@ -212,8 +212,10 @@ CREATE TABLE IF NOT EXISTS "common"."mqtt_log" (
 
 CREATE TABLE IF NOT EXISTS "andon"."alert_mes" (
   "message_flow" varchar(255) COLLATE "pg_catalog"."default",
-  "message_send" bool,
+  "message_des" bool,
   "insert_time" timestamptz(4),
+  "target_id" int4,
+  "target_type" int4,
   "id" serial NOT NULL,
   CONSTRAINT "alert_mes_pkey" PRIMARY KEY ("id")
 );
