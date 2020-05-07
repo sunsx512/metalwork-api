@@ -227,7 +227,7 @@ namespace mpm_web_api.DAL.wo
             }
             if(dBWoConfig != null)
             {
-                re = DB.Updateable(dBWoConfig).ExecuteCommand() > 0;
+                re = DB.Updateable<wo_config>().Where(x => x.id == dBWoConfig.id).UpdateColumns(it => new wo_config() { status = status }).ExecuteCommand() > 0;
             }
             //完结 当前执行的线工单日志
             re = re & DB.Deleteable<virtual_line_cur_log>(vlcl.id).ExecuteCommand() > 0;
