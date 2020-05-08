@@ -337,6 +337,7 @@ namespace mpm_web_api.DAL.andon
         }
 
         //更新日志
+        [Obsolete]
         private bool Confirm(int log_id,string person_id)
         {
             //查询当前日志是否存在
@@ -352,14 +353,16 @@ namespace mpm_web_api.DAL.andon
                     {
                         if (ps.user_name == el.substitutes)
                         {
-                            return DB.Updateable<error_log>().Where(x=>x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = DateTime.Now.AddHours(GlobalVar.db_time_zone) }).ExecuteCommand() > 0;
+                            DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                            return DB.Updateable<error_log>().Where(x=>x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now }).ExecuteCommand() > 0;
                         }
                     }
                     else 
                     {
                         if (ps.user_name == el.responsible_name)
                         {
-                            return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = DateTime.Now.AddHours(GlobalVar.db_time_zone) }).ExecuteCommand() > 0;
+                            DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                            return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now }).ExecuteCommand() > 0;
                         }
                     }
                 }
