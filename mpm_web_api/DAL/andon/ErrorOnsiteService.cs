@@ -525,9 +525,10 @@ namespace mpm_web_api.DAL.andon
             if (mri != null)
             {
                 decimal dif_time = CalTimeDifference((DateTime)mri.createtime);
+                DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                 return DB.Updateable<material_request_info>()
                           .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new material_request_info() {take_time = DateTime.Now.AddHours(GlobalVar.db_time_zone), cost_time =Convert.ToDecimal(dif_time) })
+                          .UpdateColumns(it => new material_request_info() {take_time = now, cost_time =Convert.ToDecimal(dif_time) })
                           .ExecuteCommand() > 0;
             }
             return false;
