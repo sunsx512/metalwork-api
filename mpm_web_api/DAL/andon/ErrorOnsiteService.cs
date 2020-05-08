@@ -424,9 +424,10 @@ namespace mpm_web_api.DAL.andon
 
                 }
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
+                DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                 return re& DB.Updateable<error_log>()
                          .Where(x=>x.id == log_id)
-                         .UpdateColumns(it => new error_log() { release_time = DateTime.Now.AddHours(GlobalVar.db_time_zone), error_type_name = et.name_en,error_type_detail_name = etd.name_en, defectives_count = count ,cost_time = dif_time })
+                         .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_en,error_type_detail_name = etd.name_en, defectives_count = count ,cost_time = dif_time })
                          .ExecuteCommand() > 0;
             }
             return false;
@@ -443,9 +444,10 @@ namespace mpm_web_api.DAL.andon
             if (el != null)
             {
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
+                DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
                 return DB.Updateable<error_log>()
                           .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new error_log() { release_time = DateTime.Now.AddHours(GlobalVar.db_time_zone), error_type_name =et.name_cn,error_type_detail_name=etd.name_cn,cost_time = dif_time })
+                          .UpdateColumns(it => new error_log() { release_time = now, error_type_name =et.name_cn,error_type_detail_name=etd.name_cn,cost_time = dif_time })
                           .ExecuteCommand() > 0;
             }
             return false;
