@@ -30,14 +30,14 @@ namespace mpm_web_api.DAL.andon
                     {
                         string s = tag_Info.name.Split(':')[0];
                         string t = tag_Info.name.Split(':')[1];
-                        SendMGMsg(s, t, 1);
+                        SendMGMsg(s, t,(int)GlobalVar.Error_handle.trigger);
                     }
                     else
                     {
                         string s = "quality_error";
                         machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
                         string t = mc.name_en;
-                        SendMGMsg(s, t, 1);
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.trigger);
                     }
                     return true;
                 }
@@ -65,14 +65,14 @@ namespace mpm_web_api.DAL.andon
                     {
                         string s = tag_Info.name.Split(':')[0];
                         string t = tag_Info.name.Split(':')[1];
-                        SendMGMsg(s, t, 1);
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.trigger);
                     }
                     else
                     {
                         string s = "equipment_error";
                         machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
                         string t = mc.name_en;
-                        SendMGMsg(s, t, 1);
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.trigger);
                     }
                     return true;
                 }
@@ -96,14 +96,14 @@ namespace mpm_web_api.DAL.andon
                     {
                         string s = tag_Info.name.Split(':')[0];
                         string t = tag_Info.name.Split(':')[1];
-                        SendMGMsg(s, t, 1);
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.trigger);
                     }
                     else
                     {
                         string s = "material_require";
                         machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
                         string t = mc.name_en;
-                        SendMGMsg(s, t, 1);
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.trigger);
                     }
                     return true;
                 }
@@ -115,32 +115,32 @@ namespace mpm_web_api.DAL.andon
         public bool QualityConfirm(int machine_id, int log_id,string person_id)
         {
             //查询绑定的异常签到按钮
-            tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_sign_in").First();
-            if (tag_Type_Sub != null)
-            {
+            //tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_sign_in").First();
+            //if (tag_Type_Sub != null)
+            //{
                 if(Confirm(log_id, person_id))
                 {
-                    tag_info tag_Info = DB.Queryable<tag_info>()
-                                                    .Where(x => x.machine_id == machine_id)
-                                                    .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                    //如果有该按钮则需要
-                    if (tag_Info != null)
-                    {
-                        string s = tag_Info.name.Split(':')[0];
-                        string t = tag_Info.name.Split(':')[1];
-                        SendMGMsg(s, t, 1);
-                    }
-                    else
-                    {
+                    //tag_info tag_Info = DB.Queryable<tag_info>()
+                    //                                .Where(x => x.machine_id == machine_id)
+                    //                                .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                    ////如果有该按钮则需要
+                    //if (tag_Info != null)
+                    //{
+                    //    string s = tag_Info.name.Split(':')[0];
+                    //    string t = tag_Info.name.Split(':')[1];
+                    //    SendMGMsg(s, t, 1);
+                    //}
+                    //else
+                    //{
                         string s = "quality_sign_in";
                         machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
                         string t = mc.name_en;
-                        SendMGMsg(s, t, 1);
-                    }
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.sign_in);
+                    //}
                     return true ;
                 }
                 
-            }
+            //}
             return false;
             
         }
@@ -148,31 +148,31 @@ namespace mpm_web_api.DAL.andon
         public bool EquipmentConfirm(int machine_id, int log_id, string person_id)
         {
             //查询绑定的异常签到按钮
-            tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_sign_in").First();
-            if (tag_Type_Sub != null)
-            {
+            //tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_sign_in").First();
+            //if (tag_Type_Sub != null)
+            //{
                 if(Confirm(log_id, person_id))
                 {
-                    tag_info tag_Info = DB.Queryable<tag_info>()
-                                                .Where(x => x.machine_id == machine_id)
-                                                .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                    //如果有该按钮则需要
-                    if (tag_Info != null)
-                    {
-                        string s = tag_Info.name.Split(':')[0];
-                        string t = tag_Info.name.Split(':')[1];
-                        SendMGMsg(s, t, 1);
-                    }
-                    else
-                    {
+                    //tag_info tag_Info = DB.Queryable<tag_info>()
+                    //                            .Where(x => x.machine_id == machine_id)
+                    //                            .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                    ////如果有该按钮则需要
+                    //if (tag_Info != null)
+                    //{
+                    //    string s = tag_Info.name.Split(':')[0];
+                    //    string t = tag_Info.name.Split(':')[1];
+                    //    SendMGMsg(s, t, 1);
+                    //}
+                    //else
+                    //{
                         string s = "equipment_sign_in";
                         machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
                         string t = mc.name_en;
-                        SendMGMsg(s, t, 1);
-                    }
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.sign_in);
+                    //}
                     return true;
                 }
-            }
+            //}
             return false;
 
         }
@@ -180,92 +180,92 @@ namespace mpm_web_api.DAL.andon
         public bool Qualityrelease(int machine_id,int log_id, int error_type_id, int error_type_detail_id, decimal count)
         {
             //查询绑定的异常解除按钮
-            tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_release").First();
-            if (tag_Type_Sub != null)
-            {
+            //tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_release").First();
+            //if (tag_Type_Sub != null)
+            //{
                 if(QualityErrorRelease(log_id, error_type_id, error_type_detail_id, count))
                 {
-                    tag_info tag_Info = DB.Queryable<tag_info>()
-                                                .Where(x => x.machine_id == machine_id)
-                                                .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
-                    //如果有该按钮则需要
-                    if (tag_Info != null)
-                    {
-                        string s = tag_Info.name.Split(':')[0];
-                        string t = tag_Info.name.Split(':')[1];
-                        SendMGMsg(s, t, 1);
-                    }
-                    else
-                    {
+                    //tag_info tag_Info = DB.Queryable<tag_info>()
+                    //                            .Where(x => x.machine_id == machine_id)
+                    //                            .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                    ////如果有该按钮则需要
+                    //if (tag_Info != null)
+                    //{
+                    //    string s = tag_Info.name.Split(':')[0];
+                    //    string t = tag_Info.name.Split(':')[1];
+                    //    SendMGMsg(s, t, 1);
+                    //}
+                    //else
+                    //{
                         string s = "quality_release";
                         machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
                         string t = mc.name_en;
-                        SendMGMsg(s, t, 1);
-                    }
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.release);
+                    //}
                     return true;
                 }
-            }
+            //}
             return false;
         }
         public bool EquipmentRelease(int machine_id,int log_id, int error_type_id, int error_type_detail_id)
         {
             //查询绑定的异常解除按钮
-            tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_release").First();
-            if (tag_Type_Sub != null)
-            {
+            //tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_release").First();
+            //if (tag_Type_Sub != null)
+            //{
                 if(EquipmentErrorRelease(log_id, error_type_id, error_type_detail_id))
                 {
-                     tag_info tag_Info = DB.Queryable<tag_info>()
-                                                .Where(x => x.machine_id == machine_id)
-                                                .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                     //tag_info tag_Info = DB.Queryable<tag_info>()
+                     //                           .Where(x => x.machine_id == machine_id)
+                     //                           .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
                     //如果有该按钮则需要
-                    if (tag_Info != null)
-                    {
-                        string s = tag_Info.name.Split(':')[0];
-                        string t = tag_Info.name.Split(':')[1];
-                        SendMGMsg(s, t, 1);
-                    }
-                    else
-                    {
+                    //if (tag_Info != null)
+                    //{
+                    //    string s = tag_Info.name.Split(':')[0];
+                    //    string t = tag_Info.name.Split(':')[1];
+                    //    SendMGMsg(s, t, 1);
+                    //}
+                    //else
+                    //{
                         string s = "equipment_release";
                         machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
                         string t = mc.name_en;
-                        SendMGMsg(s, t, 1);
-                    }
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.release);
+                    //}
                     return true;
                 }
-            }
+            //}
             return false;          
         }
 
         public bool MaterialRequestRelease(int machine_id, int log_id, string description)
         {
             //查询绑定的物料解除按钮
-            tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "material_release").First();
-            if (tag_Type_Sub != null)
-            {
+            //tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "material_release").First();
+            //if (tag_Type_Sub != null)
+            //{
                 if(UpdateMaterialLog(machine_id, log_id, description))
                 {
-                     tag_info tag_Info = DB.Queryable<tag_info>()
-                                                .Where(x => x.machine_id == machine_id)
-                                                .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
+                     //tag_info tag_Info = DB.Queryable<tag_info>()
+                     //                           .Where(x => x.machine_id == machine_id)
+                     //                           .Where(x => x.tag_type_sub_id == tag_Type_Sub.id).First();
                     //如果有该按钮则需要
-                    if (tag_Info != null)
-                    {
-                        string s = tag_Info.name.Split(':')[0];
-                        string t = tag_Info.name.Split(':')[1];
-                        SendMGMsg(s, t, 1);
-                    }
-                    else
-                    {
+                    //if (tag_Info != null)
+                    //{
+                    //    string s = tag_Info.name.Split(':')[0];
+                    //    string t = tag_Info.name.Split(':')[1];
+                    //    SendMGMsg(s, t, 1);
+                    //}
+                    //else
+                    //{
                         string s = "material_release";
                         machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
                         string t = mc.name_en;
-                        SendMGMsg(s, t, 1);
-                    }
+                        SendMGMsg(s, t, (int)GlobalVar.Error_handle.release);
+                    //}
                      return true;
                 }
-            }
+            //}
             return false;
         }
 

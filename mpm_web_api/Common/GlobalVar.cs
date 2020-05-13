@@ -19,5 +19,12 @@ namespace mpm_web_api.Common
         /// 数据库时区
         /// </summary>
         public static double db_time_zone = 0;
+
+        public enum Error_handle
+        {
+            trigger = 1,
+            sign_in = 2,
+            release = 3
+        }
     }
 }
