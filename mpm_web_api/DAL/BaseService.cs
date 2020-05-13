@@ -44,7 +44,8 @@ namespace mpm_web_api.DAL
             {
                 if (p.PropertyType.Name == "DateTime")
                 {
-                    p.SetValue(p, ((DateTime)p.GetValue(entity)).AddHours(GlobalVar.db_time_zone));
+                    DateTime dt = ((DateTime)p.GetValue(entity)).AddHours(GlobalVar.db_time_zone);
+                    p.SetValue(p, dt);
                 }
             }
             return DB.Updateable(entity).Where(expression).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommand() > 0;
@@ -72,7 +73,8 @@ namespace mpm_web_api.DAL
             {
                 if (p.PropertyType.Name == "DateTime")
                 {
-                    p.SetValue(p, ((DateTime)p.GetValue(t)).AddHours(GlobalVar.db_time_zone));
+                    DateTime dt = ((DateTime)p.GetValue(t)).AddHours(GlobalVar.db_time_zone);
+                    p.SetValue(p, dt);
                 }
             }
             return DB.Insertable(t).ExecuteCommandIdentityIntoEntity();
