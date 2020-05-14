@@ -15,6 +15,7 @@ namespace mpm_web_api.Common
         {
             object obj;
             List<T> lty = baseService.QueryableToList();
+            lty = lty.OrderBy(x => x.id).ToList();
             string strJson = JsonConvert.SerializeObject(lty);
             obj = common.ResponseStr<T>((int)httpStatus.succes, "调用成功", lty);
             return obj;

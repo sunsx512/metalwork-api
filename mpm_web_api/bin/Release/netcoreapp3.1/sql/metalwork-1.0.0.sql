@@ -238,6 +238,7 @@ CREATE TABLE IF NOT EXISTS "andon"."error_config" (
   "response_person_id" int4 NOT NULL,
   "alert_active" bool,
   "trigger_out_color" int4,
+  "sign_in_color" int4,
   "logic_type" int4,
   "andon_logic_id" int4,
   CONSTRAINT "error_config_pkey" PRIMARY KEY ("id")
@@ -710,27 +711,27 @@ CREATE TABLE IF NOT EXISTS "work_order"."worker_exception_log" (
   CONSTRAINT "worker_exception_log_pkey" PRIMARY KEY ("id")
 );
 
-ALTER TABLE "andon"."capacity_alert" ADD CONSTRAINT "capacity_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "andon"."capacity_alert" ADD CONSTRAINT "capacity_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE Cascade ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_response_person_id_fkey" FOREIGN KEY ("response_person_id") REFERENCES "common"."person" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "andon"."error_config" ADD CONSTRAINT "error_config_response_person_id_fkey" FOREIGN KEY ("response_person_id") REFERENCES "common"."person" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_log" ADD CONSTRAINT "error_log_error_config_id_fkey" FOREIGN KEY ("error_config_id") REFERENCES "andon"."error_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."error_type_details" ADD CONSTRAINT "error_type_details_error_type_id_fkey" FOREIGN KEY ("error_type_id") REFERENCES "andon"."error_type" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."machine_cost_alert" ADD CONSTRAINT "machine_cost_alert_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "andon"."machine_cost_alert" ADD CONSTRAINT "machine_cost_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "andon"."machine_cost_alert" ADD CONSTRAINT "machine_cost_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."machine_fault_alert" ADD CONSTRAINT "machine_fault_alert_error_type_detail_id_fkey" FOREIGN KEY ("error_type_detail_id") REFERENCES "andon"."error_type_details" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "andon"."machine_fault_alert" ADD CONSTRAINT "machine_fault_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "andon"."machine_fault_alert" ADD CONSTRAINT "machine_fault_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."machine_status_alert" ADD CONSTRAINT "machine_status_alert_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "andon"."machine_status_alert" ADD CONSTRAINT "machine_status_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "andon"."machine_status_alert" ADD CONSTRAINT "machine_status_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."machine_status_duration_alert" ADD CONSTRAINT "machine_status_duration_alert_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "andon"."machine_status_duration_alert" ADD CONSTRAINT "machine_status_duration_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "andon"."material_request_info" ADD CONSTRAINT "material_request_info_error_config_id_fkey" FOREIGN KEY ("error_config_id") REFERENCES "andon"."error_config" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "andon"."machine_status_duration_alert" ADD CONSTRAINT "machine_status_duration_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "andon"."material_request_info" ADD CONSTRAINT "material_request_info_error_config_id_fkey" FOREIGN KEY ("error_config_id") REFERENCES "andon"."error_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."notification_person" ADD CONSTRAINT "notification_person_notification_group_id_fkey" FOREIGN KEY ("notification_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."notification_person" ADD CONSTRAINT "notification_person_person_id_fkey" FOREIGN KEY ("person_id") REFERENCES "common"."person" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "andon"."quality_alert" ADD CONSTRAINT "quality_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "andon"."quality_alert" ADD CONSTRAINT "quality_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."quality_alert" ADD CONSTRAINT "quality_alert_work_order_id_fkey" FOREIGN KEY ("work_order_id") REFERENCES "work_order"."wo_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."utilization_rate_alert" ADD CONSTRAINT "utilization_rate_alert_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "andon"."utilization_rate_alert" ADD CONSTRAINT "utilization_rate_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "andon"."work_order_alert" ADD CONSTRAINT "work_order_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "andon"."utilization_rate_alert" ADD CONSTRAINT "utilization_rate_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "andon"."work_order_alert" ADD CONSTRAINT "work_order_alert_notice_group_id_fkey" FOREIGN KEY ("notice_group_id") REFERENCES "andon"."notification_group" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "andon"."work_order_alert" ADD CONSTRAINT "work_order_alert_virtual_line_id_fkey" FOREIGN KEY ("virtual_line_id") REFERENCES "work_order"."virtual_line" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "common"."area_node" ADD CONSTRAINT "area_node_area_layer_id_fkey" FOREIGN KEY ("area_layer_id") REFERENCES "common"."area_layer" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "common"."area_property" ADD CONSTRAINT "area_property_area_node_id_fkey" FOREIGN KEY ("area_node_id") REFERENCES "common"."area_node" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
@@ -743,27 +744,27 @@ ALTER TABLE "oee"."machine_lease_log" ADD CONSTRAINT "machine_lease_log_machine_
 ALTER TABLE "oee"."status_duration_day" ADD CONSTRAINT "status_duration_day_upper_id_fkey" FOREIGN KEY ("upper_id") REFERENCES "oee"."utilization_rate_day" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "oee"."status_duration_order" ADD CONSTRAINT "status_duration_order_upper_id_fkey" FOREIGN KEY ("upper_id") REFERENCES "oee"."utilization_rate_order" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "oee"."status_duration_shift" ADD CONSTRAINT "status_duration_shift_upper_id_fkey" FOREIGN KEY ("upper_id") REFERENCES "oee"."utilization_rate_shift" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "oee"."tag_time_day" ADD CONSTRAINT "tag_time_day_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "oee"."tag_time_shift" ADD CONSTRAINT "tag_time_shift_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "oee"."tricolor_tag_duration" ADD CONSTRAINT "tricolor_tag_duration_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "oee"."tag_time_day" ADD CONSTRAINT "tag_time_day_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "oee"."tag_time_shift" ADD CONSTRAINT "tag_time_shift_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "oee"."tricolor_tag_duration" ADD CONSTRAINT "tricolor_tag_duration_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "oee"."tricolor_tag_status" ADD CONSTRAINT "tricolor_tag_status_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "oee"."utilization_rate_day" ADD CONSTRAINT "utilization_rate_day_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "oee"."utilization_rate_order" ADD CONSTRAINT "utilization_rate_order_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "oee"."utilization_rate_shift" ADD CONSTRAINT "utilization_rate_shift_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "oee"."utilization_rate_order" ADD CONSTRAINT "utilization_rate_order_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "oee"."utilization_rate_shift" ADD CONSTRAINT "utilization_rate_shift_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."breakpoint_log" ADD CONSTRAINT "breakpoint_log_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."breakpoint_log" ADD CONSTRAINT "breakpoint_log_work_order_id_fkey" FOREIGN KEY ("work_order_id") REFERENCES "work_order"."wo_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "work_order"."ct_log" ADD CONSTRAINT "ct_log_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "work_order"."ct_log" ADD CONSTRAINT "ct_log_work_order_id_fkey" FOREIGN KEY ("work_order_id") REFERENCES "work_order"."wo_config" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "work_order"."virtual_line_current_log" ADD CONSTRAINT "virtual_line_current_log_virtual_line_id_fkey" FOREIGN KEY ("virtual_line_id") REFERENCES "work_order"."virtual_line" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "work_order"."ct_log" ADD CONSTRAINT "ct_log_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "work_order"."ct_log" ADD CONSTRAINT "ct_log_work_order_id_fkey" FOREIGN KEY ("work_order_id") REFERENCES "work_order"."wo_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "work_order"."virtual_line_current_log" ADD CONSTRAINT "virtual_line_current_log_virtual_line_id_fkey" FOREIGN KEY ("virtual_line_id") REFERENCES "work_order"."virtual_line" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."virtual_line_current_log" ADD CONSTRAINT "virtual_line_current_log_wo_config_id_fkey" FOREIGN KEY ("wo_config_id") REFERENCES "work_order"."wo_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "work_order"."virtual_line_log" ADD CONSTRAINT "virtual_line_log_virtual_line_id_fkey" FOREIGN KEY ("virtual_line_id") REFERENCES "work_order"."virtual_line" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "work_order"."virtual_line_log" ADD CONSTRAINT "virtual_line_log_virtual_line_id_fkey" FOREIGN KEY ("virtual_line_id") REFERENCES "work_order"."virtual_line" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."virtual_line_log" ADD CONSTRAINT "virtual_line_log_wo_config_id_fkey" FOREIGN KEY ("wo_config_id") REFERENCES "work_order"."wo_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."wo_config" ADD CONSTRAINT "wo_config_virtual_line_id_fkey" FOREIGN KEY ("virtual_line_id") REFERENCES "work_order"."virtual_line" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."wo_machine" ADD CONSTRAINT "wo_machine_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."wo_machine" ADD CONSTRAINT "wo_machine_virtual_line_id_fkey" FOREIGN KEY ("virtual_line_id") REFERENCES "work_order"."virtual_line" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "work_order"."wo_machine_current_log" ADD CONSTRAINT "wo_machine_current_log_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "work_order"."wo_machine_current_log" ADD CONSTRAINT "wo_machine_current_log_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."wo_machine_current_log" ADD CONSTRAINT "wo_machine_current_log_wo_config_id_fkey" FOREIGN KEY ("wo_config_id") REFERENCES "work_order"."wo_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "work_order"."wo_machine_log" ADD CONSTRAINT "wo_machine_log_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "work_order"."wo_machine_log" ADD CONSTRAINT "wo_machine_log_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "work_order"."wo_machine_log" ADD CONSTRAINT "wo_machine_log_wo_config_id_fkey" FOREIGN KEY ("wo_config_id") REFERENCES "work_order"."wo_config" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 
 CREATE VIEW "andon"."notification_person_detail" AS  SELECT notification_person.person_id,
@@ -891,11 +892,6 @@ INSERT INTO "common"."tag_type_sub_fixed" VALUES (3, 2, '设备总节拍时间',
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (4, 3, '设备异常', 'equipment_error', '設備异常', '设备异常');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (5, 3, '品质异常', 'quality_error', '品質异常', '品质异常');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (6, 3, '物料呼叫', 'material_require', '物料呼叫', '物料呼叫');
-INSERT INTO "common"."tag_type_sub_fixed" VALUES (7, 3, '品质签到', 'quality_sign_in', '品質簽到', '品质签到');
-INSERT INTO "common"."tag_type_sub_fixed" VALUES (8, 3, '设备异常签到', 'equipment_sign_in', '設備異常簽到', '设备异常签到');
-INSERT INTO "common"."tag_type_sub_fixed" VALUES (9, 3, '品质解除', 'quality_release', '品質解除', '品质解除');
-INSERT INTO "common"."tag_type_sub_fixed" VALUES (10, 3, '物料解除', 'material_release', '物料解除', '物料解除');
-INSERT INTO "common"."tag_type_sub_fixed" VALUES (11, 3, '设备异常解除', 'equipment_release', '設備異常解除', '设备异常解除');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (12, 3, '异常灯颜色', 'lamp_color', '异常灯颜色', '异常灯颜色');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (13, 4, '设备状态预警', 'machine_status_alert', '設備狀態預警', '设备状态预警');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (14, 4, '设备状态持续时间预警', 'machine_status_duration_alert', '設備狀態持續時間預警 ', '设备状态持续时间预警');

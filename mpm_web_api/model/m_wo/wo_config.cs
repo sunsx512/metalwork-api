@@ -73,7 +73,6 @@ namespace mpm_web_api.model
         /// </summary>
         [SugarColumn(IsIgnore = true)]
         public virtual_line_log virtual_Line_log { set; get; }
-
     }
 
 }
