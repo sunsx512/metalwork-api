@@ -12,7 +12,7 @@ namespace mpm_web_api.DAL.wo
     {
         public List<capacity_config> Get()
         {
-            return DB.Queryable<capacity_config>().ToList();
+            return DB.Queryable<capacity_config>().OrderBy(x=>x.id).ToList();
         }
         public bool Put(capacity_config entity)
         {

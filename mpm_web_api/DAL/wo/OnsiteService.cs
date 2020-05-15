@@ -20,6 +20,7 @@ namespace mpm_web_api.DAL.wo
         {
            return DB.Queryable<wo_machine_cur_log>()
                                            .Where(x => x.machine_id == machine_id)
+                                           .OrderBy(x=>x.id)
                                            .ToList();
         }
 

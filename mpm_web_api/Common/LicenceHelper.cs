@@ -86,7 +86,6 @@ namespace mpm_web_api.Common
             {
                 string str = File.ReadAllText("Licence");
                 lco = JsonConvert.DeserializeObject<Licence_Original>(str);
-
                 return lco;
             }
             else

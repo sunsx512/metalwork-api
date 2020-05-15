@@ -17,7 +17,7 @@ namespace mpm_web_api.DAL.oee
             {
                 List<machine> machines = DB.Queryable<machine>().Where(x => x.id == it.machine_id).ToList();
                 it.machine = machines.FirstOrDefault();
-            }).ToList();
+            }).OrderBy(x=>x.id).ToList();
             return list;
         }
     }

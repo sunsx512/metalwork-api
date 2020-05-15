@@ -16,7 +16,7 @@ namespace mpm_web_api.DAL.oee
 
         public List<status_setting> GetList<T>(string fields) where T : new()
         {
-            var query = DB.Queryable<status_setting>().Where(x => x.status_name == fields).ToList();
+            var query = DB.Queryable<status_setting>().Where(x => x.status_name == fields).OrderBy(x=>x.id).ToList();
             return query;
         }
 

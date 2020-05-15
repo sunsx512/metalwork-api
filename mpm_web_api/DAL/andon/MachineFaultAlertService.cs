@@ -21,7 +21,7 @@ namespace mpm_web_api.DAL.andon
                                     it.notice_group = notification_groups.FirstOrDefault();
                                     it.error_type = error_types.FirstOrDefault();
                                     it.error_type_detail = error_type_details.FirstOrDefault();
-                                }).ToList();
+                                }).OrderBy(x=>x.id).ToList();
             return list;
         }
     }

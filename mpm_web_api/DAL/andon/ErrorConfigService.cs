@@ -28,7 +28,7 @@ namespace mpm_web_api.DAL.andon
                 it.trigger_out_color = it.trigger_out_color;
                 it.andon_logic = andon_logic.FirstOrDefault();
                 it.type = types.FirstOrDefault();
-            }).ToList();
+            }).OrderBy(x=>x.id).ToList();
             return list;
         }
     }

@@ -17,7 +17,7 @@ namespace mpm_web_api.DAL.andon
                                 {
                                     List<notification_group> notification_groups = DB.Queryable<notification_group>().Where(x => x.id == it.notice_group_id).ToList();                                   
                                     it.notice_group = notification_groups.FirstOrDefault();
-                                }).ToList();
+                                }).OrderBy(x=>x.id).ToList();
             return list;
         }
     }

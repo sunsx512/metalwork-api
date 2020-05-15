@@ -24,7 +24,7 @@ namespace mpm_web_api.DAL.andon
                 it.level1_notification_group = notification_Groups.Where(x=>x.id == al.level1_notification_group_id).FirstOrDefault();
                 it.level2_notification_group = notification_Groups.Where(x => x.id == al.level2_notification_group_id).FirstOrDefault();
                 it.level3_notification_group = notification_Groups.Where(x => x.id == al.level3_notification_group_id).FirstOrDefault();
-            }).ToList();
+            }).OrderBy(x=>x.id).ToList();
             return list;
         }
 

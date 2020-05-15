@@ -21,7 +21,7 @@ namespace mpm_web_api.DAL
                        it.name_tw = it.name_tw;
                        it.description = it.description;
                        it.machines = machinelist;
-                   }).ToList();
+                   }).OrderBy(x=>x.id).ToList();
 
 
             return list;

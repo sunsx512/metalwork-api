@@ -22,7 +22,7 @@ namespace mpm_web_api.DAL
                 it.upper_id = it.upper_id;
                 it.description = it.description;
                 it.property = property;
-            }).ToList();
+            }).OrderBy(x=>x.id).ToList();
             return list;
         }
     }

@@ -20,7 +20,7 @@ namespace mpm_web_api.DAL
                 it.name_en = it.name_en;
                 it.name_tw = it.name_tw;
                 it.person = notification_persons;
-            }).ToList();
+            }).OrderBy(x=>x.id).ToList();
             return list;
         }
 
