@@ -16,9 +16,9 @@ namespace mpm_web_api.Common
         /// </summary>
         public static int authorized_number = 0;
         /// <summary>
-        /// 数据库时区
+        /// 当前地区的时区
         /// </summary>
-        public static double db_time_zone = 0;
+        public static double time_zone = 8;
 
         public enum Error_handle
         {

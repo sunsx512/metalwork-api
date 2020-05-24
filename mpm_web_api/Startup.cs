@@ -27,11 +27,11 @@ namespace mpm_web_api
             EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
             string pg = "Server={0};Port={1};Database={2};User Id={3};Password={4};";
             pg = string.Format(pg, environmentInfo.postgres_host, environmentInfo.postgres_port, environmentInfo.postgres_database, environmentInfo.postgres_username, environmentInfo.postgres_password);
-            PostgreBase.connString = pg;
-
+            PostgreBase.connString = pg;         
             //EnSaaS 4.0 环境
             if (environmentInfo.cluster != null)
             {
+                GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("db_time_zone"));
                 string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
                 mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_host, environmentInfo.mongo_port, environmentInfo.mongo_database);
                 MongoHelper.connectionstring = mg;
@@ -42,11 +42,11 @@ namespace mpm_web_api
                 EnsaasLicenceService els = new EnsaasLicenceService();
                 CancellationToken token = new CancellationToken();
                 els.StartAsync(token);
-                GlobalVar.db_time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("db_time_zone"));
             }
             //docker 环境
             else
             {
+                GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("time_zone"));
                 string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
                 mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_host, environmentInfo.mongo_port, environmentInfo.mongo_database);
                 MongoHelper.connectionstring = mg + "?authSource=admin";

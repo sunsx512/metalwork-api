@@ -44,7 +44,7 @@ namespace mpm_web_api.DAL
             {
                 if (p.PropertyType.Name == "DateTime")
                 {
-                    DateTime dt = ((DateTime)p.GetValue(entity)).AddHours(GlobalVar.db_time_zone);
+                    DateTime dt = ((DateTime)p.GetValue(entity)).AddHours(GlobalVar.time_zone);
                     p.SetValue(p, dt);
                 }
             }
@@ -73,7 +73,7 @@ namespace mpm_web_api.DAL
             {
                 if (p.PropertyType.Name == "DateTime")
                 {
-                    DateTime dt = ((DateTime)p.GetValue(t)).AddHours(GlobalVar.db_time_zone);
+                    DateTime dt = ((DateTime)p.GetValue(t)).AddHours(GlobalVar.time_zone);
                     p.SetValue(p, dt);
                 }
             }

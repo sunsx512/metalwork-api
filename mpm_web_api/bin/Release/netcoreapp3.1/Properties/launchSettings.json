@@ -44,18 +44,19 @@
       "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "PGUSER": "postgres",
-        "MONGODB_HOST": "172.21.168.9",
+        "MONGODB_HOST": "127.0.0.1",
         "MONGO_INITDB_ROOT_PASSWORD": "123456",
         "MAC_PATH": "mac.txt",
         "MONGODB_AUTH_SOURCE": "admin",
         "PGPORT": "5433",
         "MONGO_INITDB_ROOT_USERNAME": "root",
-        "PGHOST": "172.21.168.9",
+        "PGHOST": "127.0.0.1",
         "MONGODB_PORT": "27017",
         "POSTGRES_PASSWORD": "123456",
         "PGDATABASE": "postgres",
-        "MONGODB_DATABASE": "scada_HistRawData",
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "MONGODB_DATABASE": "metalwork",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "time_zone": "8"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     },

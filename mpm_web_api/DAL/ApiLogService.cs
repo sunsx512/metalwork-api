@@ -12,14 +12,14 @@ namespace mpm_web_api.DAL
     {
         public bool InsertExceptionLog(api_exception_log entity)
         {
-            DateTime dt = entity.insert_time.AddHours(GlobalVar.db_time_zone);
+            DateTime dt = entity.insert_time.AddHours(GlobalVar.time_zone);
             entity.insert_time = dt;
             return DB.Insertable<api_exception_log>(entity).ExecuteCommand() > 0;
         }
 
         public bool InsertRequestLog(api_request_log entity)
         {
-            DateTime dt = entity.insert_time.AddHours(GlobalVar.db_time_zone);
+            DateTime dt = entity.insert_time.AddHours(GlobalVar.time_zone);
             entity.insert_time = dt;
             return DB.Insertable<api_request_log>(entity).ExecuteCommand() > 0;
         }

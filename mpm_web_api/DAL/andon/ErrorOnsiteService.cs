@@ -290,7 +290,7 @@ namespace mpm_web_api.DAL.andon
                             if(ts.name_en != "equipment_error")
                                 return false;
                         }
-                        el.start_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                        el.start_time = DateTime.Now.AddHours(GlobalVar.time_zone);
                         return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();
                     }
                     else
@@ -319,7 +319,7 @@ namespace mpm_web_api.DAL.andon
                     {
                         if (ps.user_name == el.substitutes)
                         {
-                            DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                            DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
                             return DB.Updateable<error_log>().Where(x=>x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now }).ExecuteCommand() > 0;
                         }
                     }
@@ -327,7 +327,7 @@ namespace mpm_web_api.DAL.andon
                     {
                         if (ps.user_name == el.responsible_name)
                         {
-                            DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                            DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
                             return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now }).ExecuteCommand() > 0;
                         }
                     }
@@ -390,7 +390,7 @@ namespace mpm_web_api.DAL.andon
 
                 }
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
-                DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
                 return re& DB.Updateable<error_log>()
                          .Where(x=>x.id == log_id)
                          .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_en,error_type_detail_name = etd.name_en, defectives_count = count ,cost_time = dif_time })
@@ -410,7 +410,7 @@ namespace mpm_web_api.DAL.andon
             if (el != null)
             {
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
-                DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
                 return DB.Updateable<error_log>()
                           .Where(x => x.id == log_id)
                           .UpdateColumns(it => new error_log() { release_time = now, error_type_name =et.name_cn,error_type_detail_name=etd.name_cn,cost_time = dif_time })
@@ -466,7 +466,7 @@ namespace mpm_web_api.DAL.andon
                             mri.machine_name = mc.name_en;
                         mri.material_code = material_code;
                         mri.request_count = count;
-                        mri.createtime = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                        mri.createtime = DateTime.Now.AddHours(GlobalVar.time_zone);
                         if (ps != null)
                             mri.take_person_name = ps.user_name;
 
@@ -491,7 +491,7 @@ namespace mpm_web_api.DAL.andon
             if (mri != null)
             {
                 decimal dif_time = CalTimeDifference((DateTime)mri.createtime);
-                DateTime now = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
                 return DB.Updateable<material_request_info>()
                           .Where(x => x.id == log_id)
                           .UpdateColumns(it => new material_request_info() {take_time = now, cost_time =Convert.ToDecimal(dif_time) })
@@ -508,7 +508,7 @@ namespace mpm_web_api.DAL.andon
             mongoDbTag.s = s;
             mongoDbTag.t = t;
             mongoDbTag.v = v;
-            mongoDbTag.ts = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+            mongoDbTag.ts = DateTime.Now.AddHours(GlobalVar.time_zone);
             mh.InsertForMetalwork(mongoDbTag);
         }
         /// <summary>
@@ -518,7 +518,7 @@ namespace mpm_web_api.DAL.andon
         /// <returns></returns>
         private decimal CalTimeDifference(DateTime start_time)
         {
-            DateTime dt1 = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+            DateTime dt1 = DateTime.Now.AddHours(GlobalVar.time_zone);
             DateTime dt2 = start_time;
             TimeSpan ts = dt1.Subtract(dt2);
             return Convert.ToDecimal(ts.TotalSeconds);

@@ -137,7 +137,7 @@ namespace mpm_web_api.DAL.andon
             el.responsible_name = responsible_name;
             el.work_order = work_order;
             el.part_number = part_number;
-            el.start_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+            el.start_time = DateTime.Now.AddHours(GlobalVar.time_zone);
             return DB.Insertable<error_log>(el).ExecuteCommandIdentityIntoEntity();        
         }
 

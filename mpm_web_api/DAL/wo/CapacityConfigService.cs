@@ -16,14 +16,14 @@ namespace mpm_web_api.DAL.wo
         }
         public bool Put(capacity_config entity)
         {
-            DateTime dt = entity.date.AddHours(GlobalVar.db_time_zone);
+            DateTime dt = entity.date.AddHours(GlobalVar.time_zone);
             entity.date = dt;
             return DB.Updateable(entity).Where(x => x.id == entity.id).ExecuteCommand() > 0;
         }
 
         public bool Post(capacity_config entity)
         {
-            DateTime dt = entity.date.AddHours(GlobalVar.db_time_zone);
+            DateTime dt = entity.date.AddHours(GlobalVar.time_zone);
             entity.date = dt;
             return DB.Insertable(entity).ExecuteCommand() > 0;
         }

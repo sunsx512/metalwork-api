@@ -90,7 +90,7 @@ namespace mpm_web_api.DAL
             wo.lbr_formula = str.Remove(str.Length - 1, 1);
             if(wo.create_time != null)
             {
-                wo.create_time = DateTime.Now.AddHours(GlobalVar.db_time_zone);
+                wo.create_time = DateTime.Now.AddHours(GlobalVar.time_zone);
             }         
             return DB.Insertable(wo).ExecuteCommand() > 0;
         }

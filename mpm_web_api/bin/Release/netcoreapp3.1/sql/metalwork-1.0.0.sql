@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS "common"."api_exception_log" (
   "id" serial NOT NULL,
   "method" varchar(255) COLLATE "pg_catalog"."default",
   "content" varchar(2000) COLLATE "pg_catalog"."default" NOT NULL,
-  "insert_time" timestamptz(6) NOT NULL,
+  "insert_time" timestamp(6) NOT NULL,
   "path" varchar(255) COLLATE "pg_catalog"."default",
   CONSTRAINT "api_exception_log_pkey" PRIMARY KEY ("id")
 );
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS "common"."api_request_log" (
   "method" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
   "path" varchar(200) COLLATE "pg_catalog"."default" NOT NULL,
   "cost_time" int4 NOT NULL,
-  "insert_time" timestamptz(6) NOT NULL,
+  "insert_time" timestamp(6) NOT NULL,
   CONSTRAINT "api_request_log_pkey" PRIMARY KEY ("id")
 );
 
@@ -99,11 +99,6 @@ CREATE TABLE IF NOT EXISTS "common"."machine" (
   CONSTRAINT "machine_name_tw_key1" UNIQUE ("name_tw")
 );
 
-CREATE TABLE IF NOT EXISTS "common"."migration_log" (
-  "id" serial NOT NULL,
-  "migration_version" varchar(200) COLLATE "pg_catalog"."default" NOT NULL,
-  CONSTRAINT "migration_log_pkey" PRIMARY KEY ("id")
-);
 
 CREATE TABLE IF NOT EXISTS "common"."person" (
   "id" serial NOT NULL,
@@ -121,13 +116,13 @@ CREATE TABLE IF NOT EXISTS "common"."person" (
 CREATE TABLE "common"."srp_inner_log" (
   "id" serial NOT NULL,
   "srp_code" varchar(10) COLLATE "pg_catalog"."default",
-  "insert_time" timestamptz(6),
+  "insert_time" timestamp(6),
   CONSTRAINT "srp_inner_log_pkey" PRIMARY KEY ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "common"."srp_log" (
   "content" varchar(255) COLLATE "pg_catalog"."default",
-  "create_time" timestamptz(6),
+  "create_time" timestamp(6),
   "id" serial NOT NULL,
   CONSTRAINT "srp_log_pkey" PRIMARY KEY ("id")
 );
@@ -163,8 +158,15 @@ CREATE TABLE IF NOT EXISTS "common"."tag_type" (
   CONSTRAINT "tag_type_name_tw_key1" UNIQUE ("name_tw")
 );
 
+CREATE SEQUENCE common.tag_type_sub_custom_id_seq
+    INCREMENT 1
+    START 50
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+
 CREATE TABLE IF NOT EXISTS "common"."tag_type_sub_custom" (
-  "id" serial NOT NULL,
+  "id" integer NOT NULL DEFAULT nextval('common.tag_type_sub_custom_id_seq'::regclass),
   "tag_type_id" int4 NOT NULL,
   "name_cn" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "name_en" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
@@ -191,7 +193,7 @@ CREATE TABLE IF NOT EXISTS "common"."wechart_server" (
   "apply_agentid" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "apply_secret" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "access_token" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "create_time" timestamptz(6),
+  "create_time" timestamp(6),
   CONSTRAINT "wechart_server_pkey" PRIMARY KEY ("id")
 );
 
@@ -205,15 +207,24 @@ CREATE TABLE IF NOT EXISTS "common"."wise_paas_user" (
 
 CREATE TABLE IF NOT EXISTS "common"."mqtt_log" (
   "content" varchar(255) COLLATE "pg_catalog"."default",
-  "create_time" timestamptz(6),
+  "create_time" timestamp(6),
   "id" serial NOT NULL,
   CONSTRAINT "mqtt_log_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "common"."raw_date_custom" (
+   "id" serial NOT NULL,    
+   "tag_type_sub_id" integer NOT NULL,
+   "machine_id" integer NOT NULL,
+   "value" numeric(8,2) NOT NULL,
+   "insert_time" timestamp(6),
+    CONSTRAINT "raw_date_custom_pkey" PRIMARY KEY ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "andon"."alert_mes" (
   "message_flow" varchar(255) COLLATE "pg_catalog"."default",
   "message_des" bool,
-  "insert_time" timestamptz(4),
+  "insert_time" timestamp(4),
   "target_id" int4,
   "target_type" int4,
   "id" serial NOT NULL,
@@ -267,9 +278,9 @@ CREATE TABLE IF NOT EXISTS "andon"."error_log" (
   "substitutes" varchar(255) COLLATE "pg_catalog"."default",
   "work_order" varchar(50) COLLATE "pg_catalog"."default",
   "part_number" varchar(32) COLLATE "pg_catalog"."default",
-  "start_time" timestamptz(4),
-  "arrival_time" timestamptz(4),
-  "release_time" timestamptz(4),
+  "start_time" timestamp(4),
+  "arrival_time" timestamp(4),
+  "release_time" timestamp(4),
   "defectives_count" numeric(8,2),
   "description" varchar(255) COLLATE "pg_catalog"."default",
   "cost_time" numeric(8,2),
@@ -281,7 +292,7 @@ CREATE TABLE IF NOT EXISTS "andon"."error_log_mes" (
   "message_level" int4,
   "message_flow" varchar(255) COLLATE "pg_catalog"."default",
   "message_send" bool,
-  "insert_time" timestamptz(4),
+  "insert_time" timestamp(4),
   "error_log_id" int4,
   CONSTRAINT "error_log_mes_pkey" PRIMARY KEY ("id")
 );
@@ -365,8 +376,8 @@ CREATE TABLE IF NOT EXISTS "andon"."material_request_info" (
   "part_number" varchar(50) COLLATE "pg_catalog"."default",
   "request_count" int4 NOT NULL,
   "take_person_name" varchar(20) COLLATE "pg_catalog"."default",
-  "take_time" timestamptz(4),
-  "createtime" timestamptz(4) NOT NULL,
+  "take_time" timestamp(4),
+  "createtime" timestamp(4) NOT NULL,
   "description" varchar(255) COLLATE "pg_catalog"."default",
   "cost_time" numeric(8,2),
   CONSTRAINT "material_request_info_pkey" PRIMARY KEY ("id")
@@ -430,7 +441,7 @@ CREATE TABLE IF NOT EXISTS "oee"."machine_lease" (
   "id" serial NOT NULL,
   "machine_id" int4 NOT NULL,
   "unit_price" numeric(24) NOT NULL,
-  "start_time" timestamptz(6) NOT NULL,
+  "start_time" timestamp(6) NOT NULL,
   "type" int4,
   "total_price" numeric(24),
   CONSTRAINT "machine_lease_pkey" PRIMARY KEY ("id"),
@@ -442,7 +453,7 @@ CREATE TABLE IF NOT EXISTS "oee"."machine_lease_log" (
   "machine_id" int4,
   "run_time" float4,
   "consumption_price" numeric(24),
-  "insert_time" timestamptz(6),
+  "insert_time" timestamp(6),
   CONSTRAINT "machine_lease_log_pkey" PRIMARY KEY ("id")
 );
 
@@ -483,7 +494,7 @@ CREATE TABLE IF NOT EXISTS "oee"."tag_time_day" (
   "id" serial NOT NULL,
   "machine_id" int4 NOT NULL,
   "status_name" varchar(255) COLLATE "pg_catalog"."default",
-  "date" timestamptz(0),
+  "date" timestamp(0),
   "duration_time" float4,
   CONSTRAINT "tag_time_day_pkey" PRIMARY KEY ("id")
 );
@@ -492,7 +503,7 @@ CREATE TABLE IF NOT EXISTS "oee"."tag_time_shift" (
   "id" serial NOT NULL,
   "machine_id" int4 NOT NULL,
   "status_name" varchar(255) COLLATE "pg_catalog"."default",
-  "date" timestamptz(4),
+  "date" timestamp(4),
   "shift" varchar(255) COLLATE "pg_catalog"."default",
   "duration_time" float4,
   CONSTRAINT "tag_time_shift_pkey" PRIMARY KEY ("id")
@@ -503,8 +514,8 @@ CREATE TABLE IF NOT EXISTS "oee"."tricolor_tag_duration" (
   "machine_id" int4 NOT NULL,
   "status_name" varchar(255) COLLATE "pg_catalog"."default",
   "duration_time" float4,
-  "insert_time" timestamptz(4),
-  "away_time" timestamptz(4),
+  "insert_time" timestamp(4),
+  "away_time" timestamp(4),
   "whether" bool,
   CONSTRAINT "tricolor_tag_duration_pkey" PRIMARY KEY ("id")
 );
@@ -513,7 +524,7 @@ CREATE TABLE IF NOT EXISTS "oee"."tricolor_tag_status" (
   "id" serial NOT NULL,
   "machine_id" int4 NOT NULL,
   "status_name" varchar(255) COLLATE "pg_catalog"."default",
-  "insert_time" timestamptz(4),
+  "insert_time" timestamp(4),
   "whether" bool,
   CONSTRAINT "tricolor_tag_status_pkey" PRIMARY KEY ("machine_id")
 );
@@ -523,7 +534,7 @@ CREATE TABLE IF NOT EXISTS "oee"."utilization_rate_day" (
   "machine_id" int4 NOT NULL,
   "date" date,
   "utilization_rate" float4,
-  "insert_time" timestamptz(6),
+  "insert_time" timestamp(6),
   CONSTRAINT "utilization_rate_day_pkey" PRIMARY KEY ("id")
 );
 
@@ -539,7 +550,7 @@ CREATE TABLE IF NOT EXISTS "oee"."utilization_rate_order" (
   "work_order" varchar(50) COLLATE "pg_catalog"."default",
   "part_number" varchar(50) COLLATE "pg_catalog"."default",
   "utilization_rate" float4,
-  "insert_time" timestamptz(4),
+  "insert_time" timestamp(4),
   CONSTRAINT "utilization_rate_order_pkey" PRIMARY KEY ("id")
 );
 
@@ -549,7 +560,7 @@ CREATE TABLE IF NOT EXISTS "oee"."utilization_rate_shift" (
   "date" date,
   "shift" varchar(32) COLLATE "pg_catalog"."default",
   "utilization_rate" float4,
-  "insert_time" timestamptz(6),
+  "insert_time" timestamp(6),
   CONSTRAINT "utilization_rate_class_pkey" PRIMARY KEY ("id")
 );
 
@@ -557,7 +568,7 @@ CREATE TABLE IF NOT EXISTS "work_order"."breakpoint_log" (
   "id" serial NOT NULL,
   "machine_id" int4 NOT NULL,
   "work_order_id" int4 NOT NULL,
-  "insert_time" timestamptz(6) NOT NULL,
+  "insert_time" timestamp(6) NOT NULL,
   "breakpoint" int4 NOT NULL,
   CONSTRAINT "breakpoint_log_pkey" PRIMARY KEY ("machine_id")
 );
@@ -587,14 +598,14 @@ CREATE TABLE IF NOT EXISTS "work_order"."ct_log" (
   "work_order_id" int4 NOT NULL,
   "tag_type_sub_id" int4 NOT NULL,
   "cycle_time" numeric(8,2) NOT NULL,
-  "insert_time" timestamptz(6) NOT NULL,
+  "insert_time" timestamp(6) NOT NULL,
   CONSTRAINT "ct_log_pkey" PRIMARY KEY ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "work_order"."overdue_work_order" (
   "id" serial NOT NULL,
-  "start_time" timestamptz(0) NOT NULL,
-  "end_time" timestamptz(0) NOT NULL,
+  "start_time" timestamp(0) NOT NULL,
+  "end_time" timestamp(0) NOT NULL,
   "overdue_time" numeric(16,2) NOT NULL,
   "wo_config_id" int4 NOT NULL,
   CONSTRAINT "overdue_work_order_pkey" PRIMARY KEY ("id")
@@ -616,7 +627,7 @@ CREATE TABLE IF NOT EXISTS "work_order"."virtual_line_current_log" (
   "id" serial NOT NULL,
   "virtual_line_id" int4 NOT NULL,
   "wo_config_id" int4 NOT NULL,
-  "start_time" timestamptz(6) NOT NULL,
+  "start_time" timestamp(6) NOT NULL,
   "balance_rate" numeric(8,2),
   "productivity" numeric(8,2),
   "quantity" numeric(8,2),
@@ -628,8 +639,8 @@ CREATE TABLE IF NOT EXISTS "work_order"."virtual_line_log" (
   "id" serial NOT NULL,
   "virtual_line_id" int4 NOT NULL,
   "wo_config_id" int4 NOT NULL,
-  "start_time" timestamptz(6) NOT NULL,
-  "end_time" timestamptz(6) NOT NULL,
+  "start_time" timestamp(6) NOT NULL,
+  "end_time" timestamp(6) NOT NULL,
   "balance_rate" numeric(8,2),
   "productivity" numeric(8,2),
   "quantity" numeric(8,2),
@@ -648,7 +659,7 @@ CREATE TABLE IF NOT EXISTS "work_order"."wo_config" (
   "order_index" int4 NOT NULL,
   "status" int2 NOT NULL,
   "standard_time" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "create_time" timestamptz(6) NOT NULL,
+  "create_time" timestamp(6) NOT NULL,
   "lbr_formula" varchar(255),
   CONSTRAINT "wo_config_pkey" PRIMARY KEY ("id"),
   CONSTRAINT "wo_config_work_order_key1" UNIQUE ("work_order")
@@ -666,7 +677,7 @@ CREATE TABLE IF NOT EXISTS "work_order"."wo_machine_current_log" (
   "machine_id" int4 NOT NULL,
   "wo_config_id" int4,
   "standard_time" numeric(8,2) NOT NULL,
-  "start_time" timestamptz(0),
+  "start_time" timestamp(0),
   "quantity" numeric(8,2) NOT NULL DEFAULT 0,
   "bad_quantity" numeric(8,2) NOT NULL DEFAULT 0,
   "achieving_rate" numeric(8,2),
@@ -682,8 +693,8 @@ CREATE TABLE IF NOT EXISTS "work_order"."wo_machine_log" (
   "wo_config_id" int4,
   "machine_id" int4 NOT NULL,
   "standard_time" numeric(8,2) NOT NULL,
-  "start_time" timestamptz(0),
-  "end_time" timestamptz(0),
+  "start_time" timestamp(0),
+  "end_time" timestamp(0),
   "quantity" numeric(8,2) NOT NULL DEFAULT 0,
   "bad_quantity" numeric(8,2) NOT NULL DEFAULT 0,
   "achieving_rate" numeric(8,2),
@@ -707,7 +718,7 @@ CREATE TABLE IF NOT EXISTS "work_order"."worker_exception_log" (
   "id" serial NOT NULL,
   "function" varchar(255) COLLATE "pg_catalog"."default",
   "content" varchar(2000) COLLATE "pg_catalog"."default" NOT NULL,
-  "insert_time" timestamptz(6) NOT NULL,
+  "insert_time" timestamp(6) NOT NULL,
   CONSTRAINT "worker_exception_log_pkey" PRIMARY KEY ("id")
 );
 
@@ -737,7 +748,7 @@ ALTER TABLE "common"."area_node" ADD CONSTRAINT "area_node_area_layer_id_fkey" F
 ALTER TABLE "common"."area_property" ADD CONSTRAINT "area_property_area_node_id_fkey" FOREIGN KEY ("area_node_id") REFERENCES "common"."area_node" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "common"."person" ADD CONSTRAINT "person_dept_id_fkey" FOREIGN KEY ("dept_id") REFERENCES "common"."department" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "common"."tag_info" ADD CONSTRAINT "tag_info_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE "common"."tag_type_sub_custom" ADD FOREIGN KEY ("id") REFERENCES "common"."tag_type" ("id") ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE "common"."tag_type_sub_custom" ADD FOREIGN KEY ("tag_type_id") REFERENCES "common"."tag_type" ("id") ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE "common"."tag_type_sub_fixed" ADD FOREIGN KEY ("tag_type_id") REFERENCES "common"."tag_type" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "oee"."machine_lease" ADD CONSTRAINT "machine_lease_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "oee"."machine_lease_log" ADD CONSTRAINT "machine_lease_log_machine_id_fkey" FOREIGN KEY ("machine_id") REFERENCES "common"."machine" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
@@ -874,7 +885,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA work_order GRANT ALL ON SEQUENCES TO "ifactor
 GRANT ALL ON ALL TABLES IN SCHEMA work_order TO "ifactoryMetal";
 GRANT ALL ON ALL SEQUENCES IN SCHEMA work_order TO "ifactoryMetal";
 
-INSERT INTO "common"."wechart_server" VALUES (1, '', '', '', '','');
+INSERT INTO "common"."wechart_server" VALUES (1, '', '', '', '','2020-05-05 00:00:00');
 INSERT INTO "common"."email_server" VALUES (1, '', 163, '', '');
 
 INSERT INTO "common"."area_layer" (name_cn, name_en, name_tw, description) VALUES ('群组', 'Group', '群组','群组');
