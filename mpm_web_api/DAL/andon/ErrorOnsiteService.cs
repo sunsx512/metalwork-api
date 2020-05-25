@@ -508,7 +508,7 @@ namespace mpm_web_api.DAL.andon
             mongoDbTag.s = s;
             mongoDbTag.t = t;
             mongoDbTag.v = v;
-            mongoDbTag.ts = DateTime.Now.AddHours(GlobalVar.time_zone);
+            mongoDbTag.ts = DateTime.Now;
             mh.InsertForMetalwork(mongoDbTag);
         }
         /// <summary>
