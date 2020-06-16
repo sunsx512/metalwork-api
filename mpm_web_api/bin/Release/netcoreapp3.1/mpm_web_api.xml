@@ -14,6 +14,16 @@
             授权数量
             </summary>
         </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.time_zone">
+            <summary>
+            当前地区的时区
+            </summary>
+        </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.module">
+            <summary>
+            当前使用的模块
+            </summary>
+        </member>
         <member name="M:mpm_web_api.Common.LicenceHelper.SaveLicenceLog(System.String)">
             <summary>
             保存已授权许可证(防止多次授权使用)
@@ -1296,6 +1306,83 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
+        <member name="M:mpm_web_api.Controllers.c_ehs.EnvStandardController.Get">
+            <summary>
+            获取环境标准配置信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_ehs.EnvStandardController.Delete(System.Int32)">
+            <summary>
+            删除部门
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_ehs.EnvStandardController.Post(mpm_web_api.model.m_ehs.standard)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_ehs.EnvStandardController.Put(mpm_web_api.model.m_ehs.standard)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_ehs.NoticeLogicController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_ehs.NoticeLogicController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_ehs.NoticeLogicController.Post(mpm_web_api.model.m_ehs.notice_logic)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_ehs.NoticeLogicController.Put(mpm_web_api.model.m_ehs.notice_logic)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
         <member name="M:mpm_web_api.Controllers.c_oee.MachineLeaseController.Delete(System.Int32)">
             <summary>
             删除
@@ -1851,7 +1938,7 @@
         </member>
         <member name="T:mpm_web_api.DB.MongoDbTag">
             <summary>
-            云端的MongoDB数据库Tag类
+            地端的MongoDB数据库Tag类
             </summary>
         </member>
         <member name="P:mpm_web_api.DB.MongoDbTag.s">
@@ -1860,6 +1947,16 @@
             </summary>
         </member>
         <member name="P:mpm_web_api.DB.MongoDbTag.t">
+            <summary>
+            t在云端为device/tag的组合
+            </summary>
+        </member>
+        <member name="T:mpm_web_api.DB.CloudMongoDbTag">
+            <summary>
+            云端的MongoDB数据库Tag类
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.DB.CloudMongoDbTag.t">
             <summary>
             t在云端为device/tag的组合
             </summary>
@@ -2269,6 +2366,72 @@
             应用token
             </summary>
         </member>
+        <member name="P:mpm_web_api.model.m_ehs.notice_logic.name">
+            <summary>
+            通知名
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.notice_logic.normal_notification_group_id">
+            <summary>
+            正常通知群组id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.notice_logic.abnormal_notification_group_id">
+            <summary>
+            异常通知人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.notice_logic.serious_notification_group_id">
+            <summary>
+            严重通知人员id
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:mpm_web_api.model.m_ehs.notice_logic.notice_type" -->
+        <member name="P:mpm_web_api.model.m_ehs.standard.tag_id">
+            <summary>
+            标签id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.standard.tag_type_sub_id">
+            <summary>
+            标签类型id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.standard.normal_min">
+            <summary>
+            普通范围最小值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.standard.normal_max">
+            <summary>
+            普通范围最大值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.standard.abnormal_min">
+            <summary>
+            异常范围最小值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.standard.abnormal_max">
+            <summary>
+            异常范围最大值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.standard.serious_min">
+            <summary>
+            严重范围最小值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.standard.serious_max">
+            <summary>
+            严重范围最大值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_ehs.standard.notice_logic_id">
+            <summary>
+            触发通知逻辑
+            </summary>
+        </member>
         <member name="P:mpm_web_api.model.m_error.andon_logic.name">
             <summary>
             逻辑名
@@ -2483,7 +2646,12 @@
         </member>
         <member name="P:mpm_web_api.model.error_config.trigger_out_color">
             <summary>
-            异常灯颜色
+            异常触发灯颜色
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.error_config.sign_in_color">
+            <summary>
+            异常签到灯颜色
             </summary>
         </member>
         <member name="P:mpm_web_api.model.error_config.logic_type">
