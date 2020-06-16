@@ -343,8 +343,8 @@ namespace mpm_web_api.DAL.andon
             bool re = false;
             //查询当前日志是否存在
             error_log el = DB.Queryable<error_log>().Where(x => x.id == log_id).First();
-            error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id).First();
-            error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id).First();
+            error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id)?.First();
+            error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id)?.First();
             //如果存在
             if (el != null)
             {
@@ -391,10 +391,21 @@ namespace mpm_web_api.DAL.andon
                 }
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
                 DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
-                return re& DB.Updateable<error_log>()
-                         .Where(x=>x.id == log_id)
-                         .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_en,error_type_detail_name = etd.name_en, defectives_count = count ,cost_time = dif_time })
-                         .ExecuteCommand() > 0;
+                if(et == null)
+                {
+                    return re & DB.Updateable<error_log>()
+                             .Where(x => x.id == log_id)
+                             .UpdateColumns(it => new error_log() { release_time = now, error_type_name = null, error_type_detail_name = null, defectives_count = count, cost_time = dif_time })
+                             .ExecuteCommand() > 0;
+                }
+                else
+                {
+                    return re & DB.Updateable<error_log>()
+                             .Where(x => x.id == log_id)
+                             .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_en, error_type_detail_name = etd.name_en, defectives_count = count, cost_time = dif_time })
+                             .ExecuteCommand() > 0;
+                }
+
             }
             return false;
         }
@@ -403,18 +414,30 @@ namespace mpm_web_api.DAL.andon
         {
             //查询当前日志是否存在
             error_log el = DB.Queryable<error_log>().Where(x => x.id == log_id).First();
-            error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id).First();
-            error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id).First();
+            error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id)?.First();
+            error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id)?.First();
 
             //如果存在
             if (el != null)
             {
                 decimal dif_time = CalTimeDifference((DateTime)el.start_time);
                 DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
-                return DB.Updateable<error_log>()
+                if(et == null)
+                {
+                    return DB.Updateable<error_log>()
                           .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new error_log() { release_time = now, error_type_name =et.name_cn,error_type_detail_name=etd.name_cn,cost_time = dif_time })
+                          .UpdateColumns(it => new error_log() { release_time = now, error_type_name = null, error_type_detail_name = null, cost_time = dif_time })
                           .ExecuteCommand() > 0;
+                }
+                else
+                {
+                    return DB.Updateable<error_log>()
+                          .Where(x => x.id == log_id)
+                          .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_cn, error_type_detail_name = etd.name_cn, cost_time = dif_time })
+                          .ExecuteCommand() > 0;
+                }
+
+
             }
             return false;
         }

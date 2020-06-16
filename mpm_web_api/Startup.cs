@@ -27,7 +27,8 @@ namespace mpm_web_api
             EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
             string pg = "Server={0};Port={1};Database={2};User Id={3};Password={4};";
             pg = string.Format(pg, environmentInfo.postgres_host, environmentInfo.postgres_port, environmentInfo.postgres_database, environmentInfo.postgres_username, environmentInfo.postgres_password);
-            PostgreBase.connString = pg;         
+            PostgreBase.connString = pg;
+            GlobalVar.module = Environment.GetEnvironmentVariable("module");
             //EnSaaS 4.0 环境
             if (environmentInfo.cluster != null)
             {
@@ -37,7 +38,7 @@ namespace mpm_web_api
                 MongoHelper.connectionstring = mg;
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = true;
-                migration.Create(false);
+                migration.Create();
                 //开启4.0 Licence认证
                 EnsaasLicenceService els = new EnsaasLicenceService();
                 CancellationToken token = new CancellationToken();
@@ -52,7 +53,7 @@ namespace mpm_web_api
                 MongoHelper.connectionstring = mg + "?authSource=admin";
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = false;
-                migration.Create(false);
+                migration.Create();
                 //开启docker Licence认证
                 DockerLicenceService dls = new DockerLicenceService();
                 CancellationToken token = new CancellationToken();
@@ -72,6 +73,7 @@ namespace mpm_web_api
                 c.SwaggerDoc("OEE", new OpenApiInfo { Title = "OEE配置接口", Version = "OEE" });   //分组显示
                 c.SwaggerDoc("Andon", new OpenApiInfo { Title = "Andon配置接口", Version = "Andon" });   //分组显示
                 c.SwaggerDoc("WorkOrder", new OpenApiInfo { Title = "工单配置接口", Version = "WorkOrder" });   //分组显示
+                c.SwaggerDoc("EHS", new OpenApiInfo { Title = "环境健康管理", Version = "EHS" });   //分组显示
                 c.SwaggerDoc("Dashboard", new OpenApiInfo { Title = "Dashboard数据源", Version = "Dashboard" });   //分组显示
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -127,10 +129,34 @@ namespace mpm_web_api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/Common/swagger.json", "公共配置接口");
-                c.SwaggerEndpoint("/swagger/OEE/swagger.json", "OEE相关接口");
-                c.SwaggerEndpoint("/swagger/Andon/swagger.json", "Andon配置接口");
-                c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
-                c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
+                if (GlobalVar.module == "ALL")
+                {
+                    c.SwaggerEndpoint("/swagger/OEE/swagger.json", "OEE相关接口");
+                    c.SwaggerEndpoint("/swagger/Andon/swagger.json", "Andon配置接口");
+                    c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
+                    c.SwaggerEndpoint("/swagger/EHS/swagger.json", "环境健康管理");
+                    c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
+                }
+                else if(GlobalVar.module == "OEE")
+                {
+                    c.SwaggerEndpoint("/swagger/OEE/swagger.json", "OEE相关接口");
+                }
+                else if (GlobalVar.module == "Andon")
+                {
+                    c.SwaggerEndpoint("/swagger/Andon/swagger.json", "Andon配置接口");
+                }
+                else if (GlobalVar.module == "WorkOrder")
+                {
+                    c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
+                }
+                else
+                {
+                    c.SwaggerEndpoint("/swagger/OEE/swagger.json", "OEE相关接口");
+                    c.SwaggerEndpoint("/swagger/Andon/swagger.json", "Andon配置接口");
+                    c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
+                    c.SwaggerEndpoint("/swagger/EHS/swagger.json", "环境健康管理");
+                    c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
+                }
             });
             if (GlobalVar.IsCloud)
                 //如果是云端的话 需要启动权限处理中间件

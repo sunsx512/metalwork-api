@@ -128,46 +128,39 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response> Put(int type, int machine_id, int log_id, decimal count, int error_type_id, int error_type_detail_id)
         {
             object obj = common.ResponseStr((int)httpStatus.serverError, "调用失败"); ;
-            //try
-            //{
-                if (type == 0)
+            if (type == 0)
+            {
+                if (eos.Qualityrelease(machine_id, log_id, error_type_id, error_type_detail_id, count))
                 {
-                    if (eos.Qualityrelease(machine_id, log_id, error_type_id, error_type_detail_id, count))
-                    {
-                        obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                    }
-                    else
-                    {
-                        obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
-                    }
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
                 }
-                else if (type == 1)
+                else
                 {
-                    if (eos.EquipmentRelease(machine_id, log_id, error_type_id, error_type_detail_id))
-                    {
-                        obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                    }
-                    else
-                    {
-                        obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
-                    }
+                    obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
                 }
-                else if (type == 2)
+            }
+            else if (type == 1)
+            {
+                if (eos.EquipmentRelease(machine_id, log_id, error_type_id, error_type_detail_id))
                 {
-                    if (eos.MaterialRequestRelease(machine_id, log_id,""))
-                    {
-                        obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                    }
-                    else
-                    {
-                        obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
-                    }
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            //}
+                else
+                {
+                    obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+                }
+            }
+            else if (type == 2)
+            {
+                if (eos.MaterialRequestRelease(machine_id, log_id,""))
+                {
+                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+                }
+                else
+                {
+                    obj = common.ResponseStr((int)httpStatus.serverError, "调用失败");
+                }
+            }
             return Json(obj);
         }
 

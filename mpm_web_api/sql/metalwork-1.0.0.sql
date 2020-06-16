@@ -882,6 +882,7 @@ INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES 
 INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('节拍时间', 'Cycle_Time', '節拍時間', '节拍时间类标签类型');
 INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('异常', 'Error', '异常', '异常标签类型');
 INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('预警', 'Alert', '預警', '预警标签类型');
+INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('环境', 'Environment', '環境', '环境标签类型');
 INSERT INTO "common"."tag_type" (name_cn, name_en, name_tw, description) VALUES ('其他', 'Other', '其他', '其他标签类型');
 
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (1, 1, '设备状态', 'machine_status', '設備狀態', '设备状态');
@@ -908,6 +909,22 @@ INSERT INTO "common"."tag_type_sub_fixed" VALUES (22, 4, '工单超过标准工�
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (23, 4, '产能预警', 'capacity_alert', '產能預警', '产能预警');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (24, 4, '设备故障预警', 'machine_fault_alert', '設備故障預警', '设备故障预警');
 INSERT INTO "common"."tag_type_sub_fixed" VALUES (25, 4, '品质异常预警', 'quality_error_alert', '品質异常預警', '品质异常预警');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (26, 5, '温度', 'temperature', '溫度', '温度');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (27, 5, '湿度', 'humidity', '濕度', '湿度');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (28, 5, '二氧化碳', 'carbon_dioxide', '二氧化碳', '二氧化碳');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (29, 5, '挥发性有机化合物', 'volatile_organic_compounds', '揮發性有機化合物', '挥发性有机化合物');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (30, 5, 'pH', 'pH', 'pH', 'pH');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (31, 5, '粉尘', 'dust', '粉塵', '粉尘');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (32, 5, '噪音', 'noise', '譟音 ', '噪音');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (33, 5, '照明度', 'Illuminance', '照明度', '照明度');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (34, 5, '压力', 'pressure', '压力', '压力');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (35, 5, '流量', 'flow', '流量', '流量');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (36, 5, '重量', 'weight', '重量', '重量');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (37, 5, '电压', 'voltage', '電壓', '电压');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (38, 5, '电流', 'current', '電流', '电流');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (39, 5, '浓度', 'consistence', '濃度', '浓度');
+INSERT INTO "common"."tag_type_sub_fixed" VALUES (40, 5, '硬度', 'hardness', '硬度', '硬度');
+
 
 INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Idle', 0);
 INSERT INTO "oee"."status_setting" (status_name, value) VALUES ('Run', 1);

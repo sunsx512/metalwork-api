@@ -11,7 +11,7 @@ namespace mpm_web_api.Common
 {
     public class migration: SqlSugarBase
     {
-        public static bool Create(bool IsCloud)
+        public static bool Create()
         {
             List<migration_log> migration_Logs = new List<migration_log>();
             DirectoryInfo root = new DirectoryInfo("sql");
@@ -23,9 +23,9 @@ namespace mpm_web_api.Common
                 if (migration_Logs == null || !migration_Logs.Exists(x => x.migration_version == fileInfo.Name))
                 {
                     string text = "";
-                    if (IsCloud)
-                        text = File.ReadAllText("sql\\" + fileInfo.Name);
-                    else
+                    //if (IsCloud)
+                    //    text = File.ReadAllText("sql\\" + fileInfo.Name);
+                    //else
                         text = File.ReadAllText("sql/" + fileInfo.Name);
                     string[] tp = text.Split(';');
                     foreach (string str in tp)

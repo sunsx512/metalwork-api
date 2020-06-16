@@ -19,6 +19,10 @@ namespace mpm_web_api.Common
         /// 当前地区的时区
         /// </summary>
         public static double time_zone = 8;
+        /// <summary>
+        /// 当前使用的模块
+        /// </summary>
+        public static string module = "ALL";
 
         public enum Error_handle
         {
