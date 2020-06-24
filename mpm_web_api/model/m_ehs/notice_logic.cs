@@ -9,7 +9,6 @@ namespace mpm_web_api.model.m_ehs
     [SugarTable("ehs.notice_logic")]
     public class notice_logic:base_model
     {
-
         /// <summary>
         /// 通知名
         /// </summary>
@@ -30,5 +29,23 @@ namespace mpm_web_api.model.m_ehs
         /// 预警形式，微信，邮件，微信&邮件
         /// </summary>
         public int notice_type { get; set; }
+    }
+    public class notice_logic_detail : notice_logic
+    {
+        [SugarColumn(IsIgnore = true)]
+        /// <summary>
+        /// 正常通知群组
+        /// </summary>
+        public notification_group normal_notification_group { set; get; }
+        [SugarColumn(IsIgnore = true)]
+        /// <summary>
+        /// 异常通知群组
+        /// </summary>
+        public notification_group abnormal_notification_group { set; get; }
+        [SugarColumn(IsIgnore = true)]
+        /// <summary>
+        /// 严重通知群组
+        /// </summary>
+        public notification_group serious_notification_group { set; get; }
     }
 }
