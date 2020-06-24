@@ -1383,6 +1383,279 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.AttendanceStatisticsController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.AttendanceStatisticsController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.AttendanceStatisticsController.Post(mpm_web_api.model.m_lpm.attendance_statistics)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.AttendanceStatisticsController.Put(mpm_web_api.model.m_lpm.attendance_statistics)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.LeaveStatisticsController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.LeaveStatisticsController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.LeaveStatisticsController.Post(mpm_web_api.model.m_lpm.leave_statistics)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.LeaveStatisticsController.Put(mpm_web_api.model.m_lpm.leave_statistics)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.OvertimeStatisticsController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.OvertimeStatisticsController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.OvertimeStatisticsController.Post(mpm_web_api.model.m_lpm.overtime_statistics)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.OvertimeStatisticsController.Put(mpm_web_api.model.m_lpm.overtime_statistics)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.PerformanceFormulaController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.PerformanceFormulaController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.PerformanceFormulaController.Post(mpm_web_api.model.m_lpm.performance_formula)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.PerformanceFormulaController.Put(mpm_web_api.model.m_lpm.performance_formula)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.PersonShiftController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.PersonShiftController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.PersonShiftController.Post(mpm_web_api.model.m_lpm.person_shift)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.PersonShiftController.Put(mpm_web_api.model.m_lpm.person_shift)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.ProposalController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.ProposalController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.ProposalController.Post(mpm_web_api.model.m_lpm.proposal)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.ProposalController.Put(mpm_web_api.model.m_lpm.proposal)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.ScheduleController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.ScheduleController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.ScheduleController.Post(mpm_web_api.model.m_lpm.schedule)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_lpm.ScheduleController.Put(mpm_web_api.model.m_lpm.schedule)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
         <member name="M:mpm_web_api.Controllers.c_oee.MachineLeaseController.Delete(System.Int32)">
             <summary>
             删除
@@ -2968,6 +3241,86 @@
         <member name="P:mpm_web_api.model.work_order_alert.minimum">
             <summary>
             最小值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.attendance_statistics.date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.attendance_statistics.shift">
+            <summary>
+            白班
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.attendance_statistics.person_id">
+            <summary>
+            人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.attendance_statistics.is_attend">
+            <summary>
+            是否出席
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.leave_statistics.person_id">
+            <summary>
+            人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.leave_statistics.start_time">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.leave_statistics.end_time">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.leave_statistics.duration">
+            <summary>
+            总计时长
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.overtime_statistics.person_id">
+            <summary>
+            人员id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.overtime_statistics.start_time">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.overtime_statistics.end_time">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.overtime_statistics.duration">
+            <summary>
+            总计时长
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.performance_formula.productivity">
+            <summary>
+            生产占比
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.performance_formula.attendance">
+            <summary>
+            出席占比
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.performance_formula.leave">
+            <summary>
+            请假占比
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_lpm.performance_formula.proposal">
+            <summary>
+            提案占比
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_oee.machine_lease.machine_id">
