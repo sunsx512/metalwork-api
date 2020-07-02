@@ -11,7 +11,9 @@ namespace mpm_web_api.model.m_lpm
     {
         //计划名称
         public string name { set; get; }
-        //是否启用
-        public bool enable { set; get; }
+        //开始时间
+        public DateTime start_time { set; get; }
+        //结束时间
+        public DateTime end_time { set; get; }
     }
 }

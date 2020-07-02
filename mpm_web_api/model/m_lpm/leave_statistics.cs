@@ -16,14 +16,16 @@ namespace mpm_web_api.model.m_lpm
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTime start_time { set; get; }
+        public DateTime? start_time { set; get; }
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime end_time { set; get; }
+        public DateTime? end_time { set; get; }
         /// <summary>
         /// 总计时长
         /// </summary>
         public decimal duration { set; get; }
+        //替代者id
+        public int substitutes { set; get; }
     }
 }

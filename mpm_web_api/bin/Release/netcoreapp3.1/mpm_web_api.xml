@@ -2105,7 +2105,7 @@
             <summary>
             新增一行数据
             </summary>
-            <param name="obj"></param>
+            <param name="t"></param>
             <returns></returns>
         </member>
         <member name="M:mpm_web_api.DAL.wo.OnsiteService.GetExecutingWoByMachineLog(System.Int32)">
@@ -3303,24 +3303,19 @@
             总计时长
             </summary>
         </member>
-        <member name="P:mpm_web_api.model.m_lpm.performance_formula.productivity">
+        <member name="P:mpm_web_api.model.m_lpm.performance_formula.name">
             <summary>
-            生产占比
+            选项名
             </summary>
         </member>
-        <member name="P:mpm_web_api.model.m_lpm.performance_formula.attendance">
+        <member name="P:mpm_web_api.model.m_lpm.performance_formula.ratio">
             <summary>
-            出席占比
+            选项占比
             </summary>
         </member>
-        <member name="P:mpm_web_api.model.m_lpm.performance_formula.leave">
+        <member name="P:mpm_web_api.model.m_lpm.performance_formula.enable">
             <summary>
-            请假占比
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.m_lpm.performance_formula.proposal">
-            <summary>
-            提案占比
+            其否启用
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_oee.machine_lease.machine_id">

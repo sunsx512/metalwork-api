@@ -61,12 +61,12 @@ namespace mpm_web_api.Controllers.c_andon
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<common.response> Post(int config_id,string error_name,string machine_name,string responsible_name,string work_order,string part_number)
+        public ActionResult<common.response> Post(int config_id,string error_name,string machine_name,int responsible_id,string work_order,string part_number)
         {
             object obj;
             //try
             //{
-                if(els.AddErrorLog(config_id, error_name, machine_name, responsible_name, work_order, part_number))
+                if(els.AddErrorLog(config_id, error_name, machine_name, responsible_id, work_order, part_number))
                 {
                     obj = common.ResponseStr((int)httpStatus.succes, "调用成功");                 
                 }
@@ -95,25 +95,15 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response> Put(int id,int type)
         {
             object obj;
-            //try
-            //{
-                if (els.UpdataHandleTime(id, type))
-                {
-                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                }
-                else
-                {
-                    obj = common.ResponseStr((int)httpStatus.dbError, "修改失败");
-                }
-            //}
-            //catch (Exception ex)
-            //{
-            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            //}
+            if (els.UpdataHandleTime(id, type))
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            }
+            else
+            {
+                obj = common.ResponseStr((int)httpStatus.dbError, "修改失败");
+            }
             return Json(obj);
         }
-
-
-
     }
 }

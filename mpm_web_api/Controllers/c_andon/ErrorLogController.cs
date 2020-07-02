@@ -60,16 +60,9 @@ namespace mpm_web_api.Controllers.c_andon
         public ActionResult<common.response<error_log>> Get(int type, int status)
         {
             object obj;
-            //try
-            //{
-                List<error_log> lty = els.QueryableToListByStatusAndType(type,status);
-                string strJson = JsonConvert.SerializeObject(lty);
-                obj = common.ResponseStr<error_log>((int)httpStatus.succes, "调用成功", lty);
-            //}
-            //catch (Exception ex)
-            //{
-            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            //}
+            List<error_log> lty = els.QueryableToListByStatusAndType(type,status);
+            string strJson = JsonConvert.SerializeObject(lty);
+            obj = common.ResponseStr<error_log>((int)httpStatus.succes, "调用成功", lty);
             return Json(obj);
         }
 
@@ -99,24 +92,17 @@ namespace mpm_web_api.Controllers.c_andon
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut("{id}")]
-        public ActionResult<common.response> Put(int id, string name)
+        public ActionResult<common.response> Put(int id, int substitutes_id)
         {
             object obj;
-            //try
-            //{
-                if (els.UpdataSubstitutes(id, name))
-                {
-                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
-                }
-                else
-                {
-                    obj = common.ResponseStr((int)httpStatus.dbError, "添加失败");
-                }
-            //}
-            //catch (Exception ex)
-            //{
-            //    obj = common.ResponseStr((int)httpStatus.serverError, ex.Message);
-            //}
+            if (els.UpdataSubstitutes(id, substitutes_id))
+            {
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            }
+            else
+            {
+                obj = common.ResponseStr((int)httpStatus.dbError, "添加失败");
+            }
             return Json(obj);
         }
     }

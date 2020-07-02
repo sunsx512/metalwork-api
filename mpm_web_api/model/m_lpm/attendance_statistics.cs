@@ -12,7 +12,7 @@ namespace mpm_web_api.model.m_lpm
         /// <summary>
         /// 日期
         /// </summary>
-        public DateTime date { set; get; }
+        public DateTime? date { set; get; }
         /// <summary>
         /// 白班
         /// </summary>

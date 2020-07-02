@@ -75,6 +75,7 @@ namespace mpm_web_api
                 c.SwaggerDoc("WorkOrder", new OpenApiInfo { Title = "工单配置接口", Version = "WorkOrder" });   //分组显示
                 c.SwaggerDoc("EHS", new OpenApiInfo { Title = "环境健康管理", Version = "EHS" });   //分组显示
                 c.SwaggerDoc("LPM", new OpenApiInfo { Title = "人员绩效管理", Version = "LPM" });   //分组显示
+                c.SwaggerDoc("Notice", new OpenApiInfo { Title = "通知管理", Version = "Notice" });   //分组显示
                 //c.SwaggerDoc("Dashboard", new OpenApiInfo { Title = "Dashboard数据源", Version = "Dashboard" });   //分组显示
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -137,6 +138,7 @@ namespace mpm_web_api
                     c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
                     c.SwaggerEndpoint("/swagger/EHS/swagger.json", "环境健康管理");
                     c.SwaggerEndpoint("/swagger/LPM/swagger.json", "人员绩效管理");
+                    c.SwaggerEndpoint("/swagger/Notice/swagger.json", "通知管理");
                     //c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
                 }
                 else if(GlobalVar.module == "OEE")

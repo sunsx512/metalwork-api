@@ -15,7 +15,6 @@ namespace mpm_web_api.DAL
         /// <summary>
         /// 获取表内所有数据
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public List<T> QueryableToList() 
         {
@@ -40,17 +39,18 @@ namespace mpm_web_api.DAL
         /// <returns></returns>
         public bool Update(T entity, Expression<Func<T, bool>> expression) 
         {
-            foreach (PropertyInfo p in entity.GetType().GetProperties())
-            {
-                if (p.PropertyType.Name == "DateTime")
-                {
-                    DateTime dt = ((DateTime)p.GetValue(entity)).AddHours(GlobalVar.time_zone);
-                    p.SetValue(p, dt);
-                }
-            }
+            //foreach (PropertyInfo p in entity.GetType().GetProperties())
+            //{
+            //    if (p.PropertyType.Name == "DateTime")
+            //    {
+            //        DateTime dt = ((DateTime)p.GetValue(entity)).AddHours(GlobalVar.time_zone);
+            //        p.SetValue(p, dt);
+            //    }
+            //}
             return DB.Updateable(entity).Where(expression).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommand() > 0;
 
         }
+
 
         /// <summary>
         /// 按id删除一行
@@ -65,18 +65,18 @@ namespace mpm_web_api.DAL
         /// <summary>
         /// 新增一行数据
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
         public bool Insert(T t)
         {
-            foreach (PropertyInfo p in t.GetType().GetProperties())
-            {
-                if (p.PropertyType.Name == "DateTime")
-                {
-                    DateTime dt = ((DateTime)p.GetValue(t)).AddHours(GlobalVar.time_zone);
-                    p.SetValue(p, dt);
-                }
-            }
+            //foreach (PropertyInfo p in t.GetType().GetProperties())
+            //{
+            //    if (p.PropertyType.Name == "DateTime")
+            //    {
+            //        DateTime dt = ((DateTime)p.GetValue(t)).AddHours(GlobalVar.time_zone);
+            //        p.SetValue(p, dt);
+            //    }
+            //}
             return DB.Insertable(t).ExecuteCommandIdentityIntoEntity();
         }
 

@@ -259,9 +259,6 @@ namespace mpm_web_api.DAL.andon
                     //如果没有未签到或者未解除的异常记录 才允许重复添加log
                     if(error_logs.Count == 0)
                     {
-                        //查询责任人员信息
-                        person ps = DB.Queryable<person>()
-                            .Where(x => x.id == ec.response_person_id).First();
                         //查询当前执行的工单
                         wo_machine_cur_log wocr = DB.Queryable<wo_machine_cur_log>()
                                         .Where(x => x.machine_id == machine_id).First();
@@ -271,8 +268,7 @@ namespace mpm_web_api.DAL.andon
                         if (mc != null)
                             el.machine_name = mc.name_en;
                         el.tag_type_sub_name = ts.name_en;
-                        if (ps != null)
-                            el.responsible_name = ps.user_name;
+                        el.responsible_name = ec.response_person_id;
                         if (wocr != null)
                         {
                             //查询主工单信息
@@ -304,20 +300,20 @@ namespace mpm_web_api.DAL.andon
 
         //更新日志
         [Obsolete]
-        private bool Confirm(int log_id,string person_id)
+        private bool Confirm(int log_id,string person_card)
         {
             //查询当前日志是否存在
             error_log el = DB.Queryable<error_log>().Where(x => x.id == log_id).First();
             //如果存在
             if(el != null)
             {
-                person ps = DB.Queryable<person>().Where(x => x.id_num == person_id).First();
+                person ps = DB.Queryable<person>().Where(x => x.id_num == person_card).First();
                 if(ps != null)
                 {
                     //如果有替代者 则判断替代者是否正确
                     if(el.substitutes != null)
                     {
-                        if (ps.user_name == el.substitutes)
+                        if (ps.id == el.substitutes)
                         {
                             DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
                             return DB.Updateable<error_log>().Where(x=>x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now }).ExecuteCommand() > 0;
@@ -325,7 +321,7 @@ namespace mpm_web_api.DAL.andon
                     }
                     else 
                     {
-                        if (ps.user_name == el.responsible_name)
+                        if (ps.id == el.responsible_name)
                         {
                             DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
                             return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now }).ExecuteCommand() > 0;

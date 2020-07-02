@@ -20,7 +20,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 责任人
         /// </summary>
-        public string responsible_name { get; set; }
+        public int responsible_name { get; set; }
         /// <summary>
         /// 设备名称
         /// </summary>
@@ -40,7 +40,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 替代者
         /// </summary>
-        public string substitutes { get; set; }
+        public int? substitutes { get; set; }
         /// <summary>
         /// 签到时间
         /// </summary>

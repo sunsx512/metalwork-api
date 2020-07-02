@@ -128,7 +128,7 @@ namespace mpm_web_api.DAL.andon
             return list;
         }
 
-        public bool AddErrorLog(int config_id, string error_name, string machine_name, string responsible_name, string work_order, string part_number)
+        public bool AddErrorLog(int config_id, string error_name, string machine_name, int responsible_name, string work_order, string part_number)
         {
             error_log el = new error_log();
             el.error_config_id = config_id;
@@ -159,9 +159,9 @@ namespace mpm_web_api.DAL.andon
         }
 
 
-        public bool UpdataSubstitutes(int id, string substitutes)
+        public bool UpdataSubstitutes(int id, int substitutes_id)
         {
-             return DB.Updateable<error_log>().Where(x => x.id == id).UpdateColumns(x => x.substitutes == substitutes).ExecuteCommand() > 0;
+             return DB.Updateable<error_log>().Where(x => x.id == id).UpdateColumns(x => x.substitutes == substitutes_id).ExecuteCommand() > 0;
         }
     }
 }

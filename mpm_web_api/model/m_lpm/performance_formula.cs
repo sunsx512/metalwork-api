@@ -10,20 +10,16 @@ namespace mpm_web_api.model.m_lpm
     public class performance_formula:base_model
     {
         /// <summary>
-        /// 生产占比
+        /// 选项名
         /// </summary>
-        public decimal productivity { set; get; }
+        public string name { set; get; }
         /// <summary>
-        /// 出席占比
+        /// 选项占比
         /// </summary>
-        public decimal attendance { set; get; }
+        public decimal ratio { set; get; }
         /// <summary>
-        /// 请假占比
+        /// 其否启用
         /// </summary>
-        public decimal leave { set; get; }
-        /// <summary>
-        /// 提案占比
-        /// </summary>
-        public decimal proposal { set; get; }
+        public bool enable { set; get; }
     }
 }
