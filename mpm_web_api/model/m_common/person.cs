@@ -41,5 +41,9 @@ namespace mpm_web_api.model
         /// 员工工位地址
         /// </summary>
         public string user_position { get; set; }
+        /// <summary>
+        /// 图片路径
+        /// </summary>
+        public string photo_path { set; get; }
     }
 }

@@ -23,6 +23,26 @@ namespace mpm_web_api.Common
         /// 当前使用的模块
         /// </summary>
         public static string module = "ALL";
+        /// <summary>
+        /// mqtt host
+        /// </summary>
+        public static string mqtthost = "172.21.168.23";
+        /// <summary>
+        /// mqtt 账号
+        /// </summary>
+        public static string mqttuser = "admin";
+        /// <summary>
+        /// mqtt 密码
+        /// </summary>
+        public static string mqttpwd = "public";
+        /// <summary>
+        /// mqtt 端口号
+        /// </summary>
+        public static int mqttport = 1883;
+        /// <summary>
+        /// 发送的topic
+        /// </summary>
+        public static string mqtttopic = "/iot-2/evt/wadata/fmt/andon";
 
         public enum Error_handle
         {

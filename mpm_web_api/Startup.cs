@@ -25,6 +25,13 @@ namespace mpm_web_api
         {
             Configuration = configuration;
             EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
+
+            GlobalVar.mqtthost = Environment.GetEnvironmentVariable("MQTT_HOST");
+            GlobalVar.mqttport =Convert.ToInt32(Environment.GetEnvironmentVariable("MQTT_PORT"));
+            GlobalVar.mqttuser = Environment.GetEnvironmentVariable("MQTT_USER");
+            GlobalVar.mqttpwd = Environment.GetEnvironmentVariable("MQTT_PWD");
+            GlobalVar.mqtttopic = Environment.GetEnvironmentVariable("MQTT_TOPIC");
+
             string pg = "Server={0};Port={1};Database={2};User Id={3};Password={4};";
             pg = string.Format(pg, environmentInfo.postgres_host, environmentInfo.postgres_port, environmentInfo.postgres_database, environmentInfo.postgres_username, environmentInfo.postgres_password);
             PostgreBase.connString = pg;

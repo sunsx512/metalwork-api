@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using mpm_web_api.Common;
 using mpm_web_api.db;
 using mpm_web_api.DB;
@@ -134,8 +135,7 @@ namespace mpm_web_api.DAL.andon
                 }
 
             }
-            return false;
-            
+            return false;          
         }
 
         public bool EquipmentConfirm(int machine_id, int log_id, string person_id)
@@ -193,7 +193,7 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_error").First();
             if (tag_Type_Sub != null)
             {
-                if (EquipmentErrorRelease(log_id, error_type_id, error_type_detail_id))
+                if (EquipmentErrorRelease(machine_id,log_id, error_type_id, error_type_detail_id))
                 {
                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                .Where(x => x.machine_id == machine_id)
@@ -316,7 +316,7 @@ namespace mpm_web_api.DAL.andon
                         if (ps.id == el.substitutes)
                         {
                             DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
-                            return DB.Updateable<error_log>().Where(x=>x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now }).ExecuteCommand() > 0;
+                            return DB.Updateable<error_log>().Where(x=>x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now,status =1 }).ExecuteCommand() > 0;
                         }
                     }
                     else 
@@ -324,7 +324,7 @@ namespace mpm_web_api.DAL.andon
                         if (ps.id == el.responsible_name)
                         {
                             DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
-                            return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now }).ExecuteCommand() > 0;
+                            return DB.Updateable<error_log>().Where(x => x.id == log_id).UpdateColumns(it => new error_log() { arrival_time = now , status = 1 }).ExecuteCommand() > 0;
                         }
                     }
                 }
@@ -391,14 +391,14 @@ namespace mpm_web_api.DAL.andon
                 {
                     return re & DB.Updateable<error_log>()
                              .Where(x => x.id == log_id)
-                             .UpdateColumns(it => new error_log() { release_time = now, error_type_name = null, error_type_detail_name = null, defectives_count = count, cost_time = dif_time })
+                             .UpdateColumns(it => new error_log() { release_time = now, error_type_name = null, error_type_detail_name = null, defectives_count = count, cost_time = dif_time, status = 2 })
                              .ExecuteCommand() > 0;
                 }
                 else
                 {
                     return re & DB.Updateable<error_log>()
                              .Where(x => x.id == log_id)
-                             .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_en, error_type_detail_name = etd.name_en, defectives_count = count, cost_time = dif_time })
+                             .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_en, error_type_detail_name = etd.name_en, defectives_count = count, cost_time = dif_time, status = 2 })
                              .ExecuteCommand() > 0;
                 }
 
@@ -406,36 +406,44 @@ namespace mpm_web_api.DAL.andon
             return false;
         }
         //更新日志
-        private bool EquipmentErrorRelease(int log_id,int error_type_id,int error_type_detail_id)
+        private bool EquipmentErrorRelease(int machine_id,int log_id,int error_type_id,int error_type_detail_id)
         {
-            //查询当前日志是否存在
-            error_log el = DB.Queryable<error_log>().Where(x => x.id == log_id).First();
-            error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id)?.First();
-            error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id)?.First();
-
-            //如果存在
-            if (el != null)
+            //判定设备异常是否可以被解除
+            if(IsErrorRelease(machine_id))
             {
-                decimal dif_time = CalTimeDifference((DateTime)el.start_time);
-                DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
-                if(et == null)
+                //查询当前日志是否存在
+                error_log el = DB.Queryable<error_log>().Where(x => x.id == log_id).First();
+                error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id)?.First();
+                error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id)?.First();
+
+                //如果存在
+                if (el != null)
                 {
-                    return DB.Updateable<error_log>()
-                          .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new error_log() { release_time = now, error_type_name = null, error_type_detail_name = null, cost_time = dif_time })
-                          .ExecuteCommand() > 0;
-                }
-                else
-                {
-                    return DB.Updateable<error_log>()
-                          .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_cn, error_type_detail_name = etd.name_cn, cost_time = dif_time })
-                          .ExecuteCommand() > 0;
-                }
+                    decimal dif_time = CalTimeDifference((DateTime)el.start_time);
+                    DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                    if (et == null)
+                    {
+                        return DB.Updateable<error_log>()
+                              .Where(x => x.id == log_id)
+                              .UpdateColumns(it => new error_log() { release_time = now, error_type_name = null, error_type_detail_name = null, cost_time = dif_time, status = 2 })
+                              .ExecuteCommand() > 0;
+                    }
+                    else
+                    {
+                        return DB.Updateable<error_log>()
+                              .Where(x => x.id == log_id)
+                              .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_cn, error_type_detail_name = etd.name_cn, cost_time = dif_time, status = 2 })
+                              .ExecuteCommand() > 0;
+                    }
 
 
+                }
+                return false;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         private bool MaterialRequestLog(int machine_id ,int count,string material_code, tag_type_sub ts)
@@ -513,22 +521,94 @@ namespace mpm_web_api.DAL.andon
                 DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
                 return DB.Updateable<material_request_info>()
                           .Where(x => x.id == log_id)
-                          .UpdateColumns(it => new material_request_info() {take_time = now, cost_time =Convert.ToDecimal(dif_time) })
+                          .UpdateColumns(it => new material_request_info() {take_time = now, cost_time =Convert.ToDecimal(dif_time), status = 2 })
                           .ExecuteCommand() > 0;
             }
             return false;
         }
 
-        MongoHelper mh = new MongoHelper();
-        private void  SendMGMsg(string s,string t,int v)
+        MongoHelper MongoHelper = new MongoHelper();
+        /// <summary>
+        /// 设备异常是否可以解除
+        /// </summary>
+        /// <returns></returns>
+        public bool IsErrorRelease(int machine_id)
         {
-            MongoDbTag mongoDbTag = new MongoDbTag();
-            mongoDbTag.ID = new ObjectId();
-            mongoDbTag.s = s;
-            mongoDbTag.t = t;
-            mongoDbTag.v = v;
-            mongoDbTag.ts = DateTime.Now;
-            mh.InsertForMetalwork(mongoDbTag);
+            //
+            tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "machine_error_release").First();
+            tag_info tag_Info = DB.Queryable<tag_info>().Where(x => x.machine_id == machine_id && x.tag_type_sub_id == tag_Type_Sub.id).First();
+            List<MongoDbTag> list = new List<MongoDbTag>();
+            if (tag_Info == null)
+            {
+                //如果没有绑定该点 则默认可以解除
+                return true;
+            }
+            else
+            {
+                //取最近五分钟内的数据
+                DateTime end_time = DateTime.Now;
+                DateTime start_time = end_time.AddMinutes(-5);
+                string scada = tag_Info.name.Split(':')[0];
+                string tag = tag_Info.name.Split(':')[1];
+                if (GlobalVar.IsCloud)
+                {
+                    var filterBuilder1 = Builders<CloudMongoDbTag>.Filter;
+                    var filter1 = filterBuilder1.And(filterBuilder1.Gt(x => x.ts, start_time),
+                                                        filterBuilder1.Lte(x => x.ts, end_time),
+                                                        filterBuilder1.Eq(x => x.t, tag));
+                    //抓取C/T相关的点位
+                    List<CloudMongoDbTag> cmdb = MongoHelper.GetList<CloudMongoDbTag>("datahub_HistRawData_" + scada, filter1);
+                    if (cmdb != null)
+                    {
+                        foreach (CloudMongoDbTag cloudMongoDbTag in cmdb)
+                        {
+                            MongoDbTag mongoDbTag = new MongoDbTag();
+                            mongoDbTag.ID = cloudMongoDbTag.ID;
+                            mongoDbTag.s = scada;
+                            mongoDbTag.t = cloudMongoDbTag.t;
+                            mongoDbTag.ts = cloudMongoDbTag.ts;
+                            mongoDbTag.v = Convert.ToInt32(cloudMongoDbTag.v);
+                            list.Add(mongoDbTag);
+                        }
+                    }
+
+                }
+                else
+                {
+                    var filterBuilder1 = Builders<MongoDbTag>.Filter;
+                    var filter1 = filterBuilder1.And(filterBuilder1.Gt(x => x.ts, start_time),
+                                                        filterBuilder1.Lte(x => x.ts, end_time),
+                                                        filterBuilder1.Eq(x => x.s, scada),
+                                                        filterBuilder1.Eq(x => x.t, tag));
+                    //抓取C/T相关的点位
+                    list = MongoHelper.GetList<MongoDbTag>("scada_HistRawData", filter1);
+                }
+            }
+            if(list.Count > 0)
+            {
+                var last_row = list.Last();
+                //1:设备异常允许被解除  0:设备异常不允许被解除
+                if (list.Last().v == 1)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+
+        MQTTHelper mh = new MQTTHelper();
+        private void SendMGMsg(string s, string t, int v)
+        {
+            //MongoDbTag mongoDbTag = new MongoDbTag();
+            //mongoDbTag.ID = new ObjectId();
+            //mongoDbTag.s = s;
+            //mongoDbTag.t = t;
+            //mongoDbTag.v = v;
+            //mongoDbTag.ts = DateTime.Now;
+            //mh.InsertForMetalwork(mongoDbTag);
+            string dt = Convert.ToString(DateTime.Now.AddHours(GlobalVar.time_zone));
+            string str = "{\"d\":{\"Cmd\":\"WV\",\"Val\":{\""+ s + ":" + t + "\":"+v.ToString()+"}},\"ts\":\""+ dt + "\"}";
+            mh.SendAsync(str);
         }
         /// <summary>
         /// 计算时间差

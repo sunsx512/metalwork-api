@@ -2,6 +2,7 @@
 using mpm_web_api.db;
 using mpm_web_api.model;
 using mpm_web_api.model.m_ehs;
+using Newtonsoft.Json;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,18 @@ namespace mpm_web_api.DAL.ehs
         public List<standard_detail> QueryableToList()
         {
             List<standard_detail> list = new List<standard_detail>();
+            tag_type tagType = DB.Queryable<tag_type>().Where(x => x.name_en == "Environment").First();
+            List<tag_type_sub> tagTypeSubs = DB.Queryable<tag_type_sub>().Where(x => x.tag_type_id == tagType.id).ToList();
             List<tag_info> tags = DB.Queryable<tag_info>().ToList();
+            var tt = (from a in tags
+                      join b in tagTypeSubs
+                      on a.tag_type_sub_id equals b.id
+                      //into ab
+                      //from c in ab.DefaultIfEmpty()
+                      select a);
+            //人类迷惑行为  匿名对象→字符串→实体对象
+            string str = JsonConvert.SerializeObject(tt); ;
+            tags = JsonConvert.DeserializeObject<List<tag_info>>(str);
             if (tags != null)
             {
                 foreach(tag_info tag in tags)

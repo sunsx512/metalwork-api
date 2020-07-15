@@ -24,6 +24,31 @@
             当前使用的模块
             </summary>
         </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.mqtthost">
+            <summary>
+            mqtt host
+            </summary>
+        </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.mqttuser">
+            <summary>
+            mqtt 账号
+            </summary>
+        </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.mqttpwd">
+            <summary>
+            mqtt 密码
+            </summary>
+        </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.mqttport">
+            <summary>
+            mqtt 端口号
+            </summary>
+        </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.mqtttopic">
+            <summary>
+            发送的topic
+            </summary>
+        </member>
         <member name="M:mpm_web_api.Common.LicenceHelper.SaveLicenceLog(System.String)">
             <summary>
             保存已授权许可证(防止多次授权使用)
@@ -234,7 +259,7 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
-        <member name="M:mpm_web_api.Controllers.c_andon.ErrorLogController.Put(System.Int32,System.String)">
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorLogController.Put(System.Int32,System.Int32)">
             <summary>
             更新替代者的名字
             </summary>
@@ -265,44 +290,6 @@
             <response code="400">服务器异常</response>
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
-        </member>
-        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Post(System.Int32,System.Int32,System.Int32,System.String)">
-            <summary>
-            触发异常 
-            </summary>
-            <param name="type">0:品质异常 1:设备异常 2:物料呼叫</param>
-            <param name="machine_id"> 设备id</param>
-            <param name="count">物料请求数量(仅物料呼叫需要填写)</param>
-            <param name="material_name">物料名称(仅物料呼叫需要填写)</param>
-            <response code="200">调用成功</response>
-            <response code="400">服务器异常</response>
-            <response code="410">数据库操作失败</response>
-            <response code="411">外键异常</response>
-        </member>
-        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Put(System.Int32,System.Int32,System.Int32,System.String)">
-            <summary>
-            异常签到
-            </summary>
-            <param name="type">0:品质异常 1:设备异常</param>
-            <param name="machine_id">设备id</param>
-            <param name="log_id">日志id</param>
-            <param name="number">人员工号</param>
-            <response code="200">调用成功</response>
-            <response code="400">服务器异常</response>
-            <response code="410">数据库操作失败</response>
-            <response code="411">外键异常</response>
-        </member>
-        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Put(System.Int32,System.Int32,System.Int32,System.Decimal,System.Int32,System.Int32)">
-            <summary>
-            异常解除
-            </summary>
-            <param name="type">0:品质异常 1:设备异常 2:物料</param>
-            <param name="machine_id">设备id</param>
-            <param name="log_id">日志id</param>
-            <param name="count">不良数量(品质异常解除时填写)</param>
-            <param name="error_type_id">异常类型</param>
-            <param name="error_type_detail_id">异常类型详细信息(设备异常时填写)</param>
-            <returns></returns>
         </member>
         <member name="M:mpm_web_api.Controllers.c_andon.ErrorTypeController.Delete(System.Int32)">
             <summary>
@@ -441,7 +428,7 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
-        <member name="M:mpm_web_api.Controllers.c_andon.MachineErrorLogController.Post(System.Int32,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:mpm_web_api.Controllers.c_andon.MachineErrorLogController.Post(System.Int32,System.String,System.String,System.Int32,System.String,System.String)">
             <summary>
             添加异常信息
             </summary>
@@ -853,6 +840,44 @@
             <response code="400">服务器异常</response>
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Post(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            触发异常 
+            </summary>
+            <param name="type">0:品质异常 1:设备异常 2:物料呼叫</param>
+            <param name="machine_id"> 设备id</param>
+            <param name="count">物料请求数量(仅物料呼叫需要填写)</param>
+            <param name="material_name">物料名称(仅物料呼叫需要填写)</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Put(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            异常签到
+            </summary>
+            <param name="type">0:品质异常 1:设备异常</param>
+            <param name="machine_id">设备id</param>
+            <param name="log_id">日志id</param>
+            <param name="number">人员工号</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_andon.ErrorOnsiteController.Put(System.Int32,System.Int32,System.Int32,System.Decimal,System.Int32,System.Int32)">
+            <summary>
+            异常解除
+            </summary>
+            <param name="type">0:品质异常 1:设备异常 2:物料</param>
+            <param name="machine_id">设备id</param>
+            <param name="log_id">日志id</param>
+            <param name="count">不良数量(品质异常解除时填写)</param>
+            <param name="error_type_id">异常类型</param>
+            <param name="error_type_detail_id">异常类型详细信息(设备异常时填写)</param>
+            <returns></returns>
         </member>
         <member name="M:mpm_web_api.Controllers.c_common.AreaLayerController.Get">
             <summary>
@@ -1677,7 +1702,7 @@
         </member>
         <member name="M:mpm_web_api.Controllers.c_oee.MachineLeaseController.Post(mpm_web_api.model.m_oee.machine_lease)">
             <summary>
-            新增标签
+            新增
             </summary>
             <param name="t">传入参数</param>
             <response code="200">调用成功</response>
@@ -1703,6 +1728,34 @@
             <response code="400">服务器异常</response>
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Get(System.Int32)">
+            <summary>
+            获取可以执行或者可以开启的工单号
+            </summary>
+            <param name="machine_id">设备id</param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Post(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            开始或者结束工单 
+            </summary>
+            <param name="type">0:开始工单 1:结束工单 2:暂停工单(未结)</param>
+            <param name="machine_id"> 设备id</param>
+            <param name="work_order_id"> 工单号</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Put(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            修改当前工单的实际生产数量
+            </summary>
+            <param name="machine_id">设备号</param>
+            <param name="work_order_id">工单号</param>
+            <param name="count">数量</param>
+            <returns></returns>
         </member>
         <member name="M:mpm_web_api.Controllers.c_work_order.CapacityConfigController.Delete(System.Int32)">
             <summary>
@@ -1734,6 +1787,44 @@
             <response code="411">外键异常</response>
         </member>
         <member name="M:mpm_web_api.Controllers.c_work_order.CapacityConfigController.Put(mpm_web_api.model.m_wo.capacity_config)">
+            <summary>
+            更新
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.InitialMaterialInfoController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">主键id</param>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.InitialMaterialInfoController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.InitialMaterialInfoController.Post(mpm_web_api.model.m_wo.initial_material_info)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.InitialMaterialInfoController.Put(mpm_web_api.model.m_wo.initial_material_info)">
             <summary>
             更新
             </summary>
@@ -1967,34 +2058,6 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
-        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Get(System.Int32)">
-            <summary>
-            获取可以执行或者可以开启的工单号
-            </summary>
-            <param name="machine_id">设备id</param>
-            <returns></returns>
-        </member>
-        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Post(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            开始或者结束工单 
-            </summary>
-            <param name="type">0:开始工单 1:结束工单 2:暂停工单(未结)</param>
-            <param name="machine_id"> 设备id</param>
-            <param name="work_order_id"> 工单号</param>
-            <response code="200">调用成功</response>
-            <response code="400">服务器异常</response>
-            <response code="410">数据库操作失败</response>
-            <response code="411">外键异常</response>
-        </member>
-        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Put(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            修改当前工单的实际生产数量
-            </summary>
-            <param name="machine_id">设备号</param>
-            <param name="work_order_id">工单号</param>
-            <param name="count">数量</param>
-            <returns></returns>
-        </member>
         <member name="M:mpm_web_api.Controllers.LicenceController.Get">
             <summary>
             获取已授权数量
@@ -2073,7 +2136,6 @@
             <summary>
             获取表内所有数据
             </summary>
-            <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
         <member name="M:mpm_web_api.DAL.BaseService`1.QueryableToList(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
@@ -2232,11 +2294,6 @@
         <member name="P:mpm_web_api.DB.CloudMongoDbTag.t">
             <summary>
             t在云端为device/tag的组合
-            </summary>
-        </member>
-        <member name="T:mpm_web_api.db.DbConnectionString">
-            <summary>
-            数据库连接属性
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_common.Licence.used_number">
@@ -2537,6 +2594,11 @@
         <member name="P:mpm_web_api.model.person.user_position">
             <summary>
             员工工位地址
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.person.photo_path">
+            <summary>
+            图片路径
             </summary>
         </member>
         <member name="P:mpm_web_api.model.srp_inner_log.srp_code">
@@ -3037,6 +3099,11 @@
             花费时间
             </summary>
         </member>
+        <member name="P:mpm_web_api.model.error_log.status">
+            <summary>
+            处理状态 0:触发 1:签到 2:解除
+            </summary>
+        </member>
         <member name="P:mpm_web_api.model.error_log_detail.error_config">
             <summary>
             异常配置信息
@@ -3145,6 +3212,11 @@
         <member name="P:mpm_web_api.model.material_request_info.cost_time">
             <summary>
             花费时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.material_request_info.status">
+            <summary>
+            处理状态 0:触发 1:签到 2:解除
             </summary>
         </member>
         <member name="P:mpm_web_api.model.notification_group.name_en">
@@ -3316,6 +3388,46 @@
         <member name="P:mpm_web_api.model.m_lpm.performance_formula.enable">
             <summary>
             其否启用
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_notice.sendmail_parameter.ToMialList">
+            <summary>
+            收件人
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_notice.sendmail_parameter.CCMialList">
+            <summary>
+            抄送人
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_notice.sendmail_parameter.File_Path">
+            <summary>
+            附件路径
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_notice.sendmail_parameter.Subject">
+            <summary>
+            邮件主题
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_notice.sendmail_parameter.Body">
+            <summary>
+            邮件内容
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_notice.sendwechart_parameter.topartyLisit">
+            <summary>
+            部门id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_notice.sendwechart_parameter.touserList">
+            <summary>
+            接收人
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_notice.sendwechart_parameter.text">
+            <summary>
+            消息内容
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_oee.machine_lease.machine_id">

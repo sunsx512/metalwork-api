@@ -20,7 +20,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 责任人
         /// </summary>
-        public int responsible_name { get; set; }
+        public int? responsible_name { get; set; }
         /// <summary>
         /// 设备名称
         /// </summary>
@@ -69,6 +69,10 @@ namespace mpm_web_api.model
         /// 花费时间
         /// </summary>
         public decimal? cost_time { get; set; }
+        /// <summary>
+        /// 处理状态 0:触发 1:签到 2:解除
+        /// </summary>
+        public int status { set; get; }
 
     }
 

@@ -36,7 +36,7 @@ namespace mpm_web_api.Common
                         EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
                         if (client_id == "")
                         {
-                            Client client = SSO.GetClient("Metalwork", token, environmentInfo.sso_url);
+                            Client client = SSO.GetClient("Metalwork", token, environmentInfo.sso_url,environmentInfo.workspace,environmentInfo.cluster);
                             if (client != null)
                             {
                                 client_id = client.clientId;

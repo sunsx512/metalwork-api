@@ -7,19 +7,6 @@ using SqlSugar;
 
 namespace mpm_web_api.db
 {
-    /// <summary>
-    /// 数据库连接属性
-    /// </summary>
-    public class DbConnectionString
-    {
-        public string DbType { set; get; }
-        public string Database { set; get; }
-        public string Port { set; get; }
-        public string Host { set; get; }
-        public string UserName { set; get; }
-        public string Password { set; get; }
-    }
-
     public abstract class PostgreBase
     {
         public static string connString = "";

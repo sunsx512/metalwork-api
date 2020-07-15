@@ -4,33 +4,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mpm_web_api.Common;
-using mpm_web_api.model.m_oee;
+using mpm_web_api.model.m_wo;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace mpm_web_api.Controllers.c_oee
+namespace mpm_web_api.Controllers.c_work_order
 {
-    [ApiExplorerSettings(GroupName = "OEE")]
+    [ApiExplorerSettings(GroupName = "WorkOrder")]
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/oee/machine_lease")]
-    [SwaggerTag("租赁信息配置")]
+    [Route("api/v1/configuration/work_order/initial_material_info")]
+    [SwaggerTag("预设物料呼叫信息")]
     [ApiController]
-    public class MachineLeaseController : SSOController
+    public class InitialMaterialInfoController : Controller
     {
-        ControllerHelper<machine_lease> ch = new ControllerHelper<machine_lease>();
+        ControllerHelper<initial_material_info> ch = new ControllerHelper<initial_material_info>();
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="id">主键id</param>
-        /// <response code="200">调用成功</response>
         /// <response code="400">服务器异常</response>
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpDelete]
         public ActionResult<common.response> Delete(int id)
         {
-
             return Json(ch.Delete(id));
         }
+
         /// <summary>
         /// 获取
         /// </summary>
@@ -39,11 +38,12 @@ namespace mpm_web_api.Controllers.c_oee
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<common.response<machine_lease>> Get()
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public ActionResult<common.response<initial_material_info>> Get()
         {
             return Json(ch.Get());
         }
-
         /// <summary>
         /// 新增
         /// </summary>
@@ -53,12 +53,12 @@ namespace mpm_web_api.Controllers.c_oee
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPost]
-        public ActionResult<common.response> Post(machine_lease t)
+        public ActionResult<common.response> Post(initial_material_info t)
         {
             return Json(ch.Post(t));
         }
         /// <summary>
-        /// 更新标签信息
+        /// 更新
         /// </summary>
         /// <param name="t">传入参数</param>
         /// <response code="200">调用成功</response>
@@ -66,7 +66,7 @@ namespace mpm_web_api.Controllers.c_oee
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpPut]
-        public ActionResult<common.response> Put(machine_lease t)
+        public ActionResult<common.response> Put(initial_material_info t)
         {
             return Json(ch.Put(t));
         }
