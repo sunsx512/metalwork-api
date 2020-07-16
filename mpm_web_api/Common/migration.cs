@@ -26,12 +26,13 @@ namespace mpm_web_api.Common
                     //if (IsCloud)
                     //    text = File.ReadAllText("sql\\" + fileInfo.Name);
                     //else
-                        text = File.ReadAllText("sql/" + fileInfo.Name);
-                    string[] tp = text.Split(';');
-                    foreach (string str in tp)
-                    {
-                        CreateOne(str.Replace("\n", "").Replace("\t", "").Replace("\r", ""));
-                    }
+                    text = File.ReadAllText("sql/" + fileInfo.Name);
+                    //string[] tp = text.Split(';');
+                    //foreach (string str in tp)
+                    //{
+                    //    CreateOne(str.Replace("\n", "").Replace("\t", "").Replace("\r", ""));
+                    //}
+                    CreateOne(text);
                     string cmd = string.Format("INSERT INTO common.migration_log(migration_version) VALUES ('{0}')", fileInfo.Name);
                     CreateOne(cmd);
                     //dockr版本需要自己新建账密

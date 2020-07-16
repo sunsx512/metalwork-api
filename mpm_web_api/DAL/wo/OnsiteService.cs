@@ -391,10 +391,10 @@ namespace mpm_web_api.DAL.wo
                     vlcl.balance_rate = vll.balance_rate;
                     vlcl.productivity = vll.productivity;
                     vlcl.quantity = vll.quantity;
-                    vlcl.start_time = DateTime.Now.AddHours(GlobalVar.time_zone);
+                    vlcl.start_time = vll.start_time;
                     vlcl.virtual_line_id = vll.virtual_line_id;
                     vlcl.wo_config_id = vll.wo_config_id;
-                    re = DB.Insertable<virtual_line_cur_log>(vlcl).ExecuteCommand()>0;
+                    re = DB.Insertable(vlcl).ExecuteCommand()>0;
                     //删除历史工单记录
                     re = re & DB.Deleteable<virtual_line_log>(vll.id).ExecuteCommand() > 0;
                 }
@@ -421,7 +421,7 @@ namespace mpm_web_api.DAL.wo
                                     wmcl.bad_quantity = obj.bad_quantity;
                                     wmcl.cycle_time = obj.cycle_time;
                                     wmcl.cycle_time_average = obj.cycle_time_average;
-                                    wmcl.start_time = DateTime.Now.AddHours(GlobalVar.time_zone);
+                                    wmcl.start_time = vll.start_time;
                                     wmcl.machine_id = obj.machine_id;
                                     wmcl.productivity = obj.productivity;
                                     wmcl.quantity = obj.quantity;

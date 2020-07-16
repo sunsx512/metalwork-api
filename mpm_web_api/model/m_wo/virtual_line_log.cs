@@ -20,7 +20,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTime? start_time { get; set; }
+        public DateTime start_time { get; set; }
         /// <summary>
         /// 结束时间
         /// </summary>
