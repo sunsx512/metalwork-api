@@ -505,6 +505,7 @@ namespace mpm_web_api.DAL.andon
                             
                         mri.material_code = material_code;
                         mri.request_count = count;
+                        mri.status = 0;
                         mri.createtime = DateTime.Now.AddHours(GlobalVar.time_zone);
                         if (ps != null)
                             mri.take_person_name = ps.user_name;

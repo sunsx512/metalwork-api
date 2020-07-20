@@ -25,6 +25,14 @@ namespace mpm_web_api.model.m_wo
         /// 工单id
         /// </summary>
         public int wo_config_id { set; get; }
+        /// <summary>
+        /// 责任单位
+        /// </summary>
+        public string responsible_unit { set; get; }
+        /// <summary>
+        /// 逾期原因
+        /// </summary>
+        public string reason { set; get; }
 
     }
 }
