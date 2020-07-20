@@ -495,7 +495,7 @@ CREATE TABLE andon.material_request_info (
     request_person_name character varying(20),
     work_order character varying(50),
     part_number character varying(50),
-    request_count integer NOT NULL,
+    request_count numeric(6,2) NOT NULL,
     take_person_name character varying(20),
     take_time timestamp(4) without time zone,
     createtime timestamp(4) without time zone NOT NULL,
@@ -809,7 +809,7 @@ CREATE TABLE common.area_layer (
     name_en character varying(255) NOT NULL,
     name_tw character varying(255) NOT NULL,
     description character varying(255),
-    calculate_avail boolean NOT NULL
+    calculate_avail boolean 
 );
 
 

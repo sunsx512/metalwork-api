@@ -32,7 +32,7 @@ namespace mpm_web_api.model
         /// <summary>
         /// 请求数量
         /// </summary>
-        public int request_count { get; set; }
+        public decimal request_count { get; set; }
         /// <summary>
         /// 送料人员名
         /// </summary>

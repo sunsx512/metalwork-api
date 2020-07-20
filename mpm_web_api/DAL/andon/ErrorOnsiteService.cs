@@ -486,11 +486,23 @@ namespace mpm_web_api.DAL.andon
                                 mri.work_order = wo.work_order;
                                 mri.part_number = wo.part_num;
                             }
+                            //如果有预设物料信息 则写入
+                            if (count == 0 && material_code == null)
+                            {
+                                initial_material_info initial_Material_Info = DB.Queryable<initial_material_info>().Where(x => x.machine_id == machine_id && x.worker_order_id == wocr.wo_config_id)?.First();
+                                if(initial_Material_Info != null)
+                                {
+                                    material_code = initial_Material_Info.materiel;
+                                    mri.request_count = initial_Material_Info.count;
+                                }
+                            }
                         }
 
                         mri.error_config_id = ec.id;
                         if (mc != null)
                             mri.machine_name = mc.name_en;
+
+                            
                         mri.material_code = material_code;
                         mri.request_count = count;
                         mri.createtime = DateTime.Now.AddHours(GlobalVar.time_zone);
