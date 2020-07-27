@@ -1,16 +1,23 @@
-﻿using mpm_web_api.Common;
+﻿using MongoDB.Bson.IO;
+using mpm_web_api.Common;
 using mpm_web_api.db;
 using mpm_web_api.model;
+using mpm_web_api.model.m_common;
 using mpm_web_api.model.m_wo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using JsonConvert = Newtonsoft.Json.JsonConvert;
+using SqlSugar;
 
 namespace mpm_web_api.DAL.wo
 {
     public class OnsiteService : SqlSugarBase
     {
+
+        AreaPropertyService areaPropertyService = new AreaPropertyService();
         /// <summary>
         /// 获取执行中的设备工单信息
         /// </summary>
@@ -127,16 +134,67 @@ namespace mpm_web_api.DAL.wo
         /// <summary>
         /// 开始线工单
         /// </summary>
-        /// <param name="virtual_line_id"></param>
         /// <param name="wo_config_id"></param>
         /// <returns></returns>
-        public bool StartWoVirtualLine(int virtual_line_id, int wo_config_id)
+        public bool StartWoVirtualLine(int wo_config_id)
         {
             bool re = false;
             virtual_line_cur_log vlcl = new virtual_line_cur_log();
             wo_config wo = DB.Queryable<wo_config>().Where(x => x.id == wo_config_id).First();
             if(wo != null)
             {
+                virtual_line_log vll = DB.Queryable<virtual_line_log>()?
+                                         .Where(x => x.virtual_line_id == wo.virtual_line_id)
+                                         .OrderBy(x=>x.end_time, OrderByType.Desc)
+                                         .First();
+                //如果存在上一笔工单 则需要计算换线的时间  ？？可能会有问题  时间过长
+                if(vll != null)
+                {
+                    DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                    //如果换线期间有休息时间  需要减去休息时间
+                    double rest_time = 0;
+                    //获取固定排休时间
+                    area_property FixedBreak = areaPropertyService.QueryFixedBreak().Where(x => x.area_node_id == 1).FirstOrDefault();
+                    //获取非固定排休时间
+                    area_property UnfixedBreak = areaPropertyService.QueryUnfixedBreak().Where(x => x.area_node_id == 1).FirstOrDefault();
+                    if(FixedBreak != null )
+                    {
+                        area_property_break fix = JsonConvert.DeserializeObject<area_property_break>(FixedBreak.format);
+                        foreach(rest obj in fix.rest)
+                        {
+                            DateTime start_rest = DateTime.Parse(obj.start);
+                            DateTime end_rest = DateTime.Parse(obj.end);
+                            //如果换线时间段内包含休息时间 则需要减去休息时间
+                            if(common.IsContainTimeSpan(start_rest, (DateTime)vll.end_time, now))
+                            {
+                                if (common.IsContainTimeSpan(end_rest, (DateTime)vll.end_time, now))
+                                {
+                                    rest_time += (end_rest - start_rest).TotalSeconds;
+                                }
+                            }
+                        }
+                    }
+                    if (UnfixedBreak != null)
+                    {
+                        area_property_break unfix = JsonConvert.DeserializeObject<area_property_break>(UnfixedBreak.format);
+                        foreach (rest obj in unfix.rest)
+                        {
+                            DateTime start_rest = Convert.ToDateTime(obj.start);
+                            DateTime end_rest = Convert.ToDateTime(obj.end);
+                            //如果换线时间段内包含休息时间 则需要减去休息时间
+                            if (common.IsContainTimeSpan(start_rest, (DateTime)vll.end_time, now))
+                            {
+                                if (common.IsContainTimeSpan(end_rest, (DateTime)vll.end_time, now))
+                                {
+                                    rest_time += (end_rest - start_rest).TotalSeconds;
+                                }
+                            }
+                        }
+                    }                   
+                    TimeSpan ts = now - (DateTime)vll.end_time;
+                    decimal change_over = Convert.ToDecimal(ts.TotalSeconds - rest_time);
+                    vlcl.change_over = change_over;
+                }
                 vlcl.start_time = DateTime.Now.AddHours(GlobalVar.time_zone);
                 vlcl.virtual_line_id = wo.virtual_line_id;
                 vlcl.wo_config_id = wo.id;
@@ -172,6 +230,7 @@ namespace mpm_web_api.DAL.wo
                 vll.start_time = vlcl.start_time;
                 vll.virtual_line_id = vlcl.virtual_line_id;
                 vll.wo_config_id = vlcl.wo_config_id;
+                vll.change_over = vlcl.change_over;
             }
 
             string[] standrd_times = dBWoConfig.standard_time.Split(';');
@@ -204,7 +263,6 @@ namespace mpm_web_api.DAL.wo
             //插入到线工单历史记录中
             return re & DB.Insertable(vll).ExecuteCommand()>0;
         }
-
 
         public bool FinishWoVirtualLine(int virtual_line_id, int wo_config_id, int status)
         {
@@ -270,7 +328,7 @@ namespace mpm_web_api.DAL.wo
                                 //如果没有开启工单 则自动开启线工单
                                 else
                                 {
-                                    re = StartWoVirtualLine(vl.id, work_order_id);
+                                    re = StartWoVirtualLine(work_order_id);
                                     return re & StartWoMachine(machine_id, work_order_id);
                                 }
                             }

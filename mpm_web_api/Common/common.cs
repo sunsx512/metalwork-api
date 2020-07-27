@@ -59,5 +59,26 @@ namespace mpm_web_api
             public string message { get; set; }
         }
 
+        /// <summary>
+        /// 判断时间点 是否在时间段内
+        /// </summary>
+        /// <param name="ts"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static bool IsContainTimeSpan(DateTime ts,DateTime start,DateTime end)
+        {
+            bool res = false;
+            //开始时间早于 时间点
+            if(DateTime.Compare(ts, start) > 0)
+            {
+                //结束时间大于
+                if(DateTime.Compare(ts, end) < 0)
+                {
+                    res = true;
+                }
+            }
+            return res;
+        }
     }
 }

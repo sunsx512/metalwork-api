@@ -42,6 +42,10 @@ namespace mpm_web_api.model
         /// 不良数量
         /// </summary>
         public decimal bad_quantity { set; get; }
+        /// <summary>
+        /// 换线时间
+        /// </summary>
+        public decimal change_over { set; get; }
 
     }
 
