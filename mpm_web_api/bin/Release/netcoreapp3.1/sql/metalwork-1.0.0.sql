@@ -495,7 +495,7 @@ CREATE TABLE andon.material_request_info (
     request_person_name character varying(20),
     work_order character varying(50),
     part_number character varying(50),
-    request_count integer NOT NULL,
+    request_count numeric(6,2) NOT NULL,
     take_person_name character varying(20),
     take_time timestamp(4) without time zone,
     createtime timestamp(4) without time zone NOT NULL,
@@ -809,7 +809,7 @@ CREATE TABLE common.area_layer (
     name_en character varying(255) NOT NULL,
     name_tw character varying(255) NOT NULL,
     description character varying(255),
-    calculate_avail boolean NOT NULL
+    calculate_avail boolean
 );
 
 
@@ -1462,7 +1462,14 @@ CREATE SEQUENCE ehs.current_state_id_seq
 ALTER SEQUENCE ehs.current_state_id_seq OWNED BY ehs.current_state.id;
 
 
+--
+-- Name: di_tu; Type: TABLE; Schema: ehs; Owner: -
+--
 
+CREATE TABLE ehs.di_tu (
+    id integer NOT NULL,
+    value double precision
+);
 
 
 --
@@ -2409,6 +2416,38 @@ ALTER SEQUENCE oee.machine_lease_log_id_seq OWNED BY oee.machine_lease_log.id;
 
 
 --
+-- Name: maintenance_records; Type: TABLE; Schema: oee; Owner: -
+--
+
+CREATE TABLE oee.maintenance_records (
+    id integer NOT NULL,
+    machine_id integer NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    description character varying(1000)
+);
+
+
+--
+-- Name: maintenance_records_id_seq; Type: SEQUENCE; Schema: oee; Owner: -
+--
+
+CREATE SEQUENCE oee.maintenance_records_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: maintenance_records_id_seq; Type: SEQUENCE OWNED BY; Schema: oee; Owner: -
+--
+
+ALTER SEQUENCE oee.maintenance_records_id_seq OWNED BY oee.maintenance_records.id;
+
+
+--
 -- Name: status_duration_day; Type: TABLE; Schema: oee; Owner: -
 --
 
@@ -2975,7 +3014,9 @@ CREATE TABLE work_order.overdue_work_order (
     start_time timestamp(0) without time zone NOT NULL,
     end_time timestamp(0) without time zone NOT NULL,
     overdue_time numeric(16,2) NOT NULL,
-    wo_config_id integer NOT NULL
+    wo_config_id integer NOT NULL,
+    responsible_unit character varying(255),
+    reason character varying(1000)
 );
 
 
@@ -3024,7 +3065,8 @@ CREATE TABLE work_order.virtual_line_current_log (
     balance_rate numeric(8,2),
     productivity numeric(8,2),
     quantity numeric(8,2),
-    bad_quantity numeric(8,2)
+    bad_quantity numeric(8,2),
+    change_over numeric(10,2)
 );
 
 
@@ -3081,7 +3123,8 @@ CREATE TABLE work_order.virtual_line_log (
     balance_rate numeric(8,2),
     productivity numeric(8,2),
     quantity numeric(8,2),
-    bad_quantity numeric(8,2)
+    bad_quantity numeric(8,2),
+    change_over numeric(10,2)
 );
 
 
@@ -3855,6 +3898,13 @@ ALTER TABLE ONLY oee.machine_lease_log ALTER COLUMN id SET DEFAULT nextval('oee.
 
 
 --
+-- Name: maintenance_records id; Type: DEFAULT; Schema: oee; Owner: -
+--
+
+ALTER TABLE ONLY oee.maintenance_records ALTER COLUMN id SET DEFAULT nextval('oee.maintenance_records_id_seq'::regclass);
+
+
+--
 -- Name: status_duration_day id; Type: DEFAULT; Schema: oee; Owner: -
 --
 
@@ -4580,6 +4630,14 @@ ALTER TABLE ONLY ehs.current_state
 
 
 --
+-- Name: di_tu di_tu_pkey; Type: CONSTRAINT; Schema: ehs; Owner: -
+--
+
+ALTER TABLE ONLY ehs.di_tu
+    ADD CONSTRAINT di_tu_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: exception_log exception_log_pkey; Type: CONSTRAINT; Schema: ehs; Owner: -
 --
 
@@ -4793,6 +4851,14 @@ ALTER TABLE ONLY oee.machine_lease
 
 ALTER TABLE ONLY oee.machine_lease
     ADD CONSTRAINT machine_lease_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: maintenance_records maintenance_records_pkey; Type: CONSTRAINT; Schema: oee; Owner: -
+--
+
+ALTER TABLE ONLY oee.maintenance_records
+    ADD CONSTRAINT maintenance_records_pkey PRIMARY KEY (id);
 
 
 --
