@@ -547,7 +547,6 @@ namespace mpm_web_api.DAL.andon
         /// <returns></returns>
         public bool IsErrorRelease(int machine_id)
         {
-            //
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "machine_error_release").First();
             tag_info tag_Info = DB.Queryable<tag_info>().Where(x => x.machine_id == machine_id && x.tag_type_sub_id == tag_Type_Sub.id).First();
             List<MongoDbTag> list = new List<MongoDbTag>();
@@ -580,7 +579,7 @@ namespace mpm_web_api.DAL.andon
                             mongoDbTag.s = scada;
                             mongoDbTag.t = cloudMongoDbTag.t;
                             mongoDbTag.ts = cloudMongoDbTag.ts;
-                            mongoDbTag.v = Convert.ToInt32(cloudMongoDbTag.v);
+                            mongoDbTag.v = cloudMongoDbTag.v.ToString();
                             list.Add(mongoDbTag);
                         }
                     }
@@ -601,7 +600,7 @@ namespace mpm_web_api.DAL.andon
             {
                 var last_row = list.Last();
                 //1:设备异常允许被解除  0:设备异常不允许被解除
-                if (list.Last().v == 1)
+                if (list.Last().v == "1")
                     return true;
                 else
                     return false;

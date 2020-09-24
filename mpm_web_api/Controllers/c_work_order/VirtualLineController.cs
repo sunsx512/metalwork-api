@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_work_order
     [Route("api/v1/configuration/work_order/virtual_line")]
     [SwaggerTag("设定虚拟线信息")]
     [ApiController]
-    public class VirtualLineController : SSOController
+    public class VirtualLineController : Controller
     {
 
         ControllerHelper<virtual_line> ch = new ControllerHelper<virtual_line>();

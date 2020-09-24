@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/tag_detail")]
     [SwaggerTag("标签详细信息")]
     [ApiController]
-    public class TagInfoDetailController : Controller
+    public class TagInfoDetailController : Microsoft.AspNetCore.Mvc.Controller
     {
         TagService ts = new TagService();
 

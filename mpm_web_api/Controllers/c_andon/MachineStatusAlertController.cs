@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/machine_status_alert")]
     [SwaggerTag("设备状态预警")]
     [ApiController]
-    public class MachineStatusAlertController : SSOController
+    public class MachineStatusAlertController : Controller
     {
         ControllerHelper<machine_status_alert> ch = new ControllerHelper<machine_status_alert>();
         /// <summary>

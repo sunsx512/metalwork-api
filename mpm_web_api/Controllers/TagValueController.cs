@@ -46,7 +46,7 @@ namespace mpm_web_api.Controllers
                     mongoDbTag.s = scada_id;
                     mongoDbTag.t = cloudMongoDbTag.t;
                     mongoDbTag.ts = cloudMongoDbTag.ts;
-                    mongoDbTag.v = cloudMongoDbTag.v;
+                    mongoDbTag.v = cloudMongoDbTag.v.ToString();
                     list_mongo.Add(mongoDbTag);
                 }
                 obj = common.ResponseStr<MongoDbTag>((int)httpStatus.succes, "调用成功", list_mongo);
@@ -58,7 +58,7 @@ namespace mpm_web_api.Controllers
                                                     filterBuilder1.Lte(x => x.ts, end_time),
                                                     filterBuilder1.Eq(x => x.s, scada_id),
                                                     filterBuilder1.Eq(x => x.t, tag_name));
-                List<MongoDbTag> list = mh.GetList<MongoDbTag>("scada_HistRawData", filter1);
+                List<MongoDbTag> list = mh.GetList("scada_HistRawData", filter1);
                 obj = common.ResponseStr<MongoDbTag>((int)httpStatus.succes, "调用成功", list);
             }
             return Json(obj);

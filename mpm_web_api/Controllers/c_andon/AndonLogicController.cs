@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/andon_logic")]
     [SwaggerTag("安灯逻辑")]
     [ApiController]
-    public class AndonLogicController : Controller
+    public class AndonLogicController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<andon_logic> ch = new ControllerHelper<andon_logic>();
         /// <summary>

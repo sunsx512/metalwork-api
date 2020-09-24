@@ -112,18 +112,9 @@ namespace mpm_web_api.DAL.wo
                                                                   .First();
             if (curwomachine != null)
             {
-                wml.achieving_rate = curwomachine.achieving_rate;
-                wml.bad_quantity = curwomachine.bad_quantity;
-                wml.cycle_time = curwomachine.cycle_time;
-                wml.cycle_time_average = curwomachine.cycle_time_average;
+                wml = common.AutoCopy<wo_machine_cur_log, wo_machine_log>(curwomachine);
                 wml.end_time = DateTime.Now.AddHours(GlobalVar.time_zone);
-                wml.machine_id = curwomachine.machine_id;
-                wml.productivity = curwomachine.productivity;
-                wml.quantity = curwomachine.quantity;
-                wml.standard_time = curwomachine.standard_time;
-                wml.start_time = curwomachine.start_time;
-                wml.wo_config_id = curwomachine.wo_config_id;
-                wml.standard_num = curwomachine.standard_num;
+                RemoveBreakpoint(curwomachine.wo_config_id);
             }
             //完结 当前执行的设备工单日志
             re = DB.Deleteable<wo_machine_cur_log>(curwomachine.id).ExecuteCommand()>0;
@@ -208,7 +199,7 @@ namespace mpm_web_api.DAL.wo
             }
         }
 
-        public bool FinishWoVirtualLine(int virtual_line_id, int wo_config_id,int status,int machine_id)
+        public bool FinishWoVirtualLine(int virtual_line_id, int wo_config_id,int status,int machine_id,decimal count)
         {
             bool re = false;
             virtual_line_log vll = new virtual_line_log();
@@ -223,14 +214,9 @@ namespace mpm_web_api.DAL.wo
                                                                   .First();
             if (vlcl != null)
             {
-                vll.balance_rate = vlcl.balance_rate;
+                vll = common.AutoCopy<virtual_line_cur_log, virtual_line_log>(vlcl);
+                vll.quantity = count;
                 vll.end_time = DateTime.Now.AddHours(GlobalVar.time_zone);
-                vll.productivity = vlcl.productivity;
-                vll.quantity = vlcl.quantity;
-                vll.start_time = vlcl.start_time;
-                vll.virtual_line_id = vlcl.virtual_line_id;
-                vll.wo_config_id = vlcl.wo_config_id;
-                vll.change_over = vlcl.change_over;
             }
 
             string[] standrd_times = dBWoConfig.standard_time.Split(';');
@@ -258,6 +244,7 @@ namespace mpm_web_api.DAL.wo
                 //更新主工单的状态
                 re = DB.Updateable<wo_config>().Where(x => x.id == wo_config_id).UpdateColumns(it => new wo_config() { status = status }).ExecuteCommand() > 0;
             }
+            RemoveBreakpoint(wo_config_id);
             //完结 当前执行的线工单日志
             re = re & DB.Deleteable<virtual_line_cur_log>(vlcl.id).ExecuteCommand()>0;
             //插入到线工单历史记录中
@@ -276,13 +263,8 @@ namespace mpm_web_api.DAL.wo
             wo_config dBWoConfig = DB.Queryable<wo_config>().Where(x => x.id == wo_config_id).First();
             if (vlcl != null)
             {
-                vll.balance_rate = vlcl.balance_rate;
+                vll = common.AutoCopy<virtual_line_cur_log, virtual_line_log>(vlcl);
                 vll.end_time = DateTime.Now.AddHours(GlobalVar.time_zone);
-                vll.productivity = vlcl.productivity;
-                vll.quantity = vlcl.quantity;
-                vll.start_time = vlcl.start_time;
-                vll.virtual_line_id = vlcl.virtual_line_id;
-                vll.wo_config_id = vlcl.wo_config_id;
             }
             if(dBWoConfig != null)
             {
@@ -366,7 +348,7 @@ namespace mpm_web_api.DAL.wo
                     if (ml != null)
                     {
                         //判断该虚拟线下的其他设备是否已经完结
-                        bool OtherMachinesFinshed = true;
+                        bool OtherMachinesFinshed = true;                        
                         foreach(wo_machine wm in ml.Where(x=>x.machine_id != machine_id))
                         {
                             wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.machine_id == wm.machine_id)
@@ -376,13 +358,17 @@ namespace mpm_web_api.DAL.wo
                                 OtherMachinesFinshed = false;
                                 break;
                             }
-                        }
-                        
+                        }                      
                         //如果其他站位已经完结了 则完结当前站位 及整个虚拟线
                         if (OtherMachinesFinshed)
                         {
+                            CalMachineProductivity(machine_id);
                             re = FinshWoMachine(machine_id);
-                            return re & FinishWoVirtualLine(vl.id, work_order_id,3, machine_id);
+                            //计算线生产力及生产效率
+                            CalVirtualLineProductivity(work_order_id);
+                            decimal count = DB.Queryable<wo_machine_log>().Where(x => x.machine_id == machine_id)
+                                                                          .Where(x => x.wo_config_id == work_order_id).First().quantity;
+                            return re & FinishWoVirtualLine(vl.id, work_order_id,3, machine_id, count);
                         }
                         //如果没有完结  则完结当前站位
                         else
@@ -521,6 +507,325 @@ namespace mpm_web_api.DAL.wo
             return false;
         }
 
+        public void CalVirtualLineProductivity(int workorder_id)
+        {
+            List<wo_machine_cur_log> wcls = DB.Queryable<wo_machine_cur_log>().ToList();
+            virtual_line_cur_log vlcl = DB.Queryable<virtual_line_cur_log>().Where(x=>x.wo_config_id == workorder_id)?.First();
+            List<machine> machines = DB.Queryable<machine>().ToList();
+            //获取工单信息
+            wo_config wo = DB.Queryable<wo_config>().Where(x => x.id == workorder_id)?.First();
+            //获取虚拟线信息
+            List<wo_machine> wm = DB.Queryable<wo_machine>().Where(x => x.virtual_line_id == wo.virtual_line_id).ToList();
+            double vl_production_time = 0;   //虚拟线的生产时间累计  各台设备的生产时间累加
+            decimal vl_standard_production_time = 0;   //标准生产时间 实际数量*标准时间
+            decimal vl_standard_quantity = 0; //线标准数量
+            decimal vl_achievement_rate = 0;  //达成率           
+            decimal vl_productivity = 0;  //生产力
+            decimal vl_production_efficiency = 0; //生产效率
+            double vl_rest_time = 0; //累计的休息时间
+            double vl_error_time = 0;  //累计的异常时间  暂定品质异常和设备异常时间
+            //第三步 查看是否在休息时间内   如果在的话 不计算 不更新
+            area_property FixedBreak = DB.Queryable<area_property>().Where(x => x.name_en == "fixed_break" && x.area_node_id == 1).First();
+            //获取非固定排休时间
+            area_property UnfixedBreak = DB.Queryable<area_property>().Where(x => x.name_en == "unfixed_break" && x.area_node_id == 1).First();
+            //计算设备生产力及生产效率
+            foreach (wo_machine mc in wm)
+            {
+                DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                wo_machine_cur_log wcl = wcls.Where(x => x.machine_id == mc.machine_id).FirstOrDefault();
+                if (wcl == null)
+                {
+                    //查询历史记录
+                    wo_machine_log wl = DB.Queryable<wo_machine_log>().Where(x => x.wo_config_id == workorder_id)
+                                                                      .Where(x => x.machine_id == mc.machine_id).First();
+                    if (wl != null)
+                    {
+                        wcl = wl;
+                        now = wl.end_time;
+                    }
+                }
+                if (wcl != null)
+                {
+                    //标记是否是休息时间
+                    bool is_rest = false;
+                    //标记是否是异常时间
+                    bool is_error = false;
+                    //达成率
+                    decimal achievement_rate = 0;
+                    //生产力
+                    decimal productivity = 0;
+                    //生产效率
+                    decimal production_efficiency = 0;
+                    //累计的休息时间
+                    double rest_time = 0;
+                    //累计的异常时间  暂定品质异常和设备异常时间
+                    double error_time = 0;
+                    //计算达成率
+                    achievement_rate = wcl.quantity / wcl.standard_num;
+                    //计算生产效率
+                    //第一步 计算生产时间
+
+                    //第二步 计算当前生产的总时间
+                    double ts_difference = (now - wcl.start_time).TotalSeconds;
+                    //固定排休
+                    if (FixedBreak != null)
+                    {
+                        area_property_break fix = JsonConvert.DeserializeObject<area_property_break>(FixedBreak.format);
+                        foreach (rest obj in fix.rest)
+                        {
+                            DateTime start_rest = DateTime.Parse(obj.start);
+                            DateTime end_rest = DateTime.Parse(obj.end);
+                            //如果在休息时间内 则不计算 不更新
+                            if (common.IsContainTimeSpan(now, start_rest, end_rest))
+                            {
+                                is_rest = true;
+                                break;
+                            }
+                            //如果 运行时间中有休息时间 则累计休息时间
+                            if (common.IsContainTimeSpan(start_rest, wcl.start_time, now))
+                            {
+                                if (common.IsContainTimeSpan(end_rest, wcl.start_time, now))
+                                {
+                                    rest_time += (end_rest - start_rest).TotalSeconds;
+                                }
+                            }
+                        }
+                    }
+                    //非固定排休
+                    if (UnfixedBreak != null)
+                    {
+                        area_property_break unfix = JsonConvert.DeserializeObject<area_property_break>(UnfixedBreak.format);
+                        foreach (rest obj in unfix.rest)
+                        {
+                            DateTime start_rest = Convert.ToDateTime(obj.start);
+                            DateTime end_rest = Convert.ToDateTime(obj.end);
+                            //如果在休息时间内 则不计算 不更新
+                            if (common.IsContainTimeSpan(now, start_rest, end_rest))
+                            {
+                                is_rest = true;
+                                rest_time += (now - start_rest).TotalSeconds;
+                                break;
+                            }
+
+                            //如果 运行时间中有休息时间 则累计休息时间
+                            if (common.IsContainTimeSpan(start_rest, wcl.start_time, now))
+                            {
+                                if (common.IsContainTimeSpan(end_rest, wcl.start_time, now))
+                                {
+                                    rest_time += (end_rest - start_rest).TotalSeconds;
+                                }
+                            }
+                        }
+                    }
+                    //第四步 查看是否有异常时间 
+                    machine machine = machines.Where(x => x.id == mc.machine_id).FirstOrDefault();
+                    if (machine != null)
+                    {
+                        List<error_log> els = DB.Queryable<error_log>()
+                                                .Where(x => x.machine_name == machine.name_en && x.start_time > wcl.start_time)
+                                                .ToList();
+                        //如果存在未解除的异常 则直接跳过 不计算
+                        if (els.Where(x => x.status == 0 && x.status == 1).ToList().Count > 0)
+                        {
+                            is_error = true;
+                        }
+                        //没有未解除的异常
+                        else
+                        {
+                            //查询已解除的异常
+                            List<error_log> fels = els.Where(x => x.status == 2).ToList();
+                            if (fels != null)
+                            {
+                                foreach (error_log el in fels)
+                                {
+                                    if (common.IsContainTimeSpan((DateTime)el.start_time, wcl.start_time, now))
+                                    {
+                                        if (common.IsContainTimeSpan((DateTime)el.release_time, wcl.start_time, now))
+                                        {
+                                            error_time += ((DateTime)el.release_time - (DateTime)el.start_time).TotalSeconds;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    vl_rest_time += rest_time;
+                    vl_error_time += error_time;
+                    vl_production_time += ts_difference;
+                    //除去休息时间和异常时间的 工作时间 生产力
+                    double uptime1 = ts_difference - rest_time - error_time;
+                    //除去休息时间和异常时间的 工作时间 生产效率
+                    double uptime2 = ts_difference - rest_time;
+                    vl_standard_production_time += wcl.standard_time * wcl.quantity;
+                    productivity = wcl.standard_time * wcl.quantity / (decimal)uptime1;
+                    production_efficiency = wcl.standard_time * wcl.quantity / (decimal)uptime2;
+                }
+            }
+            //除去休息时间和异常时间的 工作时间 生产力
+            double vl_uptime1 = vl_production_time - vl_rest_time - vl_error_time;
+            //除去休息时间和异常时间的 工作时间 生产效率
+            double vl_uptime2 = vl_production_time - vl_rest_time;
+            vl_productivity = vl_standard_production_time / (decimal)vl_uptime1;
+            vl_production_efficiency = vl_standard_production_time / (decimal)vl_uptime2;
+            DB.Updateable<virtual_line_cur_log>().UpdateColumns(it => new virtual_line_cur_log() { productivity = vl_productivity, production_efficiency = vl_production_efficiency })
+                             .Where(x => x.wo_config_id == workorder_id).ExecuteCommand(); 
+        }
+
+
+        /// <summary>
+        /// 计算设备生产率
+        /// </summary>
+        /// <param name="wcl"></param>
+        public void CalMachineProductivity(int machine_id)
+        {
+            wo_machine_cur_log wcl = DB.Queryable<wo_machine_cur_log>()
+                                                      .Where(x => x.machine_id == machine_id)
+                                                      .First();
+            if (wcl != null)
+            {
+                //标记是否是休息时间
+                bool is_rest = false;
+                //标记是否是异常时间
+                bool is_error = false;
+                //达成率
+                decimal achievement_rate = 0;
+                //生产力
+                decimal productivity = 0;
+                //生产效率
+                decimal production_efficiency = 0;
+                //累计的休息时间
+                double rest_time = 0;
+                //累计的异常时间  暂定品质异常和设备异常时间
+                double error_time = 0;
+                //计算达成率
+                achievement_rate = wcl.quantity / wcl.standard_num;
+                //计算生产效率
+                //第一步 计算生产时间
+                DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                //第二步 计算当前生产的总时间
+                double ts_difference = (now - wcl.start_time).TotalSeconds;
+                //第三步 查看是否在休息时间内   如果在的话 不计算 不更新
+                area_property FixedBreak = DB.Queryable<area_property>().Where(x => x.name_en == "fixed_break" && x.area_node_id == 1).First();
+                //获取非固定排休时间
+                area_property UnfixedBreak = DB.Queryable<area_property>().Where(x => x.name_en == "unfixed_break" && x.area_node_id == 1).First();
+                //固定排休
+                if (FixedBreak != null)
+                {
+                    area_property_break fix = JsonConvert.DeserializeObject<area_property_break>(FixedBreak.format);
+                    foreach (rest obj in fix.rest)
+                    {
+                        DateTime start_rest = DateTime.Parse(obj.start);
+                        DateTime end_rest = DateTime.Parse(obj.end);
+                        //如果在休息时间内 则不计算 不更新
+                        if (common.IsContainTimeSpan(now, start_rest, end_rest))
+                        {
+                            is_rest = true;
+                            break;
+                        }
+                        //如果 运行时间中有休息时间 则累计休息时间
+                        if (common.IsContainTimeSpan(start_rest, wcl.start_time, now))
+                        {
+                            if (common.IsContainTimeSpan(end_rest, wcl.start_time, now))
+                            {
+                                rest_time += (end_rest - start_rest).TotalSeconds;
+                            }
+                        }
+                    }
+                }
+                //非固定排休
+                if (UnfixedBreak != null)
+                {
+                    area_property_break unfix = JsonConvert.DeserializeObject<area_property_break>(UnfixedBreak.format);
+                    foreach (rest obj in unfix.rest)
+                    {
+                        DateTime start_rest = Convert.ToDateTime(obj.start);
+                        DateTime end_rest = Convert.ToDateTime(obj.end);
+                        //如果在休息时间内 则不计算 不更新
+                        if (common.IsContainTimeSpan(now, start_rest, end_rest))
+                        {
+                            is_rest = true;
+                            rest_time += (now - start_rest).TotalSeconds;
+                            break;
+                        }
+                        //如果 运行时间中有休息时间 则累计休息时间
+                        if (common.IsContainTimeSpan(start_rest, wcl.start_time, now))
+                        {
+                            if (common.IsContainTimeSpan(end_rest, wcl.start_time, now))
+                            {
+                                rest_time += (end_rest - start_rest).TotalSeconds;
+                            }
+                        }
+                    }
+                }
+                //第四步 查看是否有异常时间 
+                machine machine = DB.Queryable<machine>().Where(x => x.id == wcl.machine_id)?.First();
+                if (machine != null)
+                {
+                    List<error_log> els = DB.Queryable<error_log>()
+                                            .Where(x => x.machine_name == machine.name_en && x.start_time > wcl.start_time)
+                                            .ToList();
+                    //如果存在未解除的异常 则直接跳过 不计算
+                    if (els.Where(x => x.status == 0 && x.status == 1).ToList().Count > 0)
+                    {
+                        is_error = true;
+                    }
+                    //没有未解除的异常
+                    else
+                    {
+                        //查询已解除的异常
+                        List<error_log> fels = els.Where(x => x.status == 2).ToList();
+                        if (fels != null)
+                        {
+                            foreach (error_log el in fels)
+                            {
+                                if (common.IsContainTimeSpan((DateTime)el.start_time, wcl.start_time, now))
+                                {
+                                    if (common.IsContainTimeSpan((DateTime)el.release_time, wcl.start_time, now))
+                                    {
+                                        error_time += ((DateTime)el.release_time - (DateTime)el.start_time).TotalSeconds;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                //除去休息时间和异常时间的 工作时间 生产力
+                double uptime1 = ts_difference - rest_time - error_time;
+                //除去休息时间和异常时间的 工作时间 生产效率
+                double uptime2 = ts_difference - rest_time;
+                productivity = wcl.standard_time * wcl.quantity / (decimal)uptime1;
+                production_efficiency = wcl.standard_time * wcl.quantity / (decimal)uptime2;
+                //如果是休息状态 则不会计算 
+                if (!is_rest)
+                {
+                    //更新生产力及生产效率
+                    if (!is_error)
+                    {
+                        DB.Updateable<wo_machine_cur_log>().UpdateColumns(it => new wo_machine_cur_log() { productivity = productivity, production_efficiency = production_efficiency, achieving_rate = wcl.quantity / wcl.standard_num })
+                                           .Where(x => x.machine_id == wcl.machine_id).ExecuteCommand();
+                    }
+                    //只更新生产力
+                    else
+                    {
+                        DB.Updateable<wo_machine_cur_log>().UpdateColumns(it => new wo_machine_cur_log() { productivity = productivity, achieving_rate = wcl.quantity / wcl.standard_num })
+                                             .Where(x => x.machine_id == wcl.machine_id).ExecuteCommand();
+                    }
+                }
+            }
+        }
+
+        public bool RemoveBreakpoint(int workorder_id)
+        {
+            try
+            {
+                return DB.Deleteable<break_point_log>(x => x.work_order_id == workorder_id).ExecuteCommand() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
 
     }
 }

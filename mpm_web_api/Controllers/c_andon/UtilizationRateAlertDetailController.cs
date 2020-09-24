@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/utilization_rate_alert_detail")]
     [SwaggerTag("稼动率预警详细信息")]
     [ApiController]
-    public class UtilizationRateAlertDetailController : SSOController
+    public class UtilizationRateAlertDetailController : Controller
     {
         UtilizationRateAlert ura = new UtilizationRateAlert();
         /// <summary>

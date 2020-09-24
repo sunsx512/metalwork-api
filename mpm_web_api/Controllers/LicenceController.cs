@@ -19,9 +19,6 @@ namespace mpm_web_api.Controllers
     [ApiController]
     public class LicenceController : Controller
     {
-
-
-
         /// <summary>
         /// 获取已授权数量
         /// </summary>
@@ -48,27 +45,41 @@ namespace mpm_web_api.Controllers
             //docker环境
             else
             {
-                Licence_Original lco = LicenceHelper.ReadLicence();
-                //验证Licence合法性
-                if (LicenceHelper.CheckSpaceID(lco.unique_identifier))
-                {
-                    Licence lc = new Licence();                
-                    //获取已使用的设备数量
-                    lc.used_number = ms.GetMachineCount();
-                    //获取已授权的设备数量
-                    lc.authorized_number = lco.machineNum;
-                    GlobalVar.authorized_number = lco.machineNum;
-                    lc.expire_date = lco.expire_date;
-                    lc.module = lco.module;
-                    lc.version = lco.version;
-                    List<Licence> list = new List<Licence>();
-                    list.Add(lc);
-                    obj = common.ResponseStr((int)httpStatus.succes, "调用成功", list);
-                }
-                else
-                {
-                    obj = common.ResponseStr(401, "未授权");
-                }
+                //Licence_Original lco = LicenceHelper.ReadLicence();
+                ////验证Licence合法性
+                //if (LicenceHelper.CheckSpaceID(lco.unique_identifier))
+                //{
+                //    Licence lc = new Licence();                
+                //    //获取已使用的设备数量
+                //    lc.used_number = ms.GetMachineCount();
+                //    //获取已授权的设备数量
+                //    lc.authorized_number = lco.machineNum;
+                //    GlobalVar.authorized_number = lco.machineNum;
+                //    lc.expire_date = lco.expire_date;
+                //    lc.module = lco.module;
+                //    lc.version = lco.version;
+                //    List<Licence> list = new List<Licence>();
+                //    list.Add(lc);
+                //    obj = common.ResponseStr((int)httpStatus.succes, "调用成功", list);
+                //}
+                //else
+                //{
+                //    obj = common.ResponseStr(401, "未授权");
+                //}
+
+               
+                Licence lc = new Licence();
+                //获取已使用的设备数量
+                lc.used_number = ms.GetMachineCount();
+                //获取已授权的设备数量
+                lc.authorized_number = 1000;
+                GlobalVar.authorized_number = 1000;
+                lc.expire_date = DateTime.Now.AddDays(365);
+                lc.module = "All";
+                lc.version = "1.0.0";
+                List<Licence> list = new List<Licence>();
+                list.Add(lc);
+                obj = common.ResponseStr((int)httpStatus.succes, "调用成功", list);
             }
 
             return Json(obj);

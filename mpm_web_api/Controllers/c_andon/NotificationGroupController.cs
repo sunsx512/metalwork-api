@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/notification_group")]
     [SwaggerTag("通知人员群组")]
     [ApiController]
-    public class NotificationGroupController : SSOController
+    public class NotificationGroupController : Controller
     {
         ControllerHelper<notification_group> ch = new ControllerHelper<notification_group>();
         ControllerHelper<notification_person> chp = new ControllerHelper<notification_person>();

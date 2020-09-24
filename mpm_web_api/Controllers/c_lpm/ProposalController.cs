@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_lpm
     [Route("api/v1/configuration/lpm/proposal")]
     [SwaggerTag("人员提案")]
     [ApiController]
-    public class ProposalController : Controller
+    public class ProposalController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<proposal> ch = new ControllerHelper<proposal>();
         /// <summary>

@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/machine_fault_alert_detail")]
     [SwaggerTag("设备故障预警详细信息")]
     [ApiController]
-    public class MachineFaultAlertDetailController : Controller
+    public class MachineFaultAlertDetailController : Microsoft.AspNetCore.Mvc.Controller
     {
         MachineFaultAlertService mfas = new MachineFaultAlertService();
 

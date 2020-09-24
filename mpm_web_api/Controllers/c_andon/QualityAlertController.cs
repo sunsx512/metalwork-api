@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/quality_alert")]
     [SwaggerTag("品质异常不良数量预警")]
     [ApiController]
-    public class QualityAlertController : Controller
+    public class QualityAlertController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<quality_alert> ch = new ControllerHelper<quality_alert>();
         /// <summary>

@@ -19,7 +19,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/email_server")]
     [SwaggerTag("邮件服务")]
     [ApiController]
-    public class EmailServerController : SSOController
+    public class EmailServerController : Controller
     {
         ControllerHelper<email_server> ch = new ControllerHelper<email_server>();
 

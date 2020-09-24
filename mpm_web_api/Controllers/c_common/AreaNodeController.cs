@@ -21,7 +21,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/area_node")]
     [SwaggerTag("区域节点")]
     [ApiController]
-    public class AreaNodeController : SSOController,IController<area_node>
+    public class AreaNodeController : Controller,IController<area_node>
     {
         ControllerHelper<area_node> ch = new ControllerHelper<area_node>();
         AreaNodeService ans = new AreaNodeService();

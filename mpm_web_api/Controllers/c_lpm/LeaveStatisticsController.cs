@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_lpm
     [Route("api/v1/configuration/lpm/leave_statistics")]
     [SwaggerTag("请假统计")]
     [ApiController]
-    public class LeaveStatisticsController : Controller
+    public class LeaveStatisticsController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<leave_statistics> ch = new ControllerHelper<leave_statistics>();
         /// <summary>

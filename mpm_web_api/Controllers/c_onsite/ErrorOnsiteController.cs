@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("api/v1/client/error/onsite")]
     [SwaggerTag("现场操作页面异常呼叫使用")]
     [ApiController]
-    public class ErrorOnsiteController : Controller
+    public class ErrorOnsiteController : Microsoft.AspNetCore.Mvc.Controller
     {
         ErrorOnsiteService eos = new ErrorOnsiteService();
         /// <summary>

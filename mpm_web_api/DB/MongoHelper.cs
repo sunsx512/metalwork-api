@@ -99,7 +99,7 @@ namespace mpm_web_api.DB
                 CloudMongoDbTag cloudMongoDbTag = new CloudMongoDbTag();
                 cloudMongoDbTag.t = entity.t;
                 cloudMongoDbTag.ts = entity.ts;
-                cloudMongoDbTag.v = entity.v;
+                cloudMongoDbTag.v = Convert.ToInt32(entity.v);
                 collection.InsertOne(cloudMongoDbTag);
                 return true;
             }
@@ -138,8 +138,9 @@ namespace mpm_web_api.DB
         [BsonElement("t")]
         public string t { get; set; }
         [BsonElement("v")]
-        public int v { get; set; }
+        public object v { get; set; }
         [BsonElement("ts")]
+        [BsonDateTimeOptions(Kind =DateTimeKind.Local)]
         public DateTime ts { get; set; }
     }
 

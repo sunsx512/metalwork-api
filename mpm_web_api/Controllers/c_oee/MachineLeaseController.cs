@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_oee
     [Route("api/v1/configuration/oee/machine_lease")]
     [SwaggerTag("租赁信息配置")]
     [ApiController]
-    public class MachineLeaseController : SSOController
+    public class MachineLeaseController : Controller
     {
         ControllerHelper<machine_lease> ch = new ControllerHelper<machine_lease>();
         /// <summary>

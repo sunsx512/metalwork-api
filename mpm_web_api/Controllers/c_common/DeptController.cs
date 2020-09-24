@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers
     [Route("api/v1/configuration/public/dept")]
     [SwaggerTag("部门")]
     [ApiController]
-    public class DeptController : SSOController,IController<department>
+    public class DeptController : Controller,IController<department>
     {
         ControllerHelper<department> ch = new ControllerHelper<department>();
         /// <summary>

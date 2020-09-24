@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_ehs
     [Route("api/v1/configuration/ehs/env_standard")]
     [SwaggerTag("环境标准配置")]
     [ApiController]
-    public class EnvStandardController: Controller
+    public class EnvStandardController: Microsoft.AspNetCore.Mvc.Controller
     {
         EnvStandardService ess = new EnvStandardService();
         ControllerHelper<standard> ch = new ControllerHelper<standard>();

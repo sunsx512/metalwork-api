@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_work_order
     [Route("api/v1/configuration/work_order/overdue_work_order")]
     [SwaggerTag("设定设备逾期信息")]
     [ApiController]
-    public class OverdueWorkOrderController : Controller
+    public class OverdueWorkOrderController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<overdue_work_order> ch = new ControllerHelper<overdue_work_order>();
 

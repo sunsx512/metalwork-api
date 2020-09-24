@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/tag_extra")]
     [SwaggerTag("额外的标签信息(预警使用)")]
     [ApiController]
-    public class TagInfoExtraController : Controller
+    public class TagInfoExtraController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<tag_info_extra> ch = new ControllerHelper<tag_info_extra>();
         /// <summary>

@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/machine_status_duration_alert")]
     [SwaggerTag("设备状态持续时间预警")]
     [ApiController]
-    public class MachineStatusDurationAlertController : SSOController
+    public class MachineStatusDurationAlertController : Controller
     {
         ControllerHelper<machine_status_duration_alert> ch = new ControllerHelper<machine_status_duration_alert>();
         /// <summary>

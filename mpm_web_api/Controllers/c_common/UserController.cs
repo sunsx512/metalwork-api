@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/user")]
     [SwaggerTag("用户登录信息")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : Microsoft.AspNetCore.Mvc.Controller
     {
         WisePaasUserService wpus = new WisePaasUserService();
         [HttpGet]

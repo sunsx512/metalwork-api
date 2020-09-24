@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_work_order
     [Route("api/v1/configuration/work_order/initial_material_info")]
     [SwaggerTag("预设物料呼叫信息")]
     [ApiController]
-    public class InitialMaterialInfoController : Controller
+    public class InitialMaterialInfoController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<initial_material_info> ch = new ControllerHelper<initial_material_info>();
         /// <summary>

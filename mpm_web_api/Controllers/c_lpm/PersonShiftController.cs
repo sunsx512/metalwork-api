@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_lpm
     [Route("api/v1/configuration/lpm/person_shift")]
     [SwaggerTag("人员班别")]
     [ApiController]
-    public class PersonShiftController : Controller
+    public class PersonShiftController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<person_shift> ch = new ControllerHelper<person_shift>();
         /// <summary>

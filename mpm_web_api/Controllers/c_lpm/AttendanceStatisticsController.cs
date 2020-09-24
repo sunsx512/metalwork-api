@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_lpm
     [Route("api/v1/configuration/lpm/attendance_statistics")]
     [SwaggerTag("出勤统计")]
     [ApiController]
-    public class AttendanceStatisticsController : Controller
+    public class AttendanceStatisticsController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<attendance_statistics> ch = new ControllerHelper<attendance_statistics>();
         /// <summary>

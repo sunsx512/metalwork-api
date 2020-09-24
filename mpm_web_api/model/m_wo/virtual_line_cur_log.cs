@@ -30,6 +30,10 @@ namespace mpm_web_api.model.m_wo
         /// </summary>
         public decimal productivity { get; set; }
         /// <summary>
+        /// 生产效率
+        /// </summary>
+        public decimal production_efficiency { set; get; }
+        /// <summary>
         /// 标准数量
         /// </summary>
         public decimal quantity { set; get; }

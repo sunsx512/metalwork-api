@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/machine_cost_alert")]
     [SwaggerTag("设备费用预警")]
     [ApiController]
-    public class MachineCostAlertController : Controller
+    public class MachineCostAlertController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<machine_cost_alert> ch = new ControllerHelper<machine_cost_alert>();
         /// <summary>

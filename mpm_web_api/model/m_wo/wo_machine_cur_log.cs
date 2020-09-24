@@ -38,6 +38,10 @@ namespace mpm_web_api.model.m_wo
         /// </summary>
         public decimal productivity { get; set; }
         /// <summary>
+        /// 生产效率
+        /// </summary>
+        public decimal production_efficiency { set; get; }
+        /// <summary>
         /// 当前C/T
         /// </summary>
         public decimal cycle_time { get; set; }

@@ -130,7 +130,7 @@ namespace mpm_web_api.Controllers
             Console.WriteLine("next########");
             //发送
             client.Send(mailMessage);
-            object obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
+            object obj = common.ResponseStr((int)httpStatus.succes,"调用成功");
             return Json(obj);
         }
 

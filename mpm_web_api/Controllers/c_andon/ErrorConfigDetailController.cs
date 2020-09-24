@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/error_config_detail")]
     [SwaggerTag("异常配置")]
     [ApiController]
-    public class ErrorConfigDetailController : Controller
+    public class ErrorConfigDetailController : Microsoft.AspNetCore.Mvc.Controller
     {
         ErrorConfigService ecs = new ErrorConfigService();
         /// <summary>

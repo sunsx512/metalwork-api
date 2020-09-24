@@ -19,7 +19,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/wechart_server")]
     [SwaggerTag("微信服务信息")]
     [ApiController]
-    public class WechartServerController : SSOController
+    public class WechartServerController : Controller
     {
         ControllerHelper<wechart_server> ch = new ControllerHelper<wechart_server>();
 

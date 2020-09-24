@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers
     [Route("api/v1/configuration/public/person")]
     [SwaggerTag("人员信息")]
     [ApiController]
-    public class PersonController : SSOController
+    public class PersonController : Controller
     {
         ControllerHelper<person> ch = new ControllerHelper<person>();
         /// <summary>

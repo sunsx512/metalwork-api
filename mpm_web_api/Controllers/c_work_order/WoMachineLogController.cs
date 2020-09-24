@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_work_order
     [Route("api/v1/client/work_order/machine_log")]
     [SwaggerTag("工单设备日志")]
     [ApiController]
-    public class WoMachineLogController : Controller
+    public class WoMachineLogController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<wo_machine_log> ch = new ControllerHelper<wo_machine_log>();
         /// <summary>

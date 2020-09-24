@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/work_order_alert")]
     [SwaggerTag("工单预警信息")]
     [ApiController]
-    public class WorkOrderAlertController : SSOController
+    public class WorkOrderAlertController : Controller
     {
         ControllerHelper<work_order_alert> ch = new ControllerHelper<work_order_alert>();
         /// <summary>

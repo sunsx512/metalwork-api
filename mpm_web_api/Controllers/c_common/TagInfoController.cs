@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/tag")]
     [SwaggerTag("标签信息")]
     [ApiController]
-    public class TagInfoController : SSOController
+    public class TagInfoController : Controller
     {
         ControllerHelper<tag_info> ch = new ControllerHelper<tag_info>();
         /// <summary>

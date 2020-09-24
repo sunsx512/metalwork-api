@@ -17,7 +17,7 @@ namespace mpm_web_api.Controllers
     [Route("api/v1/configuration/public/tag_type")]
     [SwaggerTag("一级标签类型")]
     [ApiController]
-    public class TagTypeController : SSOController
+    public class TagTypeController : Controller
     {
         ControllerHelper<tag_type> ch = new ControllerHelper<tag_type>();
         /// <summary>

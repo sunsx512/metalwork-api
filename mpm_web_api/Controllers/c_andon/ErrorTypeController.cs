@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/error_type")]
     [SwaggerTag("异常类型")]
     [ApiController]
-    public class ErrorTypeController : SSOController, IController<error_type>
+    public class ErrorTypeController : Controller, IController<error_type>
     {
 
         ControllerHelper<error_type> ch = new ControllerHelper<error_type>();

@@ -20,7 +20,7 @@ namespace mpm_web_api.Controllers.c_common
     [Route("api/v1/configuration/public/area_property")]
     [SwaggerTag("区域节点属性(班别，固定排休，非固定排休)")]
     [ApiController]
-    public class AreaPropertyController : SSOController
+    public class AreaPropertyController : Controller
     {
         ControllerHelper<area_property> ch = new ControllerHelper<area_property>();
         AreaPropertyService aps = new AreaPropertyService();

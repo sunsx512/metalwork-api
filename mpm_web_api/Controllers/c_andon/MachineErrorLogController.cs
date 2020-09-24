@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/error_log/machine")]
     [SwaggerTag("设备异常日志")]
     [ApiController]
-    public class MachineErrorLogController : SSOController
+    public class MachineErrorLogController : Controller
     {
         ControllerHelper<error_log> ch = new ControllerHelper<error_log>();
         ErrorLogService els = new ErrorLogService();

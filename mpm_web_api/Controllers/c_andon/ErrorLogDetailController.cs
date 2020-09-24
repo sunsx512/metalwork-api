@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/error_log_detail")]
     [SwaggerTag("详细异常日志")]
     [ApiController]
-    public class ErrorLogDetailController : SSOController
+    public class ErrorLogDetailController : Controller
     {
         ErrorLogService els = new ErrorLogService();
         /// <summary>

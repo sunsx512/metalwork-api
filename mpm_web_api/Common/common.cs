@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace mpm_web_api
@@ -79,6 +80,61 @@ namespace mpm_web_api
                 }
             }
             return res;
+        }
+
+        /// <summary>
+        /// 父类赋值给子类
+        /// </summary>
+        /// <typeparam name="TParent"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        public static TChild AutoCopy<TParent, TChild>(TParent parent) where TChild : TParent, new()
+        {
+            TChild child = new TChild();
+            var ParentType = typeof(TParent);
+            var Properties = ParentType.GetProperties();
+            foreach (var Propertie in Properties)
+            {
+                //循环遍历属性
+                if (Propertie.CanRead && Propertie.CanWrite)
+                {
+                    //进行属性拷贝
+                    Propertie.SetValue(child, Propertie.GetValue(parent, null), null);
+                }
+            }
+            return child;
+        }
+        /// <summary>
+        /// 相同属性类 互相赋值
+        /// </summary>
+        /// <typeparam name="D"></typeparam>
+        /// <typeparam name="S"></typeparam>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static D AutoCopy<D, S>(S s)
+        {
+            D d = Activator.CreateInstance<D>();
+            try
+            {
+                var sType = s.GetType();
+                var dType = typeof(D);
+                foreach (PropertyInfo sP in sType.GetProperties())
+                {
+                    foreach (PropertyInfo dP in dType.GetProperties())
+                    {
+                        if (dP.Name == sP.Name)
+                        {
+                            dP.SetValue(d, sP.GetValue(s)); break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return d;
         }
     }
 }

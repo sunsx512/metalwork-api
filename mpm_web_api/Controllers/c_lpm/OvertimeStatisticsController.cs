@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_lpm
     [Route("api/v1/configuration/lpm/overtime_statistics")]
     [SwaggerTag("加班统计")]
     [ApiController]
-    public class OvertimeStatisticsController : Controller
+    public class OvertimeStatisticsController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<overtime_statistics> ch = new ControllerHelper<overtime_statistics>();
         /// <summary>

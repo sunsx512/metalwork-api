@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_work_order
     [Route("api/v1/client/work_order/virtual_line_current_log")]
     [SwaggerTag("(当前执行)工单设备日志")]
     [ApiController]
-    public class VirtualLineCurrentLogController : Controller
+    public class VirtualLineCurrentLogController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<virtual_line_cur_log> ch = new ControllerHelper<virtual_line_cur_log>();
         /// <summary>

@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/material_request_info")]
     [SwaggerTag("物料请求信息")]
     [ApiController]
-    public class MaterielRequestInfoController:SSOController
+    public class MaterielRequestInfoController:Controller
     {
         MaterielRequestInfoService mris = new MaterielRequestInfoService();
         ControllerHelper<material_request_info> ch = new ControllerHelper<material_request_info>();

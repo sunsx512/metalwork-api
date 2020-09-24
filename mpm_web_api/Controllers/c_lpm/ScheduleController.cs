@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_lpm
     [Route("api/v1/configuration/lpm/schedule")]
     [SwaggerTag("人员绩效排班计划")]
     [ApiController]
-    public class ScheduleController : Controller
+    public class ScheduleController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<schedule> ch = new ControllerHelper<schedule>();
         /// <summary>

@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_work_order
     [Route("api/v1/configuration/work_order/capacity_config")]
     [SwaggerTag("设定标准产能")]
     [ApiController]
-    public class CapacityConfigController : Controller
+    public class CapacityConfigController : Microsoft.AspNetCore.Mvc.Controller
     {
 
         CapacityConfigService ccs = new CapacityConfigService();

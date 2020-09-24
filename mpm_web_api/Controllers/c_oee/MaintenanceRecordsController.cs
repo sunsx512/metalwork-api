@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_oee
     [Route("api/v1/configuration/oee/maintenance_records")]
     [SwaggerTag("保养记录")]
     [ApiController]
-    public class MaintenanceRecordsController : Controller
+    public class MaintenanceRecordsController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<maintenance_records> ch = new ControllerHelper<maintenance_records>();
 

@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/quality_alert_detail")]
     [SwaggerTag("品质异常不良数量预警详细信息")]
     [ApiController]
-    public class QualityAlertDetailController : SSOController
+    public class QualityAlertDetailController : Controller
     {
         QualityAlertService qas = new QualityAlertService();
 

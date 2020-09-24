@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/error_config")]
     [SwaggerTag("异常配置")]
     [ApiController]
-    public class ErrorConfigController : SSOController
+    public class ErrorConfigController : Controller
     {
         ControllerHelper<error_config> ch = new ControllerHelper<error_config>();
         /// <summary>

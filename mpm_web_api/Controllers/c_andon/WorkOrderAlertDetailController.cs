@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/work_order_alert_detail")]
     [SwaggerTag("工单预警详细信息")]
     [ApiController]
-    public class WorkOrderAlertDetailController : Controller
+    public class WorkOrderAlertDetailController : Microsoft.AspNetCore.Mvc.Controller
     {
         WorkOrderAlertService woas = new WorkOrderAlertService();
         /// <summary>

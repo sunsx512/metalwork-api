@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers
     [Route("api/v1/configuration/public/machine")]
     [SwaggerTag("设备")]
     [ApiController]
-    public class MachineController : SSOController,IController<machine>
+    public class MachineController : Controller,IController<machine>
     {
         ControllerHelper<machine> ch = new ControllerHelper<machine>();
         /// <summary>

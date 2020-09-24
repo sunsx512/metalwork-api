@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/machine_status_alert_detail")]
     [SwaggerTag("设备状态预警详细信息")]
     [ApiController]
-    public class MachineStatusAlertDetailController : Controller
+    public class MachineStatusAlertDetailController : Microsoft.AspNetCore.Mvc.Controller
     {
         MachineStatusAlertService ms = new MachineStatusAlertService();
         /// <summary>

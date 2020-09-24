@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_ehs
     [Route("api/v1/configuration/ehs/notice_logic")]
     [SwaggerTag("触发通知人员")]
     [ApiController]
-    public class NoticeLogicController : Controller
+    public class NoticeLogicController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<notice_logic> ch = new ControllerHelper<notice_logic>();
         NoticeService ns = new NoticeService();

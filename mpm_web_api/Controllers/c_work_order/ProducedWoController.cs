@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_work_order
     [Route("api/v1/configuration/work_order/produced_work_order")]
     [SwaggerTag("设定工单信息")]
     [ApiController]
-    public class ProducedWoController : Controller
+    public class ProducedWoController : Microsoft.AspNetCore.Mvc.Controller
     {
 
         WoConfigService wcs = new WoConfigService();

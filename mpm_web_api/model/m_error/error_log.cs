@@ -73,6 +73,10 @@ namespace mpm_web_api.model
         /// 处理状态 0:触发 1:签到 2:解除
         /// </summary>
         public int status { set; get; }
+        /// <summary>
+        /// 异常级别
+        /// </summary>
+        public int error_level { set; get; }
 
     }
 

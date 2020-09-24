@@ -17,7 +17,6 @@ namespace mpm_web_api.Common
     {
         private readonly RequestDelegate next;
         static ApiLogService aes = new ApiLogService();
-        static string client_id = "";
         public AuthMiddleWare(RequestDelegate next)
         {
             this.next = next;
@@ -28,31 +27,32 @@ namespace mpm_web_api.Common
             try
             {
                 string token = context.Request.Headers["Authorization"].ToString();
-                if (token != "")
+                //直接放行
+                if(context.Request.Path.Value == "/api/v1/configuration/public/Client")
                 {
-                    if (token.Contains("Bearer"))
+                    await next(context);
+                }
+                else
+                {
+                    if (token != "")
                     {
-                        token = token.Split(' ')[1];
-                        EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
-                        if (client_id == "")
+                        if (token.Contains("Bearer"))
                         {
-                            Client client = SSO.GetClient("Metalwork", token, environmentInfo.sso_url,environmentInfo.workspace,environmentInfo.cluster);
-                            if (client != null)
+                            token = token.Split(' ')[1];
+                            EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
+                            if (GlobalVar.client != null)
                             {
-                                client_id = client.clientId;
-                            }
-                        }
-                        if (client_id != "")
-                        {
-                            SrpRole srpRole = SSO.GetRole(client_id, token, environmentInfo.sso_url);
-                            //只有有权限的情况 才会放行
-                            if (srpRole != null)
-                            {
-                                await next(context);
+                                SrpRole srpRole = SSO.GetRole(GlobalVar.client.clientId, token, environmentInfo.sso_url);
+                                //只有有权限的情况 才会放行
+                                if (srpRole != null)
+                                {
+                                    await next(context);
+                                }
                             }
                         }
                     }
                 }
+
                 //没有权限的话返回401
                 HttpResponse response = context.Response;
                 response.ContentType = context.Request.Headers["Accept"];

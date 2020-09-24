@@ -15,7 +15,7 @@ namespace mpm_web_api.Controllers.c_andon
     [Route("/api/v1/configuration/andon/capacity_alert_detail")]
     [SwaggerTag("产能预警详细信息")]
     [ApiController]
-    public class CapacityAlertDetailController : SSOController
+    public class CapacityAlertDetailController : Controller
     {
         CapacityAlertService cas = new CapacityAlertService();
 

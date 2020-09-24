@@ -84,6 +84,24 @@
             <param name="content">内容</param>
             <returns></returns>
         </member>
+        <member name="M:mpm_web_api.common.IsContainTimeSpan(System.DateTime,System.DateTime,System.DateTime)">
+            <summary>
+            判断时间点 是否在时间段内
+            </summary>
+            <param name="ts"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.common.AutoCopy``2(``0)">
+            <summary>
+            父类赋值给子类
+            </summary>
+            <typeparam name="TParent"></typeparam>
+            <typeparam name="TChild"></typeparam>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
         <member name="M:mpm_web_api.Controllers.c_andon.AndonLogicController.Delete(System.Int32)">
             <summary>
             删除
@@ -1036,6 +1054,15 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
+        <member name="M:mpm_web_api.Controllers.c_common.RawDateCustomController.Get(System.String,System.DateTime,System.DateTime)">
+            <summary>
+            获取历史数据
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
         <member name="M:mpm_web_api.Controllers.c_common.TagInfoController.Delete(System.Int32)">
             <summary>
             删除标签
@@ -1729,6 +1756,25 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
+        <member name="M:mpm_web_api.Controllers.c_oee.MaintenanceRecordsController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_oee.MaintenanceRecordsController.Post(mpm_web_api.model.m_oee.maintenance_records)">
+            <summary>
+            新增
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
         <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Get(System.Int32)">
             <summary>
             获取可以执行或者可以开启的工单号
@@ -1829,6 +1875,25 @@
             更新
             </summary>
             <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.OverdueWorkOrderController.Get">
+            <summary>
+            获取
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_work_order.OverdueWorkOrderController.Put(mpm_web_api.model.m_wo.overdue_work_order)">
+            <summary>
+            更新
+            </summary>
+            <param name="t"></param>
             <response code="200">调用成功</response>
             <response code="400">服务器异常</response>
             <response code="410">数据库操作失败</response>
@@ -2093,6 +2158,12 @@
             <param name="machine_id"></param>
             <returns></returns>
         </member>
+        <member name="M:mpm_web_api.DAL.andon.ErrorOnsiteService.IsErrorRelease(System.Int32)">
+            <summary>
+            设备异常是否可以解除
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:mpm_web_api.DAL.andon.ErrorOnsiteService.CalTimeDifference(System.DateTime)">
             <summary>
             计算时间差
@@ -2206,11 +2277,10 @@
             <param name="machine_id"></param>
             <returns></returns>
         </member>
-        <member name="M:mpm_web_api.DAL.wo.OnsiteService.StartWoVirtualLine(System.Int32,System.Int32)">
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.StartWoVirtualLine(System.Int32)">
             <summary>
             开始线工单
             </summary>
-            <param name="virtual_line_id"></param>
             <param name="wo_config_id"></param>
             <returns></returns>
         </member>
@@ -2251,6 +2321,12 @@
             <param name="machine_id"></param>
             <param name="wo_config_id"></param>
             <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.CalMachineProductivity(System.Int32)">
+            <summary>
+            计算设备生产率
+            </summary>
+            <param name="wcl"></param>
         </member>
         <member name="M:mpm_web_api.DB.MongoHelper.GetList``1(System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
@@ -2294,6 +2370,16 @@
         <member name="P:mpm_web_api.DB.CloudMongoDbTag.t">
             <summary>
             t在云端为device/tag的组合
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.rest.start">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.rest.end">
+            <summary>
+            结束时间
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_common.Licence.used_number">
@@ -3104,6 +3190,11 @@
             处理状态 0:触发 1:签到 2:解除
             </summary>
         </member>
+        <member name="P:mpm_web_api.model.error_log.error_level">
+            <summary>
+            异常级别
+            </summary>
+        </member>
         <member name="P:mpm_web_api.model.error_log_detail.error_config">
             <summary>
             异常配置信息
@@ -3455,6 +3546,21 @@
             创建时间
             </summary>
         </member>
+        <member name="P:mpm_web_api.model.m_oee.maintenance_records.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.maintenance_records.time">
+            <summary>
+            保养日期
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.maintenance_records.description">
+            <summary>
+            描述
+            </summary>
+        </member>
         <member name="P:mpm_web_api.model.m_oee.tricolor_tag_status.machine_id">
             <summary>
             设备id
@@ -3490,6 +3596,21 @@
             
             </summary>
         </member>
+        <member name="P:mpm_web_api.model.m_wo.break_point_log.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.break_point_log.work_order_id">
+            <summary>
+            主工单id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.break_point_log.breakpoint">
+            <summary>
+            断点类型 0: 无节拍 1:半个节拍
+            </summary>
+        </member>
         <member name="P:mpm_web_api.model.m_wo.capacity_config.utilization">
             <summary>
             利用率 计算得到
@@ -3513,6 +3634,16 @@
         <member name="P:mpm_web_api.model.m_wo.overdue_work_order.wo_config_id">
             <summary>
             工单id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.overdue_work_order.responsible_unit">
+            <summary>
+            责任单位
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.overdue_work_order.reason">
+            <summary>
+            逾期原因
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.virtual_line_id">
@@ -3540,6 +3671,11 @@
             生产率
             </summary>
         </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.production_efficiency">
+            <summary>
+            生产效率
+            </summary>
+        </member>
         <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.quantity">
             <summary>
             标准数量
@@ -3548,6 +3684,11 @@
         <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.bad_quantity">
             <summary>
             不良数量
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.virtual_line_cur_log.change_over">
+            <summary>
+            换线时间
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.wo_config_id">
@@ -3583,6 +3724,11 @@
         <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.productivity">
             <summary>
             生产率
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.production_efficiency">
+            <summary>
+            生产效率
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_wo.wo_machine_cur_log.cycle_time">
@@ -3650,44 +3796,9 @@
             设备列表
             </summary>
         </member>
-        <member name="P:mpm_web_api.model.virtual_line_log.virtual_line_id">
-            <summary>
-            虚拟线id
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.virtual_line_log.wo_config_id">
-            <summary>
-            工单配置id
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.virtual_line_log.start_time">
-            <summary>
-            开始时间
-            </summary>
-        </member>
         <member name="P:mpm_web_api.model.virtual_line_log.end_time">
             <summary>
             结束时间
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.virtual_line_log.balance_rate">
-            <summary>
-            平衡率
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.virtual_line_log.productivity">
-            <summary>
-            生产率
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.virtual_line_log.quantity">
-            <summary>
-            标准数量
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.virtual_line_log.bad_quantity">
-            <summary>
-            不良数量
             </summary>
         </member>
         <member name="P:mpm_web_api.model.wo_config.work_order">
@@ -3775,64 +3886,9 @@
             
             </summary>
         </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.wo_config_id">
-            <summary>
-            工单id
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.standard_time">
-            <summary>
-            标准数量
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.start_time">
-            <summary>
-            开始时间
-            </summary>
-        </member>
         <member name="P:mpm_web_api.model.wo_machine_log.end_time">
             <summary>
             结束时间
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.quantity">
-            <summary>
-            当前数量
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.bad_quantity">
-            <summary>
-            不良数量
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.achieving_rate">
-            <summary>
-            达成率
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.productivity">
-            <summary>
-            生产率
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.cycle_time">
-            <summary>
-            当前C/T
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.cycle_time_average">
-            <summary>
-            平均C/T
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.machine_id">
-            <summary>
-            设备id
-            </summary>
-        </member>
-        <member name="P:mpm_web_api.model.wo_machine_log.standard_num">
-            <summary>
-            标准数量
             </summary>
         </member>
         <member name="M:OnsiteStatusWorker.Models.GetData.GetUrl(System.String)">

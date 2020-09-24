@@ -14,7 +14,7 @@ namespace mpm_web_api.Controllers.c_lpm
     [Route("api/v1/configuration/lpm/performance_formula")]
     [SwaggerTag("绩效占比")]
     [ApiController]
-    public class PerformanceFormulaController : Controller
+    public class PerformanceFormulaController : Microsoft.AspNetCore.Mvc.Controller
     {
         ControllerHelper<performance_formula> ch = new ControllerHelper<performance_formula>();
         /// <summary>

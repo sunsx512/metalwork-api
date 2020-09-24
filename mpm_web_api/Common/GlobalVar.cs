@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mpm_web_api.model.m_common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,7 +44,10 @@ namespace mpm_web_api.Common
         /// 发送的topic
         /// </summary>
         public static string mqtttopic = "/iot-2/evt/wadata/fmt/andon";
-
+        /// <summary>
+        /// 登入权限认证的client信息 初始化时创建或获取
+        /// </summary>
+        public static client client;
         public enum Error_handle
         {
             trigger = 1,

@@ -27,7 +27,7 @@ namespace mpm_web_api
             EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
 
             GlobalVar.mqtthost = Environment.GetEnvironmentVariable("MQTT_HOST");
-            GlobalVar.mqttport =Convert.ToInt32(Environment.GetEnvironmentVariable("MQTT_PORT"));
+            GlobalVar.mqttport = Convert.ToInt32(Environment.GetEnvironmentVariable("MQTT_PORT"));
             GlobalVar.mqttuser = Environment.GetEnvironmentVariable("MQTT_USER");
             GlobalVar.mqttpwd = Environment.GetEnvironmentVariable("MQTT_PWD");
             GlobalVar.mqtttopic = Environment.GetEnvironmentVariable("MQTT_TOPIC");
@@ -45,7 +45,10 @@ namespace mpm_web_api
                 MongoHelper.connectionstring = mg;
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = true;
+                //创建数据表
                 migration.Create();
+                //注册client
+                //ClientService.register();
                 //开启4.0 Licence认证
                 EnsaasLicenceService els = new EnsaasLicenceService();
                 CancellationToken token = new CancellationToken();
@@ -66,6 +69,18 @@ namespace mpm_web_api
                 CancellationToken token = new CancellationToken();
                 dls.StartAsync(token);
             }
+
+            //PostgreBase.connString = Configuration.GetValue<string>("pgconnectionString");
+            //GlobalVar.time_zone = Configuration.GetValue<double>("time_zone");
+            //MongoHelper.connectionstring = Configuration.GetValue<string>("mgconnectionString");
+            //MongoHelper.databaseName = Configuration.GetValue<string>("mgdatabaseName");
+            //GlobalVar.IsCloud = false;
+            //migration.Create();
+            ////开启docker Licence认证
+            //DockerLicenceService dls = new DockerLicenceService();
+            //CancellationToken token = new CancellationToken();
+            //dls.StartAsync(token);
+
         }
 
         public IConfiguration Configuration { get; }

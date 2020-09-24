@@ -16,7 +16,7 @@ namespace mpm_web_api.Controllers.c_work_order
     [Route("api/v1/client/work_order/onsite")]
     [SwaggerTag("现场操作页面使用")]
     [ApiController]
-    public class WorkOrderOnsiteController : Controller
+    public class WorkOrderOnsiteController : Microsoft.AspNetCore.Mvc.Controller
     {
         OnsiteService os = new OnsiteService();
         /// <summary>
