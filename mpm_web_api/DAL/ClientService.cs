@@ -6,9 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wise_Paas.models;
-using Wise_Pass;
-using Client = Wise_Paas.models.Client;
 
 namespace mpm_web_api.DAL
 {
@@ -26,42 +23,20 @@ namespace mpm_web_api.DAL
         /// <summary>
         /// 查询已存放的client信息
         /// </summary>
-        /// <param name="serviceName"></param>
-        /// <param name="cluster"></param>
-        /// <param name="workspace"></param>
-        /// <param name="namespace"></param>
-        /// <param name="datacenter"></param>
         /// <returns></returns>
-        public client QuerytoSingle(string serviceName,string cluster,string workspace,string @namespace,string datacenter)
+        public client QuerytoSingle()
         {
-            return DB.Queryable<client>().Where(x => x.serviceName == serviceName &&
-                                            x.cluster == cluster &&
-                                            x.workspace == workspace &&
-                                            x.@namespace == @namespace &&
-                                            x.datacenter == datacenter)?.First();
+            //return DB.Queryable<client>().Where(x => x.serviceName == serviceName &&
+            //                                x.cluster == cluster &&
+            //                                x.workspace == workspace &&
+            //                                x.@namespace == @namespace &&
+            //                                x.datacenter == datacenter)?.First();
+            return DB.Queryable<client>()?.First();
         }
-        //public static client register()
-        //{
-        //    EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
-        //    Client client = SSO.CreateClient("", "Metalworks");           
-        //    //创建失败 原因:应该是已存在
-        //    if (client == null)
-        //    {
-        //        GlobalVar.client = QuerytoSingle("Metalworks", environmentInfo.cluster, environmentInfo.workspace, environmentInfo.@namespace, environmentInfo.datacenter);
-        //    }
-        //    else
-        //    {
-        //        GlobalVar.client = common.AutoCopy<client, Client>(client);
-        //        Save(GlobalVar.client);
-        //    }
-
-        //    return GlobalVar.client;
-        //}
 
         public client GetClient()
         {
-            EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
-            GlobalVar.client = QuerytoSingle("Metalworks", environmentInfo.cluster, environmentInfo.workspace, environmentInfo.@namespace, environmentInfo.datacenter);
+            GlobalVar.client = QuerytoSingle();
             return GlobalVar.client;
         }
     }

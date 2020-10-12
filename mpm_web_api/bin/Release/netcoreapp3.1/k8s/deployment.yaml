@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metalwork-api
+  namespace: metalwork
+  labels:
+    app: metalwork-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metalwork-api
+  template:
+    metadata:
+      labels:
+        app: metalwork-api
+    spec:   
+      containers:
+      - name: metalwork-api
+        image: a18352764349/metalwork-api:1.0.1
+        resources:
+          limits:
+            memory: "200Mi"
+            cpu: "100m"
+            ephemeral-storage: "512Mi"
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+        env:        
+        - name: ENSAAS_SERVICES
+          valueFrom:
+            secretKeyRef:
+              name: ifactory-metalwork-secret
+              key: ENSAAS_SERVICES
+            - name : SSO_URL
+              value: http://api.sso.ensaas.en.internal/v4.0
+            - name : ENSAAS_DOMAIN
+              value: hz.wise-paas.com.cn
+            - name : PN
+              value: 9803WPMPM1
+            - name : license_server_url
+              value: https://api-license-ensaas.hz.wise-paas.com.cn/v1
+            - name : db_time_zone
+              value: 8
+            - name : internal.domain
+              value: hz.wise-paas.com.cn
+        ports:
+        - containerPort: 80
+          name: "metalwork-api"

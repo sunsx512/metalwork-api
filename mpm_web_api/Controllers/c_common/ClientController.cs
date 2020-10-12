@@ -30,7 +30,7 @@ namespace mpm_web_api.Controllers.c_common
         public ActionResult<common.response<client>> Get(string serviceName, string cluster, string workspace, string @namespace, string datacenter)
         {
             List<client> list = new List<client>();
-            list.Add(cs.QuerytoSingle(serviceName, cluster, workspace, @namespace, datacenter));
+            list.Add(cs.QuerytoSingle());
             var obj = common.ResponseStr((int)httpStatus.succes, "调用成功", list);
             return Json(obj);
         }

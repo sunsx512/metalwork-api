@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: metalwork-api
+  namespace: metalwork
+spec:
+  rules:
+    - host: metalwork-api.metalwork.eks005.en.internal
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: metalwork-api
+              servicePort: 80

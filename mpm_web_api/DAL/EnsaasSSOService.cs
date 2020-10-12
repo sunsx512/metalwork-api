@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wise_Pass;
 
 namespace mpm_web_api.DAL
 {

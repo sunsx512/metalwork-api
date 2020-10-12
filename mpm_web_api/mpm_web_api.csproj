@@ -44,8 +44,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Wise_Paas">
-      <HintPath>..\..\WebApplication1\WebApplication1\wise_paas_sso\bin\Release\netstandard2.0\Wise_Paas.dll</HintPath>
+    <Reference Include="Ensaas_sso">
+      <HintPath>C:\Users\chenc\source\repos\Ensaas_sso\Ensaas_sso\bin\Release\netstandard2.0\Ensaas_sso.dll</HintPath>
     </Reference>
   </ItemGroup>
 

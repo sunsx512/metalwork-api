@@ -139,7 +139,7 @@ SET default_tablespace = '';
 
 CREATE TABLE andon.alert_mes (
     message_flow character varying(255),
-    message_des boolean,
+    message_des character varying(255),
     insert_time timestamp(4) without time zone,
     target_id integer,
     target_type integer,

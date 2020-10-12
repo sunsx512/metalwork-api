@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Ensaas_sso.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,8 +15,6 @@ using mpm_web_api.Common;
 using mpm_web_api.DAL;
 using mpm_web_api.db;
 using mpm_web_api.DB;
-using Wise_Paas.models;
-using Wise_Pass;
 
 namespace mpm_web_api
 {
@@ -23,8 +22,9 @@ namespace mpm_web_api
     {
         public Startup(IConfiguration configuration)
         {
+            bool cloud = true;
             Configuration = configuration;
-            EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
+            EnvironmentInfo environmentInfo = Ensaas_sso.Environment.Get();
 
             GlobalVar.mqtthost = Environment.GetEnvironmentVariable("MQTT_HOST");
             GlobalVar.mqttport = Convert.ToInt32(Environment.GetEnvironmentVariable("MQTT_PORT"));
@@ -32,23 +32,17 @@ namespace mpm_web_api
             GlobalVar.mqttpwd = Environment.GetEnvironmentVariable("MQTT_PWD");
             GlobalVar.mqtttopic = Environment.GetEnvironmentVariable("MQTT_TOPIC");
 
-            string pg = "Server={0};Port={1};Database={2};User Id={3};Password={4};";
-            pg = string.Format(pg, environmentInfo.postgres_host, environmentInfo.postgres_port, environmentInfo.postgres_database, environmentInfo.postgres_username, environmentInfo.postgres_password);
-            PostgreBase.connString = pg;
+            PostgreBase.connString = environmentInfo.postgres_connection;
             GlobalVar.module = Environment.GetEnvironmentVariable("module");
             //EnSaaS 4.0 环境
-            if (environmentInfo.cluster != null)
+            if (cloud)
             {
                 GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("db_time_zone"));
-                string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
-                mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_host, environmentInfo.mongo_port, environmentInfo.mongo_database);
-                MongoHelper.connectionstring = mg;
+                MongoHelper.connectionstring = environmentInfo.mongo_connection;
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = true;
                 //创建数据表
                 migration.Create();
-                //注册client
-                //ClientService.register();
                 //开启4.0 Licence认证
                 EnsaasLicenceService els = new EnsaasLicenceService();
                 CancellationToken token = new CancellationToken();
@@ -58,9 +52,7 @@ namespace mpm_web_api
             else
             {
                 GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("time_zone"));
-                string mg = "mongodb://{0}:{1}@{2}:{3}/{4}";
-                mg = string.Format(mg, environmentInfo.mongo_username, environmentInfo.mongo_password, environmentInfo.mongo_host, environmentInfo.mongo_port, environmentInfo.mongo_database);
-                MongoHelper.connectionstring = mg + "?authSource=admin";
+                MongoHelper.connectionstring = environmentInfo.mongo_connection;
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = false;
                 migration.Create();

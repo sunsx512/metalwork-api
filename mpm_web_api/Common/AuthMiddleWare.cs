@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Ensaas_sso;
+using Ensaas_sso.Entity;
+using Microsoft.AspNetCore.Http;
 using mpm_web_api.DAL;
 using mpm_web_api.model.m_common;
 using Newtonsoft.Json;
@@ -6,10 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wise_Paas;
-using Wise_Paas.models;
-using wise_paas_sso.models;
-using Wise_Pass;
 
 namespace mpm_web_api.Common
 {
@@ -17,6 +15,7 @@ namespace mpm_web_api.Common
     {
         private readonly RequestDelegate next;
         static ApiLogService aes = new ApiLogService();
+        static ClientService cs = new ClientService();
         public AuthMiddleWare(RequestDelegate next)
         {
             this.next = next;
@@ -39,10 +38,11 @@ namespace mpm_web_api.Common
                         if (token.Contains("Bearer"))
                         {
                             token = token.Split(' ')[1];
-                            EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
-                            if (GlobalVar.client != null)
+                            client client = cs.GetClient();
+                            if (client != null)
                             {
-                                SrpRole srpRole = SSO.GetRole(GlobalVar.client.clientId, token, environmentInfo.sso_url);
+                                string sso_url = System.Environment.GetEnvironmentVariable("SSO_URL");
+                                SrpRole srpRole = Identification.CheckRole(client.client_id, token, sso_url);
                                 //只有有权限的情况 才会放行
                                 if (srpRole != null)
                                 {

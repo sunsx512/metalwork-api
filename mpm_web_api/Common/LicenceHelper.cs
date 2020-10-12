@@ -11,8 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Wise_Paas.models;
-using Wise_Pass;
 
 namespace mpm_web_api.Common
 {
@@ -122,12 +120,11 @@ namespace mpm_web_api.Common
         public static bool CheckSpaceID(string space_id)
         {
             string Env_space_id = "";
-            EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
-
             //EnSaaS 4.0 环境
-            if (environmentInfo.cluster != null)
+            if (GlobalVar.IsCloud != true)
             {
-                Env_space_id = environmentInfo.workspace;
+                string workspace = Environment.GetEnvironmentVariable("workspace");
+                Env_space_id = workspace;
                 if (Env_space_id == space_id)
                     return true;
                 else

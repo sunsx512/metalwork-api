@@ -119,7 +119,7 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_error").First();
             if (tag_Type_Sub != null)
             {
-                if (Confirm(log_id, person_id))
+                if (Confirm("quality_error", person_id))
                 {
                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                     .Where(x => x.machine_id == machine_id)
@@ -144,7 +144,7 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_error").First();
             if (tag_Type_Sub != null)
             {
-                if (Confirm(log_id, person_id))
+                if (Confirm("equipment_error", person_id))
                 {
                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                 .Where(x => x.machine_id == machine_id)
@@ -170,7 +170,7 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "quality_error").First();
             if (tag_Type_Sub != null)
             {
-                if (QualityErrorRelease(log_id, error_type_id, error_type_detail_id, count))
+                if (QualityErrorRelease(error_type_id, error_type_detail_id, count))
                 {
                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                 .Where(x => x.machine_id == machine_id)
@@ -193,7 +193,7 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "equipment_error").First();
             if (tag_Type_Sub != null)
             {
-                if (EquipmentErrorRelease(machine_id,log_id, error_type_id, error_type_detail_id))
+                if (EquipmentErrorRelease(machine_id, error_type_id, error_type_detail_id))
                 {
                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                .Where(x => x.machine_id == machine_id)
@@ -217,7 +217,7 @@ namespace mpm_web_api.DAL.andon
             tag_type_sub tag_Type_Sub = DB.Queryable<tag_type_sub>().Where(x => x.name_en == "material_require").First();
             if (tag_Type_Sub != null)
             {
-                if (UpdateMaterialLog(machine_id, log_id, description))
+                if (UpdateMaterialLog(machine_id))
                 {
                     tag_info tag_Info = DB.Queryable<tag_info>()
                                                .Where(x => x.machine_id == machine_id)
@@ -332,6 +332,38 @@ namespace mpm_web_api.DAL.andon
             return false;
         }
 
+        private bool Confirm(string sub_type, string person_card)
+        {
+            //查询当前日志是否存在
+            error_log el = DB.Queryable<error_log>().Where(x => x.status == 0 && x.tag_type_sub_name == sub_type).First();
+            //如果存在
+            if (el != null)
+            {
+                person ps = DB.Queryable<person>().Where(x => x.id_num == person_card).First();
+                if (ps != null)
+                {
+                    //如果有替代者 则判断替代者是否正确
+                    if (el.substitutes != null)
+                    {
+                        if (ps.id == el.substitutes)
+                        {
+                            DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                            return DB.Updateable<error_log>().Where(x => x.id == el.id).UpdateColumns(it => new error_log() { arrival_time = now, status = 1 }).ExecuteCommand() > 0;
+                        }
+                    }
+                    else
+                    {
+                        if (ps.id == el.responsible_name)
+                        {
+                            DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                            return DB.Updateable<error_log>().Where(x => x.id == el.id).UpdateColumns(it => new error_log() { arrival_time = now, status = 1 }).ExecuteCommand() > 0;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
 
         //更新日志
         private bool QualityErrorRelease(int log_id, int error_type_id, int error_type_detail_id, decimal count)
@@ -405,6 +437,80 @@ namespace mpm_web_api.DAL.andon
             }
             return false;
         }
+
+        //更新日志
+        private bool QualityErrorRelease(int error_type_id, int error_type_detail_id, decimal count)
+        {
+            bool re = false;
+            //查询当前日志是否存在
+            error_log el = DB.Queryable<error_log>().Where(x => x.status == 1 && x.tag_type_sub_name == "quality_error").First();
+            error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id)?.First();
+            error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id)?.First();
+            //如果存在
+            if (el != null)
+            {
+                //查询当前执行的工单信息
+                wo_config wo = DB.Queryable<wo_config>().Where(x => x.work_order == el.work_order).First();
+                //如果存在主工单
+                if (wo != null)
+                {
+                    //如果是正在执行的工单 则更新当前你执行的设备/线的工单信息
+                    if (wo.status == 2)
+                    {
+                        //查询设备工单日志
+                        wo_machine_cur_log wmcl = DB.Queryable<wo_machine_cur_log>().Where(x => x.wo_config_id == wo.id).First();
+                        //如果存在
+                        if (wmcl != null)
+                        {
+                            re = DB.Updateable<wo_machine_cur_log>().Where(x => x.id == wmcl.id).UpdateColumns(it => new wo_machine_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        }
+                        //查询设备工单日志
+                        virtual_line_cur_log vlcl = DB.Queryable<virtual_line_cur_log>().Where(x => x.wo_config_id == wo.id).First();
+                        if (vlcl != null)
+                        {
+                            re = re & DB.Updateable<virtual_line_cur_log>().Where(x => x.id == vlcl.id).UpdateColumns(it => new virtual_line_cur_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        }
+                    }
+                    //如果是已经执行完的工单 则更新历史的设备/线的工单信息
+                    else if (wo.status == 3)
+                    {
+                        //查询设备工单日志
+                        wo_machine_log wml = DB.Queryable<wo_machine_log>().Where(x => x.wo_config_id == wo.id).First();
+                        //如果存在
+                        if (wml != null)
+                        {
+                            re = DB.Updateable<wo_machine_log>().Where(x => x.id == wml.id).UpdateColumns(it => new wo_machine_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        }
+                        //查询设备工单日志
+                        virtual_line_log vll = DB.Queryable<virtual_line_log>().Where(x => x.wo_config_id == wo.id).First();
+                        if (vll != null)
+                        {
+                            re = re & DB.Updateable<virtual_line_log>().Where(x => x.id == vll.id).UpdateColumns(it => new virtual_line_log() { bad_quantity = count }).ExecuteCommand() > 0;
+                        }
+                    }
+
+                }
+                decimal dif_time = CalTimeDifference((DateTime)el.start_time);
+                DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                if (et == null)
+                {
+                    return re & DB.Updateable<error_log>()
+                             .Where(x => x.id == el.id)
+                             .UpdateColumns(it => new error_log() { release_time = now, error_type_name = null, error_type_detail_name = null, defectives_count = count, cost_time = dif_time, status = 2 })
+                             .ExecuteCommand() > 0;
+                }
+                else
+                {
+                    return re & DB.Updateable<error_log>()
+                             .Where(x => x.id == el.id)
+                             .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_en, error_type_detail_name = etd.name_en, defectives_count = count, cost_time = dif_time, status = 2 })
+                             .ExecuteCommand() > 0;
+                }
+            }
+            return false;
+        }
+
+
         //更新日志
         private bool EquipmentErrorRelease(int machine_id,int log_id,int error_type_id,int error_type_detail_id)
         {
@@ -445,6 +551,48 @@ namespace mpm_web_api.DAL.andon
                 return false;
             }
         }
+
+        //更新日志
+        private bool EquipmentErrorRelease(int machine_id, int error_type_id, int error_type_detail_id)
+        {
+            //判定设备异常是否可以被解除
+            if (IsErrorRelease(machine_id))
+            {
+                //查询当前日志是否存在
+                error_log el = DB.Queryable<error_log>().Where(x => x.status == 1 && x.tag_type_sub_name== "equipment_error").First();
+                error_type et = DB.Queryable<error_type>().Where(x => x.id == error_type_id)?.First();
+                error_type_details etd = DB.Queryable<error_type_details>().Where(x => x.id == error_type_detail_id)?.First();
+
+                //如果存在
+                if (el != null)
+                {
+                    decimal dif_time = CalTimeDifference((DateTime)el.start_time);
+                    DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                    if (et == null)
+                    {
+                        return DB.Updateable<error_log>()
+                              .Where(x => x.id == el.id)
+                              .UpdateColumns(it => new error_log() { release_time = now, error_type_name = null, error_type_detail_name = null, cost_time = dif_time, status = 2 })
+                              .ExecuteCommand() > 0;
+                    }
+                    else
+                    {
+                        return DB.Updateable<error_log>()
+                              .Where(x => x.id == el.id)
+                              .UpdateColumns(it => new error_log() { release_time = now, error_type_name = et.name_cn, error_type_detail_name = etd.name_cn, cost_time = dif_time, status = 2 })
+                              .ExecuteCommand() > 0;
+                    }
+
+
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         private bool MaterialRequestLog(int machine_id ,int count,string material_code, tag_type_sub ts)
         {
@@ -535,6 +683,25 @@ namespace mpm_web_api.DAL.andon
                 return DB.Updateable<material_request_info>()
                           .Where(x => x.id == log_id)
                           .UpdateColumns(it => new material_request_info() {take_time = now, cost_time =Convert.ToDecimal(dif_time), status = 2 })
+                          .ExecuteCommand() > 0;
+            }
+            return false;
+        }
+
+
+        private bool UpdateMaterialLog(int machine_id)
+        {
+            machine mc = DB.Queryable<machine>().Where(x => x.id == machine_id).First();
+            //查询当前日志是否存在
+            material_request_info mri = DB.Queryable<material_request_info>().Where(x => x.status == 0 && x.machine_name == mc.name_en).First();
+            //如果存在
+            if (mri != null)
+            {
+                decimal dif_time = CalTimeDifference((DateTime)mri.createtime);
+                DateTime now = DateTime.Now.AddHours(GlobalVar.time_zone);
+                return DB.Updateable<material_request_info>()
+                          .Where(x => x.id == mri.id)
+                          .UpdateColumns(it => new material_request_info() { take_time = now, cost_time = Convert.ToDecimal(dif_time), status = 2 })
                           .ExecuteCommand() > 0;
             }
             return false;

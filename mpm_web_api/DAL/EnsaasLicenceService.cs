@@ -9,8 +9,6 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Wise_Paas.models;
-using Wise_Pass;
 
 namespace mpm_web_api.DAL
 {
@@ -19,42 +17,42 @@ namespace mpm_web_api.DAL
         //string baseurl = "https://api-license-ensaas.hz.wise-paas.com.cn/";
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            string pn = Environment.GetEnvironmentVariable("PN");
-            string licence_server_url = Environment.GetEnvironmentVariable("license_server_url");
-            EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
+            //string pn = Environment.GetEnvironmentVariable("PN");
+            //string licence_server_url = Environment.GetEnvironmentVariable("license_server_url");
+            //EnvironmentInfo environmentInfo = EnvironmentVariable.Get();
             
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                await new TaskFactory().StartNew(() =>
-                {
-                    try
-                    {
-                        string service_id = environmentInfo.cluster + environmentInfo.workspace + environmentInfo.@namespace;
-                        string url = licence_server_url + "/api/partNum/licenseQty?pn={0}&id={1}";
-                        url = string.Format(url, pn, service_id);
-                        string str = Get(url);
-                        Licence licence = JsonConvert.DeserializeObject<Licence>(str);
-                        if (licence != null)
-                        {
-                            if (licence.isValidTransaction == true)
-                            {
-                                //认证通过 
-                                GlobalVar.authorized_number = Convert.ToInt32(licence.number)*10;
+            //while (!stoppingToken.IsCancellationRequested)
+            //{
+            //    await new TaskFactory().StartNew(() =>
+            //    {
+            //        try
+            //        {
+            //            string service_id = environmentInfo.cluster + environmentInfo.workspace + environmentInfo.@namespace;
+            //            string url = licence_server_url + "/api/partNum/licenseQty?pn={0}&id={1}";
+            //            url = string.Format(url, pn, service_id);
+            //            string str = Get(url);
+            //            Licence licence = JsonConvert.DeserializeObject<Licence>(str);
+            //            if (licence != null)
+            //            {
+            //                if (licence.isValidTransaction == true)
+            //                {
+            //                    //认证通过 
+            //                    GlobalVar.authorized_number = Convert.ToInt32(licence.number)*10;
 
-                            }
-                        }
+            //                }
+            //            }
 
-                    }
-                    catch (Exception exp)
-                    {
-                        Console.WriteLine(exp);
-                        //错误处理
-                    }
+            //        }
+            //        catch (Exception exp)
+            //        {
+            //            Console.WriteLine(exp);
+            //            //错误处理
+            //        }
 
-                    //定时任务休眠
-                    Thread.Sleep(10 * 1000);
-                });
-            }
+            //        //定时任务休眠
+            //        Thread.Sleep(10 * 1000);
+            //    });
+            //}
 
         }
 
