@@ -27,7 +27,7 @@ namespace mpm_web_api.Controllers.c_common
         /// <response code="410">数据库操作失败</response>
         /// <response code="411">外键异常</response>
         [HttpGet]
-        public ActionResult<common.response<client>> Get(string serviceName, string cluster, string workspace, string @namespace, string datacenter)
+        public ActionResult<common.response<client>> Get()
         {
             List<client> list = new List<client>();
             list.Add(cs.QuerytoSingle());
@@ -51,6 +51,12 @@ namespace mpm_web_api.Controllers.c_common
             else
                 obj = common.ResponseStr((int)httpStatus.clientError, "调用失败");
             return Json(obj);
+        }
+
+        [HttpPut]
+        public ActionResult Check()
+        {
+            return Json("Success");
         }
     }
 }

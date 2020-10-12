@@ -26,8 +26,8 @@ namespace mpm_web_api.Common
             try
             {
                 string token = context.Request.Headers["Authorization"].ToString();
-                //直接放行
-                if(context.Request.Path.Value == "/api/v1/configuration/public/Client")
+                //直接放行 新增client的方法直接放行
+                if(context.Request.Path.Value == "/api/v1/configuration/public/Client" && context.Request.Method != "PUT")
                 {
                     await next(context);
                 }
@@ -38,17 +38,17 @@ namespace mpm_web_api.Common
                         if (token.Contains("Bearer"))
                         {
                             token = token.Split(' ')[1];
-                            client client = cs.GetClient();
-                            if (client != null)
-                            {
-                                string sso_url = System.Environment.GetEnvironmentVariable("SSO_URL");
-                                SrpRole srpRole = Identification.CheckRole(client.client_id, token, sso_url);
-                                //只有有权限的情况 才会放行
-                                if (srpRole != null)
+                                client client = cs.GetClient();
+                                if (client != null)
                                 {
-                                    await next(context);
+                                    string sso_url = System.Environment.GetEnvironmentVariable("SSO_URL");
+                                    SrpRole srpRole = Identification.CheckRole(client.client_id, token, sso_url);
+                                    //只有有权限的情况 才会放行
+                                    if (srpRole != null)
+                                    {
+                                        await next(context);
+                                    }
                                 }
-                            }
                         }
                     }
                 }
