@@ -81,7 +81,7 @@ namespace mpm_web_api.Controllers.c_common
         }
 
         [HttpGet("tag/separate")]
-        public ActionResult<common.response<raw_data>> GetD(string tag, DateTime start_time, DateTime end_time, int start_index, int count)
+        public ActionResult<common.response<raw_data>> GetD(string tag, DateTime start_time, DateTime end_time, int pageNum, int pageSize)
         {
             start_time = start_time.AddHours(-GlobalVar.time_zone);
             end_time = end_time.AddHours(-GlobalVar.time_zone);
@@ -100,7 +100,19 @@ namespace mpm_web_api.Controllers.c_common
             {
                 if (list.Count > 0)
                 {
-                    list = list.OrderBy(x => x.ts).ToList().GetRange(start_index, count);
+                    if (list.Count > (pageNum - 1) * pageSize)
+                    {
+                        if (list.Count > pageNum * pageSize)
+                            list = list.OrderBy(x => x.ts).ToList().GetRange((pageNum - 1) * pageSize, pageSize);
+                        else
+                            list = list.OrderBy(x => x.ts).ToList().GetRange((pageNum - 1) * pageSize, list.Count  - (pageNum - 1) * pageSize);
+                    }
+                    else
+                    {
+                        list = null;
+                        object obji = common.ResponseStr((int)httpStatus.succes, "调用成功", res);
+                        return Json(obji);
+                    }
                     if (tag_Info_Detail != null)
                     {
                         foreach (MongoDbTag mongoDbTag in list)
@@ -184,7 +196,7 @@ namespace mpm_web_api.Controllers.c_common
 
 
         [HttpGet("machine/separate")]
-        public ActionResult<common.response<raw_data>> GetMD(string machine, DateTime start_time, DateTime end_time, int start_index, int count)
+        public ActionResult<common.response<raw_data>> GetMD(string machine, DateTime start_time, DateTime end_time, int pageNum, int pageSize)
         {
             List<tag_info_detail> tag_Info_Details = tagService.QueryableByMachine(machine);
             List<raw_data> res = new List<raw_data>();
@@ -207,7 +219,19 @@ namespace mpm_web_api.Controllers.c_common
                     {
                         if (list.Count > 0)
                         {
-                            list = list.OrderBy(x => x.ts).ToList().GetRange(start_index, count);
+                            if(list.Count > (pageNum - 1) * pageSize)
+                            {
+                                if (list.Count > pageNum * pageSize)
+                                    list = list.OrderBy(x => x.ts).ToList().GetRange((pageNum - 1) * pageSize, pageSize);
+                                else
+                                    list = list.OrderBy(x => x.ts).ToList().GetRange((pageNum - 1) * pageSize, list.Count - (pageNum - 1) * pageSize);
+                            }
+                            else
+                            {
+                                list = null;
+                                object obji = common.ResponseStr((int)httpStatus.succes, "调用成功", res);
+                                return Json(obji);
+                            }
                             List<raw_data> rds = new List<raw_data>();
                             foreach (MongoDbTag mongoDbTag in list)
                             {

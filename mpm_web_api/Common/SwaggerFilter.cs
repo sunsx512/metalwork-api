@@ -39,11 +39,6 @@ namespace mpm_web_api.Common
                 }
             }
         }
-
-        //public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 
 }
