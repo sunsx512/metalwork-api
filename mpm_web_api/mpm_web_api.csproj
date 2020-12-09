@@ -41,11 +41,12 @@
   <ItemGroup>
     <Folder Include="Controllers\c_onsite_machine_status\" />
     <Folder Include="model\m_notice\" />
+    <Folder Include="Dependencies\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Ensaas_sso">
-      <HintPath>C:\Users\chenc\source\repos\Ensaas_sso\Ensaas_sso\bin\Release\netstandard2.0\Ensaas_sso.dll</HintPath>
+    <Reference Include="Advantech.Ensaas">
+      <HintPath>Dependencies\Advantech.Ensaas.dll</HintPath>
     </Reference>
   </ItemGroup>
 

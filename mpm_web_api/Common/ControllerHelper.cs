@@ -31,7 +31,6 @@ namespace mpm_web_api.Common
                 str = common.ResponseStr((int)httpStatus.dbError, "新增失败");
             return str;
         }
-
         public object Put(T obj)
         {
             object ob;

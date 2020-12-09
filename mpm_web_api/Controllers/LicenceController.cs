@@ -65,15 +65,13 @@ namespace mpm_web_api.Controllers
                 //else
                 //{
                 //    obj = common.ResponseStr(401, "未授权");
-                //}
-
-               
+                //}             
                 Licence lc = new Licence();
                 //获取已使用的设备数量
                 lc.used_number = ms.GetMachineCount();
                 //获取已授权的设备数量
-                lc.authorized_number = 1000;
-                GlobalVar.authorized_number = 1000;
+                lc.authorized_number = 5000;
+                GlobalVar.authorized_number = 5000;
                 lc.expire_date = DateTime.Now.AddDays(365);
                 lc.module = "All";
                 lc.version = "1.0.0";

@@ -36,7 +36,7 @@
           "Swashbuckle.AspNetCore.SwaggerGen": "5.3.3",
           "Swashbuckle.AspNetCore.SwaggerUI": "5.3.3",
           "sqlSugarCore": "5.0.0.11",
-          "Ensaas_sso": "1.0.0.0",
+          "Advantech.Ensaas": "1.0.0.0",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -2533,15 +2533,15 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "Ensaas_sso/1.0.0.0": {
+      "Advantech.Ensaas/1.0.0.0": {
         "runtime": {
-          "Ensaas_sso.dll": {
+          "Advantech.Ensaas.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         },
         "compile": {
-          "Ensaas_sso.dll": {}
+          "Advantech.Ensaas.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery.Reference/3.1.0.0": {
@@ -5714,7 +5714,7 @@
       "path": "system.threading.timer/4.3.0",
       "hashPath": "system.threading.timer.4.3.0.nupkg.sha512"
     },
-    "Ensaas_sso/1.0.0.0": {
+    "Advantech.Ensaas/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

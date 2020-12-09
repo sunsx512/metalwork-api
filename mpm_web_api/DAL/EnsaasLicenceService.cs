@@ -40,7 +40,6 @@ namespace mpm_web_api.DAL
                             {
                                 //认证通过 
                                 GlobalVar.authorized_number = Convert.ToInt32(licence.number)*10;
-
                             }
                         }
 
@@ -50,7 +49,6 @@ namespace mpm_web_api.DAL
                         Console.WriteLine(exp);
                         //错误处理
                     }
-
                     //定时任务休眠
                     Thread.Sleep(10 * 1000);
                 });
@@ -68,7 +66,6 @@ namespace mpm_web_api.DAL
             public string number { get; set; }
             public string authcode { get; set; }
             public string activeInfo { get; set; }
-
         }
 
         public string Get(string Url)

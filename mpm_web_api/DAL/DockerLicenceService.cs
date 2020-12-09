@@ -19,12 +19,12 @@ namespace mpm_web_api.DAL
                 {
                     try
                     {
-                        //Licence_Original lo = LicenceHelper.ReadLicence();
-                        //if(lo != null)
-                        //{
-                        //    GlobalVar.authorized_number = lo.machineNum;
-                        //}
-                        GlobalVar.authorized_number = 1000;
+                        Licence_Original lo = LicenceHelper.ReadLicence();
+                        if (lo != null)
+                        {
+                            GlobalVar.authorized_number = lo.machineNum;
+                        }
+                        GlobalVar.authorized_number = 5000;
                     }
                     catch (Exception exp)
                     {

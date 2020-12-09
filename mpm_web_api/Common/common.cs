@@ -35,6 +35,21 @@ namespace mpm_web_api
             re.message = message;
             return re;
         }
+        /// <summary>
+        /// 回复给网页的字符串
+        /// </summary>
+        /// <param name="code">状态码</param>
+        /// <param name="message">信息</param>
+        /// <param name="content">内容</param>
+        /// <returns></returns>
+        public static object ResponseStr<T>(int code, string message,int total, List<T> content) where T : class, new()
+        {
+            responsewithcount<T> re = new responsewithcount<T>(content);
+            re.count = total;
+            re.code = code;
+            re.message = message;
+            return re;
+        }
 
         public static object ResponseStr(int code, string message) 
         {
@@ -54,6 +69,19 @@ namespace mpm_web_api
             public string message { get; set; } 
             public List<T> data { get; set; }
         }
+
+        public class responsewithcount<T> where T : class, new()
+        {
+            public responsewithcount(List<T> obj)
+            {
+                this.data = obj;
+            }
+            public int code { get; set; }
+            public string message { get; set; }
+            public int count { set; get; }
+            public List<T> data { get; set; }
+        }
+
         public class response
         {
             public int code { get; set; }

@@ -1,12 +1,10 @@
-﻿using Ensaas_sso;
-using Ensaas_sso.Entity;
+﻿using Advantech.Ensaas.Entity;
+using Ensaas_sso;
 using Microsoft.AspNetCore.Http;
 using mpm_web_api.DAL;
 using mpm_web_api.model.m_common;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace mpm_web_api.Common

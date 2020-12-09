@@ -19,6 +19,7 @@ namespace mpm_web_api.Controllers
     public class MachineController : Controller,IController<machine>
     {
         ControllerHelper<machine> ch = new ControllerHelper<machine>();
+        MachineService ms = new MachineService();
         /// <summary>
         /// 删除设备
         /// </summary>
@@ -45,6 +46,42 @@ namespace mpm_web_api.Controllers
         {
             return Json(ch.Get());
         }
+        ///// <summary>
+        ///// 分页查询
+        ///// </summary>
+        ///// <param name="pageNum">页面</param>
+        ///// <param name="pageSize">每页页数</param>
+        ///// <returns></returns>
+        //[HttpGet("separate")]
+        //public ActionResult<common.response<machine>> GetS(int pageNum, int pageSize)
+        //{
+        //    List<machine> list = ms.GetMachines(pageNum, pageSize);
+        //    object obj = common.ResponseStr<machine>(200, "调用成功", list);
+        //    return Json(obj);
+        //}
+        /// <summary>
+        /// 模糊查询设备
+        /// </summary>
+        /// <param name="name">设备名(中文)</param>
+        /// <param name="pageNum">页面</param>
+        /// <param name="pageSize">每页页数</param>
+        /// <returns></returns>
+        [HttpGet("separate")]
+        public ActionResult<common.responsewithcount<machine>> GetSN(string name,int pageNum, int pageSize)
+        {
+            List<machine> list = null;
+            int count = 0;
+            if (name == null)
+            {
+                list = ms.GetMachines(pageNum, pageSize,ref count);
+            }
+            else
+            {
+                list = ms.GetMachinesByName(name, pageNum, pageSize,ref count);
+            }
+            object obj = common.ResponseStr<machine>(200, "调用成功", count, list);
+            return Json(obj);
+        }
         /// <summary>
         /// 新增设备
         /// </summary>
@@ -56,7 +93,6 @@ namespace mpm_web_api.Controllers
         [HttpPost]
         public ActionResult<common.response> Post(machine t)
         {
-            MachineService ms = new MachineService();
             //获取已使用的设备数量
             int used_number = ms.GetMachineCount();
             if(used_number >= GlobalVar.authorized_number - 1)

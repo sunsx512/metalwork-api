@@ -89,6 +89,15 @@
             <param name="content">内容</param>
             <returns></returns>
         </member>
+        <member name="M:mpm_web_api.common.ResponseStr``1(System.Int32,System.String,System.Int32,System.Collections.Generic.List{``0})">
+            <summary>
+            回复给网页的字符串
+            </summary>
+            <param name="code">状态码</param>
+            <param name="message">信息</param>
+            <param name="content">内容</param>
+            <returns></returns>
+        </member>
         <member name="M:mpm_web_api.common.IsContainTimeSpan(System.DateTime,System.DateTime,System.DateTime)">
             <summary>
             判断时间点 是否在时间段内
@@ -1049,7 +1058,7 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
-        <member name="M:mpm_web_api.Controllers.c_common.ClientController.Get(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:mpm_web_api.Controllers.c_common.ClientController.Get">
             <summary>
             获取client信息
             </summary>
@@ -1292,6 +1301,15 @@
             <response code="400">服务器异常</response>
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.MachineController.GetSN(System.String,System.Int32,System.Int32)">
+            <summary>
+            模糊查询设备
+            </summary>
+            <param name="name">设备名(中文)</param>
+            <param name="pageNum">页面</param>
+            <param name="pageSize">每页页数</param>
+            <returns></returns>
         </member>
         <member name="M:mpm_web_api.Controllers.MachineController.Post(mpm_web_api.model.machine)">
             <summary>
@@ -2183,15 +2201,6 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
-        <member name="M:mpm_web_api.Controllers.TagValueController.Get(System.String,System.String,System.DateTime,System.DateTime)">
-            <summary>
-            获取标签点的值
-            </summary>
-            <response code="200">调用成功</response>
-            <response code="400">服务器异常</response>
-            <response code="410">数据库操作失败</response>
-            <response code="411">外键异常</response>
-        </member>
         <member name="M:mpm_web_api.DAL.andon.ErrorOnsiteService.EquipmentErrorTrigger(System.Int32)">
             <summary>
             设备异常触发
@@ -2289,15 +2298,10 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
-        <member name="M:mpm_web_api.DAL.ClientService.QuerytoSingle(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:mpm_web_api.DAL.ClientService.QuerytoSingle">
             <summary>
             查询已存放的client信息
             </summary>
-            <param name="serviceName"></param>
-            <param name="cluster"></param>
-            <param name="workspace"></param>
-            <param name="namespace"></param>
-            <param name="datacenter"></param>
             <returns></returns>
         </member>
         <member name="M:mpm_web_api.DAL.wo.OnsiteService.GetExecutingWoByMachineLog(System.Int32)">

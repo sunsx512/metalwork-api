@@ -49,6 +49,11 @@
             发送的topic
             </summary>
         </member>
+        <member name="F:mpm_web_api.Common.GlobalVar.client">
+            <summary>
+            登入权限认证的client信息 初始化时创建或获取
+            </summary>
+        </member>
         <member name="M:mpm_web_api.Common.LicenceHelper.SaveLicenceLog(System.String)">
             <summary>
             保存已授权许可证(防止多次授权使用)
@@ -100,6 +105,15 @@
             <typeparam name="TParent"></typeparam>
             <typeparam name="TChild"></typeparam>
             <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.common.AutoCopy``2(``1)">
+            <summary>
+            相同属性类 互相赋值
+            </summary>
+            <typeparam name="D"></typeparam>
+            <typeparam name="S"></typeparam>
+            <param name="s"></param>
             <returns></returns>
         </member>
         <member name="M:mpm_web_api.Controllers.c_andon.AndonLogicController.Delete(System.Int32)">
@@ -1035,6 +1049,24 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
+        <member name="M:mpm_web_api.Controllers.c_common.ClientController.Get">
+            <summary>
+            获取client信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.ClientController.Post(mpm_web_api.model.m_common.client)">
+            <summary>
+            新增client信息
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
         <member name="M:mpm_web_api.Controllers.c_common.EmailServerController.Get">
             <summary>
             获取所有邮件服务器信息
@@ -1054,9 +1086,18 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
-        <member name="M:mpm_web_api.Controllers.c_common.RawDateCustomController.Get(System.String,System.DateTime,System.DateTime)">
+        <member name="M:mpm_web_api.Controllers.c_common.RawDataController.Get(System.String,System.DateTime,System.DateTime)">
             <summary>
-            获取历史数据
+            按标签获取历史数据
+            </summary>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.RawDataController.GetM(System.String,System.DateTime,System.DateTime)">
+            <summary>
+            按设备名获取历史数据
             </summary>
             <response code="200">调用成功</response>
             <response code="400">服务器异常</response>
@@ -2142,15 +2183,6 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
-        <member name="M:mpm_web_api.Controllers.TagValueController.Get(System.String,System.String,System.DateTime,System.DateTime)">
-            <summary>
-            获取标签点的值
-            </summary>
-            <response code="200">调用成功</response>
-            <response code="400">服务器异常</response>
-            <response code="410">数据库操作失败</response>
-            <response code="411">外键异常</response>
-        </member>
         <member name="M:mpm_web_api.DAL.andon.ErrorOnsiteService.EquipmentErrorTrigger(System.Int32)">
             <summary>
             设备异常触发
@@ -2239,6 +2271,19 @@
             新增一行数据
             </summary>
             <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.ClientService.Save(mpm_web_api.model.m_common.client)">
+            <summary>
+            保存或者新增数据
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.ClientService.QuerytoSingle">
+            <summary>
+            查询已存放的client信息
+            </summary>
             <returns></returns>
         </member>
         <member name="M:mpm_web_api.DAL.wo.OnsiteService.GetExecutingWoByMachineLog(System.Int32)">
@@ -2445,6 +2490,31 @@
         <member name="P:mpm_web_api.model.m_common.migration_log.migration_version">
             <summary>
             版本号
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.raw_data.name">
+            <summary>
+            点名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.raw_data.tag_type_sub">
+            <summary>
+            点位类型
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.raw_data.machine_name">
+            <summary>
+            设备名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.raw_data.value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.raw_data.ts">
+            <summary>
+            插入时间
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_common.tag_info_extra.name">
