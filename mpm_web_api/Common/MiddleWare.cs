@@ -40,7 +40,6 @@ namespace mpm_web_api.Common
             }
         }
 
-
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             if (exception == null)
@@ -66,6 +65,5 @@ namespace mpm_web_api.Common
             response.ContentType = "application/json";
             await response.WriteAsync(JsonConvert.SerializeObject(common.ResponseStr((int)httpStatus.serverError, exception.Message))).ConfigureAwait(false);
         }
-
     }
 }
