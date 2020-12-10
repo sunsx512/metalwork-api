@@ -32,6 +32,7 @@ namespace mpm_web_api.Common
                 arl.cost_time = stopwatch.ElapsedMilliseconds;
                 arl.insert_time = DateTime.Now;
                 arl.method = context.Request.Method;
+                Console.WriteLine(context.Request.Path);
                 aes.InsertRequestLog(arl);
             }
             catch (Exception ex)
