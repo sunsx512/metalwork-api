@@ -174,7 +174,7 @@ namespace mpm_web_api
                     //c.SwaggerEndpoint("/swagger/Dashboard/swagger.json", "Dashboard数据源");
                 }
             });
-            if (GlobalVar.IsCloud)
+            //if (GlobalVar.IsCloud)
                 //如果是云端的话 需要启动权限处理中间件
                 //app.UseMiddleware(typeof(AuthMiddleWare));
             //异常处理中间件
