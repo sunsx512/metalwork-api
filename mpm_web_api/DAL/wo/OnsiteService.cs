@@ -510,7 +510,7 @@ namespace mpm_web_api.DAL.wo
                         //如果是最后一台设备则需要更新线的生产数量
                         if(ml.Where(x=>x.machine_id == machine_id).FirstOrDefault() == ml.Last())
                         {
-                            return DB.Updateable<virtual_line_cur_log>().Where(x => x.wo_config_id == wo_config_id).UpdateColumns(it => new wo_machine_cur_log() { quantity = count }).ExecuteCommand() > 0;
+                            DB.Updateable<virtual_line_cur_log>().Where(x => x.wo_config_id == wo_config_id).UpdateColumns(it => new virtual_line_cur_log() { quantity = count }).ExecuteCommand();
                         }
                         wo_machine_cur_log wmcl = DB.Queryable<wo_machine_cur_log>()
                              .Where(x => x.machine_id == machine_id || x.wo_config_id == machine_id).First();
