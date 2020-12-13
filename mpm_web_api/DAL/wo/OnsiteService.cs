@@ -494,16 +494,38 @@ namespace mpm_web_api.DAL.wo
         /// </summary>
         /// <param name="machine_id"></param>
         /// <param name="wo_config_id"></param>
+        /// <param name="count"></param>
         /// <returns></returns>
         public bool modifyCount(int machine_id, int wo_config_id,decimal count)
         {
             wo_config wo = DB.Queryable<wo_config>().Where(x => x.id == wo_config_id).First();
-            wo_machine_cur_log wmcl = DB.Queryable<wo_machine_cur_log>()
-                                         .Where(x => x.machine_id == machine_id || x.wo_config_id == machine_id).First();
-            if(wmcl != null)
+            if (wo != null)
             {
-                return DB.Updateable<wo_machine_cur_log>().Where(x=>x.machine_id == machine_id).UpdateColumns(it => new wo_machine_cur_log() { quantity = count }).ExecuteCommand() > 0;
+                virtual_line vl = DB.Queryable<virtual_line>().Where(x => x.id == wo.virtual_line_id).First();
+                if (vl != null)
+                {
+                    List<wo_machine> ml = DB.Queryable<wo_machine>().Where(x => x.virtual_line_id == vl.id).ToList();
+                    if (ml != null)
+                    {
+                        //如果是最后一台设备则需要更新线的生产数量
+                        if(ml.Where(x=>x.machine_id == machine_id).FirstOrDefault() == ml.Last())
+                        {
+                            return DB.Updateable<virtual_line_cur_log>().Where(x => x.wo_config_id == wo_config_id).UpdateColumns(it => new wo_machine_cur_log() { quantity = count }).ExecuteCommand() > 0;
+                        }
+                        wo_machine_cur_log wmcl = DB.Queryable<wo_machine_cur_log>()
+                             .Where(x => x.machine_id == machine_id || x.wo_config_id == machine_id).First();
+                        if (wmcl != null)
+                        {
+                            return DB.Updateable<wo_machine_cur_log>().Where(x => x.machine_id == machine_id).UpdateColumns(it => new wo_machine_cur_log() { quantity = count }).ExecuteCommand() > 0;
+                        }
+                    }
+                }
             }
+
+
+
+            
+
             return false;
         }
 
