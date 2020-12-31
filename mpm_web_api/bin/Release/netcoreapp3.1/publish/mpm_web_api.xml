@@ -2383,6 +2383,7 @@
             </summary>
             <param name="machine_id"></param>
             <param name="wo_config_id"></param>
+            <param name="count"></param>
             <returns></returns>
         </member>
         <member name="M:mpm_web_api.DAL.wo.OnsiteService.CalMachineProductivity(System.Int32)">
@@ -3647,6 +3648,26 @@
         <member name="P:mpm_web_api.model.m_oee.maintenance_records.description">
             <summary>
             描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tag_info_value.tag_info_id">
+            <summary>
+            标签点
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tag_info_value.value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tag_info_value.update_time">
+            <summary>
+            更新的时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_oee.tag_info_value.tag_name">
+            <summary>
+            标签名
             </summary>
         </member>
         <member name="P:mpm_web_api.model.m_oee.tricolor_tag_status.machine_id">

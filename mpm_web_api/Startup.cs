@@ -50,7 +50,7 @@ namespace mpm_web_api
             else
             {
                 GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("time_zone"));
-                MongoHelper.connectionstring = environmentInfo.mongo_connection;
+                MongoHelper.connectionstring = environmentInfo.mongo_connection+ "?authSource=admin";
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = false;
                 //migration.Create();
@@ -65,8 +65,8 @@ namespace mpm_web_api
             //MongoHelper.connectionstring = Configuration.GetValue<string>("mgconnectionString");
             //MongoHelper.databaseName = Configuration.GetValue<string>("mgdatabaseName");
             //GlobalVar.IsCloud = false;
-            //migration.Create();
-            //开启docker Licence认证
+            ////migration.Create();
+            ////开启docker Licence认证
             //DockerLicenceService dls = new DockerLicenceService();
             //CancellationToken token = new CancellationToken();
             //dls.StartAsync(token);

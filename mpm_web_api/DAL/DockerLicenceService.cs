@@ -19,12 +19,19 @@ namespace mpm_web_api.DAL
                 {
                     try
                     {
-                        Licence_Original lo = LicenceHelper.ReadLicence();
-                        if (lo != null)
+                        //Licence_Original lo = LicenceHelper.ReadLicence();
+                        //if (lo != null)
+                        //{
+                        //    GlobalVar.authorized_number = lo.machineNum;
+                        //}
+                        if(DateTime.Now >= Convert.ToDateTime("2021-04-01 00:00:00"))
                         {
-                            GlobalVar.authorized_number = lo.machineNum;
+                            GlobalVar.authorized_number = 50;
                         }
-                        GlobalVar.authorized_number = 5000;
+                        else
+                        {
+                            GlobalVar.authorized_number = 1000;
+                        }
                     }
                     catch (Exception exp)
                     {

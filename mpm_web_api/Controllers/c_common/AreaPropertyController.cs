@@ -17,7 +17,7 @@ namespace mpm_web_api.Controllers.c_common
 {
     [ApiExplorerSettings(GroupName = "Common")]
     [Produces(("application/json"))]
-    [Route("api/v1/configuration/public/area_property")]
+    [Route("api/v1/configuration/public/area_property_detail")]
     [SwaggerTag("区域节点属性(班别，固定排休，非固定排休)")]
     [ApiController]
     public class AreaPropertyController : Controller

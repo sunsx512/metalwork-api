@@ -765,7 +765,7 @@ namespace mpm_web_api.DAL.andon
             {
                 var last_row = list.Last();
                 //1:设备异常允许被解除  0:设备异常不允许被解除
-                if (list.Last().v == "1")
+                if (list.Last().v.Equals("1"))
                     return true;
                 else
                     return false;
