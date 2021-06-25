@@ -1095,6 +1095,47 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
+        <member name="M:mpm_web_api.Controllers.c_common.MachinePropertyController.Post(mpm_web_api.model.m_common.machine_property)">
+            <summary>
+            新增区域节点属性(排休，班别，非固定排休)
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+            <remarks>
+            format字段说明
+            如果是班别填入格式如下  name_cn :shift
+            {"day":{"start":"8:00:00","end":"16:00:00"},"night":{"start":"16:00:00","end":"8:00:00"}}
+            固定排休格式: name_cn :fixed_break
+            {"rest":[{"start":"8:00:00","end":"16:00:00"},{"start":"8:00:00","end":"16:00:00"}]}
+            非固定排休格式: name_cn :unfixed_break
+            {"rest":[{"start":"2019-11-12 8:00:00","end":"2019-11-12 16:00:00"},{"start":"2019-11-12 8:00:00","end":"2019-11-12 16:00:00"}]}
+            时区: 8    (直接填数字)
+            注意:format为json格式数据 一定要满足以上格式要求，不然后端解析会出错
+            </remarks>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.MachinePropertyController.Put(mpm_web_api.model.m_common.machine_property)">
+            <summary>
+            更新Area_Property
+            </summary>
+            <param name="t">传入参数</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.MachinePropertyController.Delete(System.Int32)">
+            <summary>
+            删除Area_Property
+            </summary>
+            <param name="id">主键id</param>
+            <response code="200">调用成功</response>
+            <response code="400">服务器异常</response>
+            <response code="410">数据库操作失败</response>
+            <response code="411">外键异常</response>
+        </member>
         <member name="M:mpm_web_api.Controllers.c_common.RawDataController.Get(System.String,System.DateTime,System.DateTime)">
             <summary>
             按标签获取历史数据
@@ -1103,6 +1144,17 @@
             <response code="400">服务器异常</response>
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
+        </member>
+        <member name="M:mpm_web_api.Controllers.c_common.RawDataController.GetDT(System.String,System.DateTime,System.DateTime,System.Int32,System.Int32)">
+            <summary>
+            按照时间排序
+            </summary>
+            <param name="tag"></param>
+            <param name="start_time"></param>
+            <param name="end_time"></param>
+            <param name="pageNum"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
         </member>
         <member name="M:mpm_web_api.Controllers.c_common.RawDataController.GetM(System.String,System.DateTime,System.DateTime)">
             <summary>
@@ -1853,13 +1905,14 @@
             <response code="410">数据库操作失败</response>
             <response code="411">外键异常</response>
         </member>
-        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Put(System.Int32,System.Int32,System.Int32)">
+        <member name="M:mpm_web_api.Controllers.c_work_order.WorkOrderOnsiteController.Put(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             修改当前工单的实际生产数量
             </summary>
             <param name="machine_id">设备号</param>
             <param name="work_order_id">工单号</param>
             <param name="count">数量</param>
+            <param name="fault">不良数</param>
             <returns></returns>
         </member>
         <member name="M:mpm_web_api.Controllers.c_work_order.CapacityConfigController.Delete(System.Int32)">
@@ -2304,6 +2357,30 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:mpm_web_api.DAL.MachinePropertyService.QueryShift">
+            <summary>
+            查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.MachinePropertyService.QueryFixedBreak">
+            <summary>
+            固定排休时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.MachinePropertyService.QueryTimeZone">
+            <summary>
+            获取时区信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:mpm_web_api.DAL.MachinePropertyService.QueryUnfixedBreak">
+            <summary>
+            非固定排休时间
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:mpm_web_api.DAL.wo.OnsiteService.GetExecutingWoByMachineLog(System.Int32)">
             <summary>
             获取执行中的设备工单信息
@@ -2377,13 +2454,14 @@
             <param name="work_order_id"></param>
             <returns></returns>
         </member>
-        <member name="M:mpm_web_api.DAL.wo.OnsiteService.modifyCount(System.Int32,System.Int32,System.Decimal)">
+        <member name="M:mpm_web_api.DAL.wo.OnsiteService.modifyCount(System.Int32,System.Int32,System.Decimal,System.Decimal)">
             <summary>
             修改工单实际的修改数量
             </summary>
             <param name="machine_id"></param>
             <param name="wo_config_id"></param>
             <param name="count"></param>
+            <param name="fault">不良数量</param>
             <returns></returns>
         </member>
         <member name="M:mpm_web_api.DAL.wo.OnsiteService.CalMachineProductivity(System.Int32)">
@@ -2506,6 +2584,36 @@
             加密的授权码
             </summary>
         </member>
+        <member name="P:mpm_web_api.model.m_common.machine_property.name_cn">
+            <summary>
+            中文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.machine_property.name_tw">
+            <summary>
+            繁体名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.machine_property.name_en">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.machine_property.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.machine_property.format">
+            <summary>
+            属性格式内容
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.machine_property.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
         <member name="P:mpm_web_api.model.m_common.migration_log.migration_version">
             <summary>
             版本号
@@ -2584,6 +2692,21 @@
         <member name="P:mpm_web_api.model.m_common.tag_type_sub_custom.tag_type_id">
             <summary>
             一级标签类型id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.UtilizationLimit.machine_id">
+            <summary>
+            设备id
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.UtilizationLimit.start_time">
+            <summary>
+            开始计算的时间
+            </summary>
+        </member>
+        <member name="P:mpm_web_api.model.m_common.UtilizationLimit.end_time">
+            <summary>
+            结束计算的时间
             </summary>
         </member>
         <member name="P:mpm_web_api.model.area_layer.name_cn">

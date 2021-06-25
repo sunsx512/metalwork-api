@@ -24,7 +24,7 @@ namespace mpm_web_api.DAL
                         //{
                         //    GlobalVar.authorized_number = lo.machineNum;
                         //}
-                        if(DateTime.Now >= Convert.ToDateTime("2021-04-01 00:00:00"))
+                        if(DateTime.Now >= Convert.ToDateTime("2021-07-01 00:00:00"))
                         {
                             GlobalVar.authorized_number = 50;
                         }
