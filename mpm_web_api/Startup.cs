@@ -33,43 +33,43 @@ namespace mpm_web_api
             PostgreBase.connString = environmentInfo.postgres_connection;
             GlobalVar.module = Environment.GetEnvironmentVariable("module");
             ////EnSaaS 4.0 环境
-            //if (environmentInfo.iscloud)
-            //{
-            //    GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("db_time_zone"));
-            //    MongoHelper.connectionstring = environmentInfo.mongo_connection;
-            //    MongoHelper.databaseName = environmentInfo.mongo_database;
-            //    GlobalVar.IsCloud = true;
-            //    //创建数据表
-            //    //migration.Create();
-            //    //开启4.0 Licence认证
-            //    EnsaasLicenceService els = new EnsaasLicenceService();
-            //    CancellationToken token = new CancellationToken();
-            //    els.StartAsync(token);
-            //}
-            ////docker 环境
-            //else
-            //{
-            //    GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("time_zone"));
-            //    MongoHelper.connectionstring = environmentInfo.mongo_connection + "?authSource=admin";
-            //    MongoHelper.databaseName = environmentInfo.mongo_database;
-            //    GlobalVar.IsCloud = false;
-            //    //migration.Create();
-            //    //开启docker Licence认证
-            //    DockerLicenceService dls = new DockerLicenceService();
-            //    CancellationToken token = new CancellationToken();
-            //    dls.StartAsync(token);
-            //}
-
-            PostgreBase.connString = Configuration.GetValue<string>("pgconnectionString");
-            GlobalVar.time_zone = Configuration.GetValue<double>("time_zone");
-            MongoHelper.connectionstring = Configuration.GetValue<string>("mgconnectionString");
-            MongoHelper.databaseName = Configuration.GetValue<string>("mgdatabaseName");
-            GlobalVar.IsCloud = false;
-            //migration.Create();
-            //开启docker Licence认证
-            DockerLicenceService dls = new DockerLicenceService();
-            CancellationToken token = new CancellationToken();
-            dls.StartAsync(token);
+            if (environmentInfo.iscloud)
+            {
+                GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("db_time_zone"));
+                MongoHelper.connectionstring = environmentInfo.mongo_connection;
+                MongoHelper.databaseName = environmentInfo.mongo_database;
+                GlobalVar.IsCloud = true;
+                //创建数据表
+                migration.Create();
+                //开启4.0 Licence认证
+                EnsaasLicenceService els = new EnsaasLicenceService();
+                CancellationToken token = new CancellationToken();
+                els.StartAsync(token);
+            }
+            //docker 环境
+            else
+            {
+                GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("time_zone"));
+                MongoHelper.connectionstring = environmentInfo.mongo_connection + "?authSource=admin";
+                MongoHelper.databaseName = environmentInfo.mongo_database;
+                GlobalVar.IsCloud = false;
+                //migration.Create();
+                //开启docker Licence认证
+                DockerLicenceService dls = new DockerLicenceService();
+                CancellationToken token = new CancellationToken();
+                dls.StartAsync(token);
+            }
+            //800所认证
+            //PostgreBase.connString = Configuration.GetValue<string>("pgconnectionString");
+            //GlobalVar.time_zone = Configuration.GetValue<double>("time_zone");
+            //MongoHelper.connectionstring = Configuration.GetValue<string>("mgconnectionString");
+            //MongoHelper.databaseName = Configuration.GetValue<string>("mgdatabaseName");
+            //GlobalVar.IsCloud = false;
+            ////migration.Create();
+            ////开启docker Licence认证
+            //DockerLicenceService dls = new DockerLicenceService();
+            //CancellationToken token = new CancellationToken();
+            //dls.StartAsync(token);
 
         }
 
