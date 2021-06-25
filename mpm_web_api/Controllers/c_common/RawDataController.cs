@@ -94,6 +94,56 @@ namespace mpm_web_api.Controllers.c_common
             obj = common.ResponseStr((int)httpStatus.succes, "调用成功",count, res);
             return Json(obj);
         }
+        /// <summary>
+        /// 按照时间排序
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <param name="start_time"></param>
+        /// <param name="end_time"></param>
+        /// <param name="pageNum"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [HttpGet("tag/separate/orderByTime")]
+        public ActionResult<common.responsewithcount<raw_data>> GetDT(string tag, DateTime start_time, DateTime end_time, int pageNum, int pageSize)
+        {
+            tag_info_detail tag_Info_Detail = tagService.QueryableByTag(tag);
+            List<raw_data> res = new List<raw_data>();
+            object obj;
+            int count = 0;
+            List<raw_date_custom> rdc = rawDateCustomService.Query(tag, start_time, end_time).OrderByDescending(x=>x.insert_time).ToList();
+            if (rdc != null)
+            {
+                if (rdc.Count > 0)
+                {
+                    count = rdc.Count;
+                    if (rdc.Count > (pageNum - 1) * pageSize)
+                    {
+                        if (rdc.Count > pageNum * pageSize)
+                            rdc = rdc.GetRange((pageNum - 1) * pageSize, pageSize);
+                        else
+                            rdc = rdc.GetRange((pageNum - 1) * pageSize, rdc.Count - (pageNum - 1) * pageSize);
+                        foreach (raw_date_custom et in rdc)
+                        {
+                            raw_data rd = new raw_data();
+                            rd.machine_name = tag_Info_Detail.machine.name_en;
+                            rd.name = tag;
+                            rd.tag_type_sub = tag_Info_Detail.tag_type_sub.name_en;
+                            rd.ts = et.insert_time;
+                            rd.value = et.value.ToString();
+                            res.Add(rd);
+                        }
+                    }
+                    else
+                    {
+                        res = null;
+                        object obji = common.ResponseStr((int)httpStatus.succes, "调用成功", res);
+                        return Json(obji);
+                    }
+                }
+            }
+            obj = common.ResponseStr((int)httpStatus.succes, "调用成功", count, res);
+            return Json(obj);
+        }
 
         /// <summary>
         /// 按设备名获取历史数据
@@ -162,7 +212,6 @@ namespace mpm_web_api.Controllers.c_common
                     }
                 }
             }
-
             object obj = common.ResponseStr((int)httpStatus.succes, "调用成功", count, res);
             return Json(obj);
         }

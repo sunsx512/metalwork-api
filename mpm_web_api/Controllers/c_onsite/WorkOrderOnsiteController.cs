@@ -88,12 +88,13 @@ namespace mpm_web_api.Controllers.c_work_order
         /// <param name="machine_id">设备号</param>
         /// <param name="work_order_id">工单号</param>
         /// <param name="count">数量</param>
+        /// <param name="fault">不良数</param>
         /// <returns></returns>
         [HttpPut]
-        public ActionResult<common.response> Put( int machine_id, int work_order_id,int count)
+        public ActionResult<common.response> Put( int machine_id, int work_order_id,int count,int fault)
         {
             object obj ;
-            if (os.modifyCount(machine_id, work_order_id,count))
+            if (os.modifyCount(machine_id, work_order_id,count,fault))
             {
                 obj = common.ResponseStr((int)httpStatus.succes, "调用成功");
             }
