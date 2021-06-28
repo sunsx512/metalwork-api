@@ -40,7 +40,7 @@ namespace mpm_web_api
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = true;
                 //创建数据表
-                //migration.Create();
+                migration.Create(PostgreBase.connString);
                 //开启4.0 Licence认证
                 EnsaasLicenceService els = new EnsaasLicenceService();
                 CancellationToken token = new CancellationToken();
@@ -50,7 +50,7 @@ namespace mpm_web_api
             else
             {
                 GlobalVar.time_zone = Convert.ToDouble(Environment.GetEnvironmentVariable("time_zone"));
-                MongoHelper.connectionstring = environmentInfo.mongo_connection+ "?authSource=admin";
+                MongoHelper.connectionstring = environmentInfo.mongo_connection + "?authSource=admin";
                 MongoHelper.databaseName = environmentInfo.mongo_database;
                 GlobalVar.IsCloud = false;
                 //migration.Create();
@@ -85,6 +85,7 @@ namespace mpm_web_api
                 c.SwaggerDoc("OEE", new OpenApiInfo { Title = "OEE配置接口", Version = "OEE" });   //分组显示
                 c.SwaggerDoc("Andon", new OpenApiInfo { Title = "Andon配置接口", Version = "Andon" });   //分组显示
                 c.SwaggerDoc("WorkOrder", new OpenApiInfo { Title = "工单配置接口", Version = "WorkOrder" });   //分组显示
+                c.SwaggerDoc("Notice", new OpenApiInfo { Title = "微信/邮件通知", Version = "Notice" });   //分组显示
                 //c.SwaggerDoc("EHS", new OpenApiInfo { Title = "环境健康管理", Version = "EHS" });   //分组显示
                 //c.SwaggerDoc("LPM", new OpenApiInfo { Title = "人员绩效管理", Version = "LPM" });   //分组显示
                 //c.SwaggerDoc("Notice", new OpenApiInfo { Title = "通知管理", Version = "Notice" });   //分组显示
@@ -146,7 +147,8 @@ namespace mpm_web_api
                 {
                     c.SwaggerEndpoint("/swagger/OEE/swagger.json", "OEE相关接口");
                     c.SwaggerEndpoint("/swagger/Andon/swagger.json", "Andon配置接口");
-                    c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口");
+                    c.SwaggerEndpoint("/swagger/WorkOrder/swagger.json", "工单配置接口"); 
+                    c.SwaggerEndpoint("/swagger/Notice/swagger.json", "工单配置接口"); 
                     //c.SwaggerEndpoint("/swagger/EHS/swagger.json", "环境健康管理");
                     //c.SwaggerEndpoint("/swagger/LPM/swagger.json", "人员绩效管理");
                     //c.SwaggerEndpoint("/swagger/Notice/swagger.json", "通知管理");

@@ -1,17 +1,19 @@
 ﻿using mpm_web_api.db;
 using mpm_web_api.model.m_common;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace mpm_web_api.Common
 {
     public class migration: SqlSugarBase
     {
-        public static bool Create()
+        public static bool Create(string connectionString)
         {
             List<migration_log> migration_Logs = new List<migration_log>();
             DirectoryInfo root = new DirectoryInfo("sql");
@@ -22,6 +24,8 @@ namespace mpm_web_api.Common
                 // 查看日志 如果没有更新 则需要更新
                 if (migration_Logs == null || !migration_Logs.Exists(x => x.migration_version == fileInfo.Name))
                 {
+                    CreateTable(connectionString, "mpm_web_api.model");
+                    CreateSchema(connectionString,new List<string>() { "common","oee","andon","work_order","ehs" });
                     string text = "";
                     //if (IsCloud)
                     //    text = File.ReadAllText("sql\\" + fileInfo.Name);
@@ -41,6 +45,8 @@ namespace mpm_web_api.Common
                 }
 
             }
+            
+
             return true;
         }
 
@@ -71,6 +77,8 @@ namespace mpm_web_api.Common
             }
         }
 
+
+
         /// <summary>
         /// 新建初始账密
         /// </summary>
@@ -90,6 +98,68 @@ namespace mpm_web_api.Common
                 Console.WriteLine(ex.Message);
                 return false;
             }
+        }
+
+        public static void CreateSchema(string connectionString, List<string> schemas)
+        {
+            try
+            {
+                ISqlSugarClient db = new SqlSugarClient(new ConnectionConfig()
+                {
+                    ConnectionString = connectionString,
+                    DbType = SqlSugar.DbType.PostgreSQL,
+                    IsAutoCloseConnection = true,
+                    InitKeyType = InitKeyType.Attribute,
+                    IsShardSameThread = true
+                });
+                foreach (string schema in schemas)
+                {
+                    db.Ado.ExecuteCommand("CREATE SCHEMA " + schema);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("创建SCHEMA失败");
+            }
+        }
+
+        /// <summary>
+        /// 自动创建表格
+        /// </summary>
+        /// <param name="configuration">配置</param>
+        /// <param name="entity_assembly">实体类所在的程序集</param>
+        public static void CreateTable(string connectionString, string entity_assembly)
+        {
+            ISqlSugarClient db = new SqlSugarClient(new ConnectionConfig()
+            {
+                ConnectionString = connectionString,
+                DbType = SqlSugar.DbType.PostgreSQL,
+                IsAutoCloseConnection = true,
+                InitKeyType = InitKeyType.Attribute,
+                IsShardSameThread = true
+            });
+
+            //外键字典
+            Dictionary<string, string> fkey_dic = new Dictionary<string, string>();
+            //获取所有实体类
+            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
+            //Type[] types = Assembly.Load(entity_assembly).GetTypes();
+            //创建基础表格
+            for (int i = 0; i < types.Length; i++)
+            {
+                if (!types[i].FullName.Contains("mpm_web_api.model"))
+                    continue;
+                try
+                {
+                    db.CodeFirst.InitTables(types[i]);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    Console.WriteLine("创建表格" + types[i].FullName + "失败");
+                }
+            }
+
         }
     }
 }
