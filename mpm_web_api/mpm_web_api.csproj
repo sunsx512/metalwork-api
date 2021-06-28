@@ -42,6 +42,7 @@
     <Folder Include="Controllers\c_onsite_machine_status\" />
     <Folder Include="model\m_notice\" />
     <Folder Include="Dependencies\" />
+    <Folder Include="sql\" />
   </ItemGroup>
 
   <ItemGroup>
