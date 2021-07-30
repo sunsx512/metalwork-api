@@ -26,7 +26,7 @@ namespace mpm_web_api.DAL
                         //}
                         if(DateTime.Now >= Convert.ToDateTime("2021-07-01 00:00:00"))
                         {
-                            GlobalVar.authorized_number = 50;
+                            GlobalVar.authorized_number = 200;
                         }
                         else
                         {

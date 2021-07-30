@@ -59,7 +59,7 @@ namespace mpm_web_api
                 CancellationToken token = new CancellationToken();
                 dls.StartAsync(token);
             }
-
+            //800所专用
             //PostgreBase.connString = Configuration.GetValue<string>("pgconnectionString");
             //GlobalVar.time_zone = Configuration.GetValue<double>("time_zone");
             //MongoHelper.connectionstring = Configuration.GetValue<string>("mgconnectionString");
