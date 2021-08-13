@@ -27,10 +27,10 @@ namespace mpm_web_api.Common
                     CreateTable(connectionString, "mpm_web_api.model");
                     CreateSchema(connectionString,new List<string>() { "common","oee","andon","work_order","ehs" });
                     string text = "";
-                    //if (IsCloud)
-                    //    text = File.ReadAllText("sql\\" + fileInfo.Name);
-                    //else
-                    text = File.ReadAllText("sql/" + fileInfo.Name);
+                    if (GlobalVar.IsCloud)
+                        text = File.ReadAllText("sql\\" + fileInfo.Name);
+                    else
+                        text = File.ReadAllText("sql/" + fileInfo.Name);
                     //string[] tp = text.Split(';');
                     //foreach (string str in tp)
                     //{
