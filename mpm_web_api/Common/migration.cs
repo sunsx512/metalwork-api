@@ -18,7 +18,7 @@ namespace mpm_web_api.Common
             List<migration_log> migration_Logs = new List<migration_log>();
             DirectoryInfo root = new DirectoryInfo("sql");
             FileInfo[] fileInfos = root.GetFiles();
-            migration_Logs = Query();
+            migration_Logs = Query(); 
             foreach (FileInfo fileInfo in fileInfos)
             {
                 // 查看日志 如果没有更新 则需要更新
